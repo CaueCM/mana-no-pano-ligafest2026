@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mana no Pano — Caderno de Sideboard, LigaFest 2026</title>
+<meta name="description" content="Naya Ramp — lista, metagame e guia de sideboard para a Final Pauper do LigaFest 2026.">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ece0c4;
+    --header-bg: #f3ead6;
+    --card-bg: #ffffff;
+    --ink: #1a1a1a;
+    --muted: #7a6a4f;
+    --body-ink: #3a3226;
+    --red: #c0392b;
+    --green: #2f6f4f;
+    --tierS: #c0392b; --tierS-bg: #fdf3f1;
+    --tierA: #b7791f; --tierA-bg: #fbf5e9;
+    --tierB: #2f6f5f; --tierB-bg: #eef6f3;
+    --tierC: #5b5b5b; --tierC-bg: #f2f0ec;
+    --border-soft: rgba(0,0,0,.12);
+    --border-hair: rgba(0,0,0,.08);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    padding-bottom: 80px;
+  }
+  a { color: var(--red); }
+  a:hover { color: #8f2a1e; }
+  ::selection { background: var(--red); color: #fff; }
+
+  .display { font-family: 'Bebas Neue', sans-serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* HEADER */
+  header.site {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--header-bg);
+    border-bottom: 2px dashed rgba(0,0,0,.22);
+  }
+  .header-inner { max-width: 920px; margin: 0 auto; padding: 20px 24px 0; }
+  .header-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand img { width: 38px; height: 38px; border-radius: 50%; background: var(--ink); padding: 7px; display: block; }
+  .wordmark { font-size: 28px; letter-spacing: .02em; line-height: 1; }
+  .tagline { font: 600 10.5px 'JetBrains Mono', monospace; color: var(--muted); margin-top: 3px; letter-spacing: .03em; }
+  .badge {
+    background: var(--red); color: #fff; font: 800 11px 'JetBrains Mono', monospace;
+    padding: 6px 12px; border-radius: 3px; transform: rotate(3deg);
+    box-shadow: 1px 2px 0 rgba(0,0,0,.2); white-space: nowrap;
+  }
+  nav.tabs { display: flex; gap: 22px; margin-top: 18px; overflow-x: auto; }
+  nav.tabs button {
+    font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: .04em;
+    cursor: pointer; padding: 0 0 14px; color: #9c8c6d; border: none; border-bottom: 3px solid transparent;
+    background: transparent; white-space: nowrap;
+  }
+  nav.tabs button.active { color: var(--ink); border-bottom-color: var(--red); }
+
+  main { max-width: 920px; margin: 0 auto; padding: 32px 24px 0; }
+  section.tab { display: none; }
+  section.tab.active { display: block; }
+
+  .page-title { font-size: 22px; color: var(--red); letter-spacing: .04em; margin-bottom: 4px; }
+  .page-sub { font: 500 13px/1.5 'Inter'; color: var(--muted); margin-bottom: 22px; }
+
+  .card {
+    background: var(--card-bg); border: 1px solid var(--border-soft); border-radius: 3px;
+    padding: 16px 18px; box-shadow: 1px 2px 0 rgba(0,0,0,.07);
+  }
+
+  /* LISTA */
+  .deck-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .deck-card .deck-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-bottom: 1px solid var(--border-hair); padding-bottom: 8px; margin-bottom: 10px;
+  }
+  .deck-head .name { font-size: 16px; letter-spacing: .03em; }
+  .deck-head .count { font: 700 11px 'JetBrains Mono', monospace; color: var(--muted); }
+  .deck-card .list { font: 500 12.5px/1.8 'Inter'; color: var(--body-ink); }
+  .section-sub-title { font-size: 18px; color: var(--red); letter-spacing: .04em; margin: 28px 0 12px; }
+  .sb-list { font: 500 13px/1.9 'Inter'; color: var(--body-ink); }
+
+  /* METAGAME */
+  .findings-title { font-size: 14.5px; letter-spacing: .03em; color: var(--green); margin-bottom: 10px; }
+  .finding { display: flex; gap: 9px; font: 500 13px/1.6 'Inter'; color: var(--body-ink); margin-bottom: 7px; }
+  .finding .dash { color: var(--red); flex: none; }
+  .meta-table { border-radius: 3px; overflow: hidden; box-shadow: 1px 2px 0 rgba(0,0,0,.07); border: 1px solid var(--border-soft); }
+  .meta-table .head-row {
+    display: grid; grid-template-columns: 2fr 1fr 1.6fr; background: var(--ink); color: #fff;
+    font: 700 10.5px 'JetBrains Mono', monospace; letter-spacing: .03em; padding: 10px 16px;
+  }
+  .meta-table .row {
+    display: grid; grid-template-columns: 2fr 1fr 1.6fr; padding: 11px 16px;
+    border-top: 1px solid var(--border-hair); font: 500 12.5px 'Inter'; align-items: center;
+    background: var(--card-bg);
+  }
+  .meta-table .row .n { font-weight: 700; }
+  .meta-table .row .p { font: 600 12px 'JetBrains Mono', monospace; color: var(--muted); }
+  .meta-table .row .s { color: var(--body-ink); }
+  .sources { font: 500 11px/1.6 'Inter'; color: var(--muted); margin-top: 16px; }
+
+  /* SIDEBOARD */
+  #search {
+    width: 100%; padding: 12px 16px; border-radius: 3px; border: 1px solid var(--border-soft);
+    background: var(--card-bg); color: var(--ink); font: 500 13px 'Inter'; margin-bottom: 18px;
+    box-shadow: 1px 2px 0 rgba(0,0,0,.07);
+  }
+  #search::placeholder { color: var(--muted); }
+  .tier { margin-bottom: 14px; background: var(--card-bg); border: 1px solid var(--border-soft); border-radius: 3px; overflow: hidden; box-shadow: 1px 2px 0 rgba(0,0,0,.07); }
+  .tier-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; cursor: pointer; }
+  .tier-head-left { display: flex; align-items: center; gap: 12px; }
+  .tier-tag { font-size: 12px; letter-spacing: .05em; color: #fff; padding: 5px 10px; border-radius: 3px; }
+  .tier-label { font-size: 17px; letter-spacing: .02em; }
+  .tier-arrow { font: 700 16px monospace; color: var(--muted); transition: transform .15s; }
+  .tier-body { padding: 4px 20px 18px; }
+  .tier-body.hidden, .tier-arrow.closed { display: none; }
+  .tier-arrow.open { transform: rotate(180deg); }
+  .matchup { padding: 14px 0; border-top: 1px dashed rgba(0,0,0,.14); }
+  .matchup .m-name { font-size: 16px; margin-bottom: 6px; }
+  .swap { font: 600 12.5px/1.7 'Inter'; margin-bottom: 6px; }
+  .swap .in { color: var(--green); }
+  .swap .out { color: var(--red); }
+  .no-swap {
+    display: inline-block; font: 700 10px 'JetBrains Mono', monospace; color: var(--muted);
+    border: 1px solid rgba(0,0,0,.2); padding: 3px 8px; border-radius: 3px; margin-bottom: 6px;
+  }
+  .m-plan { font: 500 12.5px/1.6 'Inter'; color: var(--body-ink); }
+  .no-results { font: 500 13px 'Inter'; color: var(--muted); padding: 20px 0; }
+
+  /* LOG */
+  .log-form { display: grid; grid-template-columns: 80px 1fr 140px; gap: 10px; margin-bottom: 10px; }
+  .log-form textarea { grid-column: 1 / -1; }
+  .log-form input, .log-form select, .log-form textarea {
+    padding: 10px 12px; border-radius: 3px; border: 1px solid var(--border-soft);
+    background: var(--card-bg); color: var(--ink); font: 500 13px 'Inter'; box-shadow: 1px 2px 0 rgba(0,0,0,.07);
+  }
+  .log-form textarea { resize: vertical; min-height: 44px; font-family: 'Inter'; }
+  .log-form button {
+    grid-column: 1 / -1; justify-self: start; background: var(--red); color: #fff; border: none;
+    font: 800 11px 'JetBrains Mono', monospace; letter-spacing: .04em; padding: 10px 18px;
+    border-radius: 3px; cursor: pointer; box-shadow: 1px 2px 0 rgba(0,0,0,.2);
+  }
+  .log-form button:hover { background: #8f2a1e; }
+  .log-entry {
+    background: var(--card-bg); border: 1px solid var(--border-soft); border-radius: 3px;
+    padding: 14px 18px; margin-bottom: 10px; box-shadow: 1px 2px 0 rgba(0,0,0,.07);
+    display: flex; align-items: flex-start; gap: 14px;
+  }
+  .log-round { font: 800 11px 'JetBrains Mono', monospace; color: #fff; background: var(--ink); padding: 4px 9px; border-radius: 3px; flex: none; }
+  .log-body { flex: 1; }
+  .log-opp { font-size: 16px; letter-spacing: .02em; margin-bottom: 2px; }
+  .log-result { font: 700 11px 'JetBrains Mono', monospace; }
+  .log-result.win { color: var(--green); }
+  .log-result.loss { color: var(--red); }
+  .log-result.draw { color: var(--muted); }
+  .log-note { font: 500 12.5px/1.5 'Inter'; color: var(--body-ink); margin-top: 6px; }
+  .log-del { margin-left: auto; background: none; border: none; color: var(--muted); cursor: pointer; font: 600 11px 'JetBrains Mono', monospace; flex: none; }
+  .log-del:hover { color: var(--red); }
+  .empty-log { font: 500 13px 'Inter'; color: var(--muted); font-style: italic; }
+
+  footer.site { text-align: center; color: var(--muted); font: 500 11px 'Inter'; padding: 32px 24px 40px; }
+
+  @media (max-width: 600px) {
+    .deck-grid { grid-template-columns: 1fr; }
+    .meta-table .head-row, .meta-table .row { grid-template-columns: 1.4fr 0.8fr 1.4fr; font-size: 11.5px; }
+    .log-form { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="header-inner">
+    <div class="header-row">
+      <div class="brand">
+        <img src="assets/logo.png" alt="Mana no Pano">
+        <div>
+          <div class="wordmark display">MANA NO PANO</div>
+          <div class="tagline">CADERNO DE SIDEBOARD — LIGAFEST 2026</div>
+        </div>
+      </div>
+      <div class="badge">FINAL PAUPER</div>
+    </div>
+    <nav class="tabs">
+      <button data-tab="lista" class="display active">LISTA</button>
+      <button data-tab="metagame" class="display">METAGAME</button>
+      <button data-tab="sideboard" class="display">SIDEBOARD</button>
+      <button data-tab="log" class="display">LOG</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===================== TAB: LISTA ===================== -->
+  <section id="tab-lista" class="tab active">
+    <div class="page-title display">LISTA FINAL — 60 CARTAS, 17 TERRENOS</div>
+    <div class="page-sub">Naya Ramp · Final Pauper, LigaFest 2026</div>
+
+    <div class="deck-grid" id="deck-grid"></div>
+
+    <div class="section-sub-title display">SIDEBOARD — 15 CARTAS</div>
+    <div class="card sb-list" id="sb-list-card"></div>
+  </section>
+
+  <!-- ===================== TAB: METAGAME ===================== -->
+  <section id="tab-metagame" class="tab">
+    <div class="page-title display">O QUE VOCÊ VAI ENFRENTAR</div>
+    <div class="page-sub">Metagame online (MTGGoldfish) cruzado com tabletop brasileiro (Nacional Pauper, Liga Gaúcha, Paupergeddon Itália).</div>
+
+    <div class="card" style="margin-bottom:24px;">
+      <div class="findings-title display">ACHADOS DO CENÁRIO BRASILEIRO</div>
+      <div id="findings-list"></div>
+    </div>
+
+    <div class="findings-title display">TABELA COMBINADA</div>
+    <div class="meta-table">
+      <div class="head-row"><div>ARQUÉTIPO</div><div>% GLOBAL</div><div>SINAL NO BRASIL</div></div>
+      <div id="meta-rows"></div>
+    </div>
+
+    <div class="sources">
+      Fontes: <a href="https://www.mtggoldfish.com/metagame/pauper/full" target="_blank" rel="noopener">MTGGoldfish</a> ·
+      <a href="https://www.ligamagic.com.br/?view=artigos/view&aid=5596" target="_blank" rel="noopener">LigaMagic — Análise do Metagame Tabletop</a> ·
+      <a href="https://www.ligamagic.com.br/?view=artigos/view&aid=5616" target="_blank" rel="noopener">LigaMagic — Campeões do Circuito</a>
+    </div>
+  </section>
+
+  <!-- ===================== TAB: SIDEBOARD ===================== -->
+  <section id="tab-sideboard" class="tab">
+    <div class="page-title display">GUIA DE SIDEBOARD COMPLETO</div>
+    <div class="page-sub">Busque um arquétipo ou toque num tier pra abrir os matchups.</div>
+
+    <input type="text" id="search" placeholder="Buscar arquétipo (ex: madness, affinity, storm)...">
+
+    <div id="tiers"></div>
+  </section>
+
+  <!-- ===================== TAB: LOG ===================== -->
+  <section id="tab-log" class="tab">
+    <div class="page-title display">LOG DE PARTIDAS</div>
+    <div class="page-sub">Registro rodada a rodada. Salvo só neste aparelho (armazenamento local do navegador).</div>
+
+    <div class="card" style="margin-bottom:22px;">
+      <div class="findings-title display" style="margin-bottom:12px;">NOVA RODADA</div>
+      <div class="log-form">
+        <input type="text" id="log-round" placeholder="Rodada (ex: R3)">
+        <input type="text" id="log-opp" placeholder="Adversário / arquétipo">
+        <select id="log-result">
+          <option value="win">Vitória</option>
+          <option value="loss">Derrota</option>
+          <option value="draw">Empate</option>
+        </select>
+        <textarea id="log-note" placeholder="O que deu certo / errado..."></textarea>
+        <button id="log-add" class="mono">SALVAR RODADA</button>
+      </div>
+    </div>
+
+    <div id="log-list"></div>
+  </section>
+
+</main>
+
+<footer class="site">Mana no Pano · Naya Ramp · LigaFest 2026, Final Pauper — Circuito LigaMagic</footer>
+
+<script>
+/* ---------- DADOS ---------- */
+
+const maindeckGroups = [
+  { name: 'CRIATURAS', count: '26', list: '4 Arbor Elf, 4 Avenging Hunter, 2 Boarding Party, 4 Eldrazi Repurposer, 4 Jewel Thief, 2 Nyxborn Hydra, 2 Sagu Wildling, 4 Writhing Chrysalis' },
+  { name: 'ENCANTAMENTOS', count: '9', list: '2 Armadillo Cloak, 4 Utopia Sprawl, 3 Wild Growth' },
+  { name: 'INSTANTÂNEOS', count: '4', list: '1 Pulse of Murasa, 3 Thraben Charm' },
+  { name: 'FEITIÇOS', count: '4', list: '4 Malevolent Rumble' },
+  { name: 'TERRENOS', count: '17', list: '13 Forest, 2 Mountain, 2 Plains' },
+];
+const sideboardList = "1 Ancient Grudge, 3 Breath Weapon, 3 Deglamer, 1 Flaring Pain, 2 Ram Through, 2 Tamiyo's Safekeeping, 3 Weather the Storm";
+
+const findings = [
+  'Mono Red (Madness + Rally somados) é consistentemente o maior bloco — passou de 25% dos decks no Nacional Pauper.',
+  'Blue Terror (mono ou Dimir) foi o deck mais jogado na Liga Gaúcha, com um plano sólido contra a maioria dos matchups.',
+  'Grixis Affinity segue relevante e surpreendeu como 2º mais jogado na Liga Gaúcha.',
+  'Gates (Caw-Gates/Snacker Gates) venceu 2 dos 3 eventos analisados — está em alta específica no Brasil.',
+  'Gruul/Naya Ramp aparece com regularidade em Top 8 de eventos grandes brasileiros — o espelho é mais provável num evento desse porte do que a % global sugere.',
+  'Decks "de nicho" como Familiars (campeão do Nacional Pauper!), Walls Combo e Boros Bully aparecem bem mais no tabletop nacional do que no MTGO.',
+];
+
+const metaRows = [
+  { name: 'Mono Red Madness', pct: '10.6%', signal: 'Muito alto — >25% somado com Rally em eventos BR' },
+  { name: 'Blue Terror (Mono/Dimir)', pct: '8.5% + 2.0%', signal: 'Campeão da Liga Gaúcha' },
+  { name: 'Grixis Affinity', pct: '8.4%', signal: '2º e 6º lugar na Liga Gaúcha' },
+  { name: 'Jund Wildfire', pct: '6.1%', signal: 'Relevante, "primo" da Affinity' },
+  { name: 'Elves', pct: '4.9%', signal: 'Moderado' },
+  { name: 'Dimir/Mono-Blue Faeries', pct: '4.6% + 2.2%', signal: 'Moderado' },
+  { name: 'Mono Red Rally', pct: '4.6%', signal: 'Alto no Brasil (bloco Mono Red)' },
+  { name: 'Caw/Snacker Gates', pct: '4.2% + 1.7%', signal: 'Muito alto — campeão em 2 de 3 eventos BR' },
+  { name: 'Tron', pct: '3.9%', signal: 'Baixo em eventos presenciais grandes' },
+  { name: 'Golgari/Food Gardens', pct: '2.8% + 0.9%', signal: 'Moderado' },
+  { name: 'Rakdos Madness', pct: '2.8%', signal: 'Top 5 na Liga Gaúcha' },
+  { name: 'White Aggro/Weenie', pct: '2.7%', signal: '4º lugar na Liga Gaúcha' },
+  { name: 'Familiars', pct: '2.6%', signal: 'Campeão do Nacional Pauper BR' },
+  { name: 'Spy Combo', pct: '2.4%', signal: 'Moderado' },
+  { name: 'Dimir Terror', pct: '2.0%', signal: 'Moderado' },
+  { name: 'Ruby Storm', pct: '1.9%', signal: 'Você já enfrentou' },
+  { name: 'Gruul/Naya Ramp (espelho)', pct: '0.7%', signal: 'Top 4-5 recorrente em finais grandes BR' },
+  { name: 'Boros Bully', pct: '0.5%', signal: '2º e 4º lugar na Liga Gaúcha' },
+  { name: 'Walls Combo', pct: '0.5%', signal: '2º lugar no Nacional Pauper' },
+];
+
+const tierDefs = [
+  {
+    id: 's', tag: 'S', label: 'TIER S — MUITO PROVÁVEL DE ENCONTRAR', color: 'var(--tierS)', bg: 'var(--tierS-bg)', open: true,
+    matchups: [
+      { name: 'Mono Red Madness / Mono Red Rally',
+        in: ["3 Weather the Storm", "3 Breath Weapon", "1 Tamiyo's Safekeeping"],
+        out: ["2 Arbor Elf", "2 Nyxborn Hydra", "2 Boarding Party", "1 Malevolent Rumble"],
+        plano: 'Sobreviver primeiro. Armadillo Cloak fica dentro — ganho de vida recorrente via combate (trample + "gain that much life") é a resposta certa contra um deck que quer te correr até zero. Tamiyo\'s Safekeeping entra pra proteger a criatura com o Cloak de virar 2-por-1 pra queima deles. Breath Weapon não acerta Avenging Hunter nem Sagu Wildling (são Dragões) — limpe o board com eles em jogo sem medo de fogo amigo.' },
+      { name: 'Grixis Affinity',
+        in: ["3 Deglamer", "1 Ancient Grudge"],
+        out: ["2 Sagu Wildling", "1 Pulse of Murasa", "1 Boarding Party"],
+        plano: 'Deglamer embaralha o artefato/criatura de volta pro deck deles, negando reciclagem.' },
+      { name: 'Blue Terror (Mono/Dimir) / Dimir Terror',
+        in: ["1-2 Tamiyo's Safekeeping"], out: ["1 Pulse of Murasa"],
+        plano: 'O modo "exile graveyards" do Thraben Charm mainboard já ataca o motor deles (Tolarian Terror/Gurmag Angler dependem do cemitério). Troca opcional, só se sentir necessidade.' },
+      { name: 'Jund Wildfire',
+        in: ["1 Ancient Grudge", "3 Deglamer"], out: ["2 Sagu Wildling", "1 Pulse of Murasa"],
+        plano: 'Ataca o pacote de artefatos/rampa deles; menos preciso que contra Affinity pois o core deles são terrenos, não artefatos, mas ainda ajuda contra as peças de suporte.' },
+      { name: 'Caw-Gates / Snacker Gates',
+        in: ["3 Breath Weapon"], out: ["2 Arbor Elf", "1 Wild Growth"],
+        plano: 'Não corte Boarding Party aqui — contra controle você quer MAIS ameaças resilientes e vantagem de cartas (o Cascade dele já é 2-por-1 de graça), não menos. Squadron Hawk/Sacred Cat são pequenos — Breath Weapon limpa antes do Basilisk Gate virar relevante. Deck de controle lento: pressão crua é seu maior trunfo.' },
+    ]
+  },
+  {
+    id: 'a', tag: 'A', label: 'TIER A — PROVÁVEL', color: 'var(--tierA)', bg: 'var(--tierA-bg)', open: true,
+    matchups: [
+      { name: 'Elves', in: ["3 Breath Weapon", "2 Ram Through"], out: ["2 Arbor Elf", "2 Nyxborn Hydra"],
+        plano: 'Board wipe + remoção pontual contra um deck que quer ir largo rápido.' },
+      { name: 'Dimir Faeries / Mono-Blue Faeries', in: ["3 Breath Weapon"], out: ["2 Arbor Elf", "1 Boarding Party"],
+        plano: 'Suas criaturas com Reach (Writhing Chrysalis, Nyxborn Hydra) já ajudam contra o ar; Breath Weapon limpa o resto.' },
+      { name: 'White Aggro / White Weenie', in: ["3 Weather the Storm", "2 Ram Through"], out: ["2 Arbor Elf", "2 Nyxborn Hydra"],
+        plano: 'Corrida de vida + remoção pontual.' },
+      { name: 'Golgari/Food Gardens', in: ["1 Ancient Grudge"], out: ["1 Pulse of Murasa"],
+        plano: 'Matchup de meio de jogo onde suas ameaças grandes tendem a ser maiores que as deles.' },
+      { name: 'Familiars (campeão do Nacional Pauper BR)', in: [], out: [],
+        plano: 'Seu SB não tem interação real contra o combo deles (sem contramágica, sem discard). O plano é pressão rápida — eles são lentos pra montar o loop. Não troque cartas artificialmente aqui.' },
+      { name: 'Boros Bully', in: ["3 Breath Weapon"], out: ["2 Arbor Elf", "1 Boarding Party"],
+        plano: 'Squadron Hawk/Battle Screech geram board pequeno — mesmo plano de Faeries/Gates.' },
+    ]
+  },
+  {
+    id: 'b', tag: 'B', label: 'TIER B — POSSÍVEL', color: 'var(--tierB)', bg: 'var(--tierB-bg)', open: false,
+    matchups: [
+      { name: 'Ruby Storm (você já enfrentou e perdeu)', in: [], out: [],
+        plano: 'Sem ferramenta real de interação no SB atual. Pressão rápida e mulligan agressivo atrás de start veloz é o único plano disponível hoje.' },
+      { name: 'Tron (raro em eventos presenciais grandes)', in: [], out: [],
+        plano: 'Sem troca — corrida de tamanho de ameaças, seus corpos grandes competem bem. Thraben Charm ajuda como remoção pontual em qualquer ameaça que resolvam.' },
+      { name: 'Rakdos Madness', in: ["3 Weather the Storm", "2 Breath Weapon", "1 Tamiyo's Safekeeping"], out: ["2 Arbor Elf", "2 Nyxborn Hydra", "1 Malevolent Rumble"],
+        plano: 'Mesmo plano do Mono Red Madness — Armadillo Cloak continua dentro, é sua principal ferramenta de vida contra um deck que também tenta correr com criaturas evasivas.' },
+      { name: 'Bogles', in: ["3 Deglamer"], out: ["1 Pulse of Murasa", "2 Sagu Wildling"],
+        plano: 'Deglamer remove a aura principal deles permanentemente (embaralha, não só destrói).' },
+      { name: 'Gruul Ponza', in: [], out: [],
+        plano: 'Nada específico — seus corpos grandes competem bem, e você não depende de terrenos não-básicos pra eles destruírem.' },
+      { name: 'Spy Combo', in: ["1 Ancient Grudge"], out: ["1 Pulse of Murasa"],
+        plano: 'Plano geral: pressão rápida, o combo deles é relativamente lento pra montar.' },
+      { name: 'Walls Combo (2º lugar no Nacional Pauper BR)', in: ["2 Ram Through"], out: ["1 Pulse of Murasa", "1 Nyxborn Hydra"],
+        plano: 'Ram Through mata as paredes de defesa deles usando o poder das suas criaturas grandes, atrasando o combo.' },
+      { name: 'Jeskai Ephemerate', in: [], out: [],
+        plano: 'Sem troca de peso — deck de valor incremental, sua pressão crua costuma vencer a corrida.' },
+    ]
+  },
+  {
+    id: 'c', tag: 'C', label: 'TIER C — ESPELHO E NICHO', color: 'var(--tierC)', bg: 'var(--tierC-bg)', open: false,
+    matchups: [
+      { name: 'Gruul Ramp / Naya Ramp (espelho)', in: [], out: [],
+        plano: 'Mais provável do que a % global sugere numa final grande no Brasil. Sem troca — quem resolve melhor Cascade/Chrysalis primeiro ganha. Seu Thraben Charm no modo "destroy enchantment" é vantagem extra: mata o Utopia Sprawl/Wild Growth do oponente.' },
+      { name: 'Burn, Turbo Fog, Black Sacrifice, Hot Dogs (baixa probabilidade)', in: [], out: [],
+        plano: 'Sem plano dedicado no SB atual. Regra geral: contra Burn, entra Weather the Storm; contra decks de criaturas pequenas tipo Hot Dogs, entra Breath Weapon; contra Turbo Fog, Flaring Pain pode ser relevante mas é uma aposta, não uma certeza.' },
+    ]
+  },
+];
+
+/* ---------- RENDER: LISTA ---------- */
+const deckGrid = document.getElementById('deck-grid');
+maindeckGroups.forEach(g => {
+  const div = document.createElement('div');
+  div.className = 'card deck-card';
+  div.innerHTML = `
+    <div class="deck-head">
+      <div class="name display">${g.name}</div>
+      <div class="count mono">${g.count}</div>
+    </div>
+    <div class="list">${g.list}</div>
+  `;
+  deckGrid.appendChild(div);
+});
+document.getElementById('sb-list-card').textContent = sideboardList;
+
+/* ---------- RENDER: METAGAME ---------- */
+const findingsList = document.getElementById('findings-list');
+findings.forEach(f => {
+  const div = document.createElement('div');
+  div.className = 'finding';
+  div.innerHTML = `<span class="dash">—</span><span>${f}</span>`;
+  findingsList.appendChild(div);
+});
+
+const metaRowsEl = document.getElementById('meta-rows');
+metaRows.forEach(r => {
+  const div = document.createElement('div');
+  div.className = 'row';
+  div.innerHTML = `<div class="n">${r.name}</div><div class="p mono">${r.pct}</div><div class="s">${r.signal}</div>`;
+  metaRowsEl.appendChild(div);
+});
+
+/* ---------- RENDER: SIDEBOARD ---------- */
+const tiersEl = document.getElementById('tiers');
+
+function matchupHtml(m) {
+  const swapHtml = m.in.length
+    ? `<div class="swap"><div class="in">+ ${m.in.join(', ')}</div><div class="out">− ${m.out.join(', ')}</div></div>`
+    : `<div class="no-swap mono">SEM TROCA DE PESO</div>`;
+  return `
+    <div class="matchup" data-name="${m.name.toLowerCase()}">
+      <div class="m-name display">${m.name}</div>
+      ${swapHtml}
+      <div class="m-plan">${m.plano}</div>
+    </div>
+  `;
+}
+
+function renderTiers() {
+  tiersEl.innerHTML = '';
+  tierDefs.forEach(t => {
+    const div = document.createElement('div');
+    div.className = 'tier';
+    div.innerHTML = `
+      <div class="tier-head" data-tier="${t.id}">
+        <div class="tier-head-left">
+          <div class="tier-tag display" style="background:${t.color}">${t.tag}</div>
+          <div class="tier-label display">${t.label}</div>
+        </div>
+        <div class="tier-arrow ${t.open ? 'open' : 'closed'}">▾</div>
+      </div>
+      <div class="tier-body ${t.open ? '' : 'hidden'}" style="background:${t.bg}55">
+        ${t.matchups.map(matchupHtml).join('')}
+      </div>
+    `;
+    tiersEl.appendChild(div);
+  });
+
+  tiersEl.querySelectorAll('.tier-head').forEach(head => {
+    head.addEventListener('click', () => {
+      const id = head.dataset.tier;
+      const t = tierDefs.find(x => x.id === id);
+      t.open = !t.open;
+      renderTiers();
+      applySearch(document.getElementById('search').value);
+    });
+  });
+}
+renderTiers();
+
+function applySearch(q) {
+  const query = (q || '').trim().toLowerCase();
+  let anyVisible = false;
+  document.querySelectorAll('.tier').forEach(tierEl => {
+    let tierHasMatch = false;
+    tierEl.querySelectorAll('.matchup').forEach(m => {
+      const match = !query || m.dataset.name.includes(query) || m.textContent.toLowerCase().includes(query);
+      m.style.display = match ? '' : 'none';
+      if (match) tierHasMatch = true;
+    });
+    if (query) {
+      tierEl.style.display = tierHasMatch ? '' : 'none';
+      const body = tierEl.querySelector('.tier-body');
+      const arrow = tierEl.querySelector('.tier-arrow');
+      if (tierHasMatch) { body.classList.remove('hidden'); arrow.classList.add('open'); arrow.classList.remove('closed'); }
+    } else {
+      tierEl.style.display = '';
+    }
+    if (tierHasMatch) anyVisible = true;
+  });
+}
+document.getElementById('search').addEventListener('input', e => applySearch(e.target.value));
+
+/* ---------- RENDER: LOG ---------- */
+const LOG_KEY = 'manaNoPano_matchLog_ligafest2026';
+const defaultLog = [
+  { round: 'R1', opp: 'Mono Red Madness', result: 'loss', note: 'Perdeu 0-2. Maior dificuldade recorrente: decks agressivos rápidos que correm antes do ramp estabilizar.' },
+  { round: 'R2', opp: 'Ruby Storm', result: 'loss', note: 'Perdeu 1-2 (combo, pode matar no turno 3). Sem interação real no sideboard atual pra essa matchup — plano é pressão rápida e mulligan agressivo.' },
+];
+
+function loadLog() {
+  try {
+    const raw = localStorage.getItem(LOG_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return defaultLog.slice();
+}
+function saveLog(log) {
+  localStorage.setItem(LOG_KEY, JSON.stringify(log));
+}
+
+let matchLog = loadLog();
+const resultLabel = { win: 'VITÓRIA', loss: 'DERROTA', draw: 'EMPATE' };
+
+function renderLog() {
+  const el = document.getElementById('log-list');
+  if (!matchLog.length) {
+    el.innerHTML = '<div class="empty-log">Nenhuma rodada registrada ainda.</div>';
+    return;
+  }
+  el.innerHTML = matchLog.map((m, i) => `
+    <div class="log-entry">
+      <div class="log-round mono">${m.round || '—'}</div>
+      <div class="log-body">
+        <div class="log-opp display">${m.opp || '(sem adversário)'}</div>
+        <div class="log-result mono ${m.result}">${resultLabel[m.result] || m.result.toUpperCase()}</div>
+        ${m.note ? `<div class="log-note">${m.note}</div>` : ''}
+      </div>
+      <button class="log-del mono" data-idx="${i}">REMOVER</button>
+    </div>
+  `).join('');
+  el.querySelectorAll('.log-del').forEach(btn => {
+    btn.addEventListener('click', () => {
+      matchLog.splice(Number(btn.dataset.idx), 1);
+      saveLog(matchLog);
+      renderLog();
+    });
+  });
+}
+renderLog();
+
+document.getElementById('log-add').addEventListener('click', () => {
+  const round = document.getElementById('log-round').value.trim();
+  const opp = document.getElementById('log-opp').value.trim();
+  const result = document.getElementById('log-result').value;
+  const note = document.getElementById('log-note').value.trim();
+  if (!opp) { document.getElementById('log-opp').focus(); return; }
+  matchLog.push({ round, opp, result, note });
+  saveLog(matchLog);
+  document.getElementById('log-round').value = '';
+  document.getElementById('log-opp').value = '';
+  document.getElementById('log-note').value = '';
+  document.getElementById('log-result').value = 'win';
+  renderLog();
+});
+
+/* ---------- TABS ---------- */
+document.querySelectorAll('nav.tabs button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('main .tab').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>

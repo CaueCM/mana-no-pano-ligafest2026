@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naya Ramp — Guia LigaFest 2026</title>
+<style>
+  :root {
+    --green: #2f7d4f;
+    --red: #b3432b;
+    --white: #d9c98a;
+    --bg: #14161a;
+    --panel: #1e2126;
+    --panel2: #262a31;
+    --text: #eef0f2;
+    --muted: #9aa2ad;
+    --border: #33383f;
+    --tierS: #b3432b;
+    --tierA: #c98a2b;
+    --tierB: #2f7d4f;
+    --tierC: #3b5b8c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+  header {
+    padding: 20px 16px 14px;
+    background: linear-gradient(120deg, rgba(47,125,79,0.25), rgba(217,201,138,0.12), rgba(179,67,43,0.25));
+    border-bottom: 1px solid var(--border);
+  }
+  header h1 { margin: 0 0 4px; font-size: 1.4rem; }
+  header p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; gap: 6px; padding: 8px 12px;
+    background: var(--bg); border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  nav button {
+    flex: none; padding: 8px 14px; border-radius: 20px; border: 1px solid var(--border);
+    background: var(--panel); color: var(--text); font-size: 0.85rem; cursor: pointer;
+    white-space: nowrap;
+  }
+  nav button.active { background: var(--green); border-color: var(--green); color: #fff; }
+  main { max-width: 900px; margin: 0 auto; padding: 16px; }
+  section { display: none; }
+  section.active { display: block; }
+  h2 { font-size: 1.15rem; border-left: 4px solid var(--green); padding-left: 10px; margin-top: 28px; }
+  h2:first-child { margin-top: 4px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px; margin-bottom: 12px;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; }
+  .deckcols { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 12px; }
+  .deckcol h3 { margin: 0 0 8px; font-size: 0.95rem; color: var(--white); }
+  .deckcol ul { margin: 0; padding-left: 18px; font-size: 0.88rem; }
+  .deckcol li { margin-bottom: 3px; }
+  input#search {
+    width: 100%; padding: 10px 14px; border-radius: 20px; border: 1px solid var(--border);
+    background: var(--panel2); color: var(--text); font-size: 0.95rem; margin-bottom: 14px;
+  }
+  .tier-label {
+    display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.72rem;
+    font-weight: 700; letter-spacing: 0.03em; margin-bottom: 6px; color: #fff;
+  }
+  .tierS { background: var(--tierS); }
+  .tierA { background: var(--tierA); }
+  .tierB { background: var(--tierB); }
+  .tierC { background: var(--tierC); }
+  .matchup {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px; margin-bottom: 10px;
+  }
+  .matchup h3 { margin: 0 0 8px; font-size: 1.02rem; }
+  .inout { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px; }
+  .inbox, .outbox { padding: 8px 10px; border-radius: 8px; font-size: 0.85rem; }
+  .inbox { background: rgba(47,125,79,0.18); border: 1px solid rgba(47,125,79,0.5); }
+  .outbox { background: rgba(179,67,43,0.18); border: 1px solid rgba(179,67,43,0.5); }
+  .inbox b, .outbox b { display: block; margin-bottom: 3px; font-size: 0.72rem; text-transform: uppercase; color: var(--muted); }
+  .note { font-size: 0.85rem; color: var(--muted); margin: 0; }
+  .nodata { font-size: 0.85rem; color: var(--muted); font-style: italic; }
+  footer { text-align: center; color: var(--muted); font-size: 0.78rem; padding: 24px 16px 40px; }
+  a { color: var(--white); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌲 Naya Ramp — LigaFest 2026</h1>
+  <p>Final Pauper · Circuito LigaMagic · 11-12 de julho, São Paulo</p>
+</header>
+
+<nav>
+  <button data-target="meta" class="active">Metagame</button>
+  <button data-target="lista">Lista (60)</button>
+  <button data-target="sideboard">Sideboard</button>
+</nav>
+
+<main>
+
+<section id="meta" class="active">
+  <h2>O que você vai enfrentar</h2>
+  <div class="card">
+    <p>Combinação de dados globais (MTGGoldfish, ~2 meses, julho 2026) com tendências específicas do tabletop brasileiro (LigaMagic — Nacional Pauper, Liga Gaúcha, Paupergeddon Itália como referência de evento grande).</p>
+    <p class="note">Destaques: Mono Red passou de 25% em eventos BR · Blue Terror venceu a Liga Gaúcha · Gates venceu 2 dos 3 eventos analisados · o espelho Gruul/Naya Ramp aparece Top 3-5 com frequência bem maior do que os 0,7% globais sugerem.</p>
+  </div>
+  <div class="card">
+    <table>
+      <thead><tr><th>Arquétipo</th><th>% Global</th><th>Sinal no Brasil</th></tr></thead>
+      <tbody>
+        <tr><td>Mono Red Madness</td><td>10.6%</td><td>Muito alto — &gt;25% somado com Rally</td></tr>
+        <tr><td>Blue Terror (Mono/Dimir)</td><td>8.5% + 2.0%</td><td>Campeão da Liga Gaúcha</td></tr>
+        <tr><td>Grixis Affinity</td><td>8.4%</td><td>2º e 6º lugar na Liga Gaúcha</td></tr>
+        <tr><td>Jund Wildfire</td><td>6.1%</td><td>Relevante, "primo" da Affinity</td></tr>
+        <tr><td>Elves</td><td>4.9%</td><td>Moderado</td></tr>
+        <tr><td>Dimir/Mono-Blue Faeries</td><td>4.6% + 2.2%</td><td>Moderado</td></tr>
+        <tr><td>Mono Red Rally</td><td>4.6%</td><td>Alto (parte do bloco Mono Red)</td></tr>
+        <tr><td>Caw/Snacker Gates</td><td>4.2% + 1.7%</td><td>Muito alto — campeão em 2 de 3 eventos BR</td></tr>
+        <tr><td>Tron</td><td>3.9%</td><td>Baixo em eventos presenciais grandes</td></tr>
+        <tr><td>Golgari/Food Gardens</td><td>2.8% + 0.9%</td><td>Moderado</td></tr>
+        <tr><td>Rakdos Madness</td><td>2.8%</td><td>Top 5 na Liga Gaúcha</td></tr>
+        <tr><td>White Aggro/Weenie</td><td>2.7%</td><td>4º lugar na Liga Gaúcha</td></tr>
+        <tr><td>Familiars</td><td>2.6%</td><td>Campeão do Nacional Pauper BR</td></tr>
+        <tr><td>Spy Combo</td><td>2.4%</td><td>Moderado</td></tr>
+        <tr><td>Dimir Terror</td><td>2.0%</td><td>Moderado</td></tr>
+        <tr><td>Ruby Storm</td><td>1.9%</td><td>Você já enfrentou</td></tr>
+        <tr><td>Gruul/Naya Ramp (espelho)</td><td>0.7%</td><td>Top 4-5 recorrente em finais grandes BR</td></tr>
+        <tr><td>Boros Bully</td><td>0.5%</td><td>2º e 4º lugar na Liga Gaúcha</td></tr>
+        <tr><td>Walls Combo</td><td>0.5%</td><td>2º lugar no Nacional Pauper</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Sources: <a href="https://www.mtggoldfish.com/metagame/pauper/full" target="_blank">MTGGoldfish</a> · <a href="https://www.ligamagic.com.br/?view=artigos/view&aid=5596" target="_blank">LigaMagic — Análise do Metagame Tabletop</a> · <a href="https://www.ligamagic.com.br/?view=artigos/view&aid=5616" target="_blank">LigaMagic — Campeões do Circuito 15ª Edição</a></p>
+</section>
+
+<section id="lista">
+  <h2>Maindeck (60 cartas, 17 terrenos)</h2>
+  <div class="card deckcols">
+    <div class="deckcol">
+      <h3>Criaturas (26)</h3>
+      <ul>
+        <li>4 Arbor Elf</li><li>4 Avenging Hunter</li><li>2 Boarding Party</li>
+        <li>4 Eldrazi Repurposer</li><li>4 Jewel Thief</li><li>2 Nyxborn Hydra</li>
+        <li>2 Sagu Wildling</li><li>4 Writhing Chrysalis</li>
+      </ul>
+    </div>
+    <div class="deckcol">
+      <h3>Encantamentos (9)</h3>
+      <ul><li>2 Armadillo Cloak</li><li>4 Utopia Sprawl</li><li>3 Wild Growth</li></ul>
+      <h3 style="margin-top:14px">Instantâneos (4)</h3>
+      <ul><li>1 Pulse of Murasa</li><li>3 Thraben Charm</li></ul>
+      <h3 style="margin-top:14px">Feitiços (4)</h3>
+      <ul><li>4 Malevolent Rumble</li></ul>
+    </div>
+    <div class="deckcol">
+      <h3>Terrenos (17)</h3>
+      <ul><li>13 Forest</li><li>2 Mountain</li><li>2 Plains</li></ul>
+    </div>
+  </div>
+  <h2>Sideboard (15)</h2>
+  <div class="card deckcols">
+    <div class="deckcol">
+      <ul>
+        <li>1 Ancient Grudge</li><li>3 Breath Weapon</li><li>3 Deglamer</li>
+        <li>1 Flaring Pain</li><li>2 Ram Through</li><li>2 Tamiyo's Safekeeping</li>
+        <li>3 Weather the Storm</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="sideboard">
+  <input type="text" id="search" placeholder="Buscar arquétipo (ex: madness, affinity, storm)...">
+  <div id="matchups"></div>
+</section>
+
+</main>
+
+<footer>Guia gerado a partir da preparação pro LigaFest 2026 · Circuito LigaMagic Final Pauper</footer>
+
+<script>
+const data = [
+  {tier:"S", name:"Mono Red Madness / Mono Red Rally",
+   in:["3 Weather the Storm","3 Breath Weapon","1 Tamiyo's Safekeeping"],
+   out:["2 Arbor Elf","2 Nyxborn Hydra","2 Boarding Party","1 Malevolent Rumble"],
+   note:"CORRIGIDO: Armadillo Cloak fica dentro — ganho de vida recorrente via combate (trample + \"gain that much life\") é exatamente a resposta certa contra um deck que quer te correr até zero. Tamiyo's Safekeeping entra pra proteger a criatura com o Cloak de virar 2-por-1 pra queima deles. Breath Weapon não acerta Avenging Hunter nem Sagu Wildling (são Dragões) — pode limpar o board com eles em jogo sem medo de fogo amigo."},
+  {tier:"S", name:"Grixis Affinity",
+   in:["3 Deglamer","1 Ancient Grudge"],
+   out:["2 Sagu Wildling","1 Pulse of Murasa","1 Boarding Party"],
+   note:"Deglamer embaralha o artefato/criatura de volta pro deck deles, negando reciclagem."},
+  {tier:"S", name:"Blue Terror (Mono/Dimir) / Dimir Terror",
+   in:["1-2 Tamiyo's Safekeeping"],
+   out:["1 Pulse of Murasa"],
+   note:"Sem troca de peso — o modo \"exile graveyards\" do Thraben Charm mainboard já ataca o motor deles (Tolarian Terror/Gurmag Angler dependem do cemitério)."},
+  {tier:"S", name:"Jund Wildfire",
+   in:["1 Ancient Grudge","3 Deglamer"],
+   out:["2 Sagu Wildling","1 Pulse of Murasa"],
+   note:"Ataca o pacote de artefatos/rampa deles; menos preciso que contra Affinity pois o core deles são terrenos, não artefatos."},
+  {tier:"S", name:"Caw-Gates / Snacker Gates",
+   in:["3 Breath Weapon"],
+   out:["2 Arbor Elf","1 Wild Growth"],
+   note:"CORRIGIDO: não corte Boarding Party aqui — contra controle você quer MAIS ameaças resilientes e vantagem de cartas (o Cascade dele já é um 2-por-1 de graça), não menos. Squadron Hawk/Sacred Cat são pequenos — Breath Weapon limpa antes do Basilisk Gate virar relevante. Deck de controle lento: pressão crua e redundância de ameaças é seu maior trunfo."},
+  {tier:"A", name:"Elves",
+   in:["3 Breath Weapon","2 Ram Through"],
+   out:["2 Arbor Elf","2 Nyxborn Hydra"],
+   note:"Board wipe + remoção pontual contra um deck que quer ir largo rápido."},
+  {tier:"A", name:"Dimir Faeries / Mono-Blue Faeries",
+   in:["3 Breath Weapon"],
+   out:["2 Arbor Elf","1 Boarding Party"],
+   note:"Suas criaturas com Reach (Writhing Chrysalis, Nyxborn Hydra) já ajudam contra o ar; Breath Weapon limpa o resto."},
+  {tier:"A", name:"White Aggro / White Weenie",
+   in:["3 Weather the Storm","2 Ram Through"],
+   out:["2 Arbor Elf","2 Nyxborn Hydra"],
+   note:"Corrida de vida + remoção pontual."},
+  {tier:"A", name:"Golgari / Food Gardens",
+   in:["1 Ancient Grudge"],
+   out:["1 Pulse of Murasa"],
+   note:"Matchup de meio de jogo onde suas ameaças grandes tendem a ser maiores que as deles."},
+  {tier:"A", name:"Familiars",
+   in:[], out:[],
+   note:"Sem interação real no SB atual (sem contramágica, sem discard). Pressão rápida é o plano — eles são lentos pra montar o loop. Não force troca de cartas aqui."},
+  {tier:"A", name:"Boros Bully",
+   in:["3 Breath Weapon"],
+   out:["2 Arbor Elf","1 Boarding Party"],
+   note:"Squadron Hawk/Battle Screech geram board pequeno — mesmo plano de Faeries/Gates."},
+  {tier:"B", name:"Ruby Storm",
+   in:[], out:[],
+   note:"Você já enfrentou e perdeu. Sem ferramenta real de interação no SB atual — pressão rápida e mulligan agressivo é o único plano."},
+  {tier:"B", name:"Tron",
+   in:[], out:[],
+   note:"Raro em eventos presenciais grandes. Corrida de tamanho de ameaças — seus corpos grandes competem bem. Thraben Charm ajuda como remoção pontual."},
+  {tier:"B", name:"Rakdos Madness",
+   in:["3 Weather the Storm","2 Breath Weapon","1 Tamiyo's Safekeeping"],
+   out:["2 Arbor Elf","2 Nyxborn Hydra","1 Malevolent Rumble"],
+   note:"Mesmo plano do Mono Red Madness — Armadillo Cloak continua dentro, é sua principal ferramenta de vida contra um deck que também tenta correr com criaturas evasivas."},
+  {tier:"B", name:"Bogles",
+   in:["3 Deglamer"],
+   out:["1 Pulse of Murasa","2 Sagu Wildling"],
+   note:"Deglamer remove a aura principal deles permanentemente (embaralha, não só destrói)."},
+  {tier:"B", name:"Gruul Ponza",
+   in:[], out:[],
+   note:"Seus corpos grandes competem bem, e você não depende de terrenos não-básicos pra eles destruírem."},
+  {tier:"B", name:"Spy Combo",
+   in:["1 Ancient Grudge"],
+   out:["1 Pulse of Murasa"],
+   note:"Plano geral: pressão rápida, o combo deles é relativamente lento pra montar."},
+  {tier:"B", name:"Walls Combo",
+   in:["2 Ram Through"],
+   out:["1 Pulse of Murasa","1 Nyxborn Hydra"],
+   note:"Ram Through mata as paredes de defesa deles usando o poder das suas criaturas grandes, atrasando o combo."},
+  {tier:"B", name:"Jeskai Ephemerate",
+   in:[], out:[],
+   note:"Deck de valor incremental — sua pressão crua costuma vencer a corrida."},
+  {tier:"C", name:"Gruul Ramp / Naya Ramp (espelho)",
+   in:[], out:[],
+   note:"Mais provável do que a % global sugere numa final grande no Brasil. Quem resolve melhor Cascade/Chrysalis primeiro ganha. Thraben Charm no modo \"destroy enchantment\" mata o Utopia Sprawl/Wild Growth do oponente."},
+  {tier:"C", name:"Burn / Turbo Fog / Black Sacrifice / Hot Dogs",
+   in:[], out:[],
+   note:"Baixa probabilidade, sem plano dedicado. Regra geral: contra Burn entra Weather the Storm; contra criaturas pequenas (Hot Dogs) entra Breath Weapon; contra Turbo Fog, Flaring Pain pode ajudar (é uma aposta, não certeza)."},
+];
+
+const tierNames = {S:"Muito provável", A:"Provável", B:"Possível", C:"Nicho / espelho"};
+
+function render(filter) {
+  const container = document.getElementById('matchups');
+  container.innerHTML = '';
+  const f = (filter||'').toLowerCase();
+  data.filter(d => d.name.toLowerCase().includes(f)).forEach(d => {
+    const div = document.createElement('div');
+    div.className = 'matchup';
+    const inHtml = d.in.length ? d.in.map(x=>`<div>${x}</div>`).join('') : '<div class="nodata">nenhuma</div>';
+    const outHtml = d.out.length ? d.out.map(x=>`<div>${x}</div>`).join('') : '<div class="nodata">nenhuma</div>';
+    div.innerHTML = `
+      <span class="tier-label tier${d.tier}">${tierNames[d.tier]}</span>
+      <h3>${d.name}</h3>
+      <div class="inout">
+        <div class="inbox"><b>Entra</b>${inHtml}</div>
+        <div class="outbox"><b>Sai</b>${outHtml}</div>
+      </div>
+      <p class="note">${d.note}</p>
+    `;
+    container.appendChild(div);
+  });
+}
+render('');
+document.getElementById('search').addEventListener('input', e => render(e.target.value));
+
+document.querySelectorAll('nav button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('main section').forEach(s=>s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.target).classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
