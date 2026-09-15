@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Primer de partidas e guia de side do deck de Pauper Monster Tron, calibrado contra 33 listas de 5-0 e Top 8 de Challenge do MTGO.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Primer Tron Monsters">
+<meta property="og:description" content="Primer de partidas e guia de side do deck de Pauper Monster Tron.">
+<meta property="og:type" content="article">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%97%BF%3C/text%3E%3C/svg%3E">
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  img{max-width:100%;height:auto}
+  [hidden]{display:none!important}
+</style>
+<title>Primer Tron Monsters</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+</head>
+<body>
+<style>
+:root{
+  --bg:#E9E8E1; --surface:#F6F5F0; --surface-2:#DFDED5;
+  --ink:#1B1E1B; --ink-2:#3C413B; --muted:#6C7168;
+  --line:#C9C8BC; --line-soft:#DAD9CE;
+  --brass:#8C5E22; --brass-soft:#B98B47;
+  --moss:#3B6B4B; --moss-soft:#E0E8DC;
+  --rust:#93382A; --rust-soft:#F0DFDA;
+  --steel:#41566B;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131512; --surface:#1C1F1B; --surface-2:#262A24;
+    --ink:#E8E8E0; --ink-2:#C3C6BC; --muted:#8C9187;
+    --line:#333831; --line-soft:#282C26;
+    --brass:#D2A263; --brass-soft:#A87D40;
+    --moss:#82B08C; --moss-soft:#23301F;
+    --rust:#D4826F; --rust-soft:#331F1A;
+    --steel:#8FA9C0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131512; --surface:#1C1F1B; --surface-2:#262A24;
+  --ink:#E8E8E0; --ink-2:#C3C6BC; --muted:#8C9187;
+  --line:#333831; --line-soft:#282C26;
+  --brass:#D2A263; --brass-soft:#A87D40;
+  --moss:#82B08C; --moss-soft:#23301F;
+  --rust:#D4826F; --rust-soft:#331F1A;
+  --steel:#8FA9C0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Source Serif 4",Georgia,serif;font-size:16.5px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:0 72px}
+h1,h2,h3,h4,h5,.ui{font-family:Archivo,"Helvetica Neue",Arial,sans-serif}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+
+.mast{padding-block:46px 26px;border-bottom:2px solid var(--ink)}
+.kicker{font-family:Archivo,sans-serif;font-weight:700;font-size:11px;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--brass);margin:0 0 14px}
+h1{font-size:clamp(2.3rem,7vw,4rem);font-weight:800;letter-spacing:-.028em;line-height:.98;margin:0;text-wrap:balance}
+.dek{margin:14px 0 0;max-width:62ch;color:var(--ink-2);font-size:1.06rem}
+.mast-meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;
+  font-family:Archivo,sans-serif;font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--muted)}
+.mast-meta a{color:var(--muted)}
+.tron-rule{display:flex;gap:4px;margin-top:24px}
+.tron-rule i{height:5px;border-radius:1px;background:var(--brass);opacity:.85}
+.tron-rule i:nth-child(1),.tron-rule i:nth-child(2){flex:2}
+.tron-rule i:nth-child(3){flex:3}
+
+section{margin-top:56px}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+.sec-head h2{font-size:1.32rem;font-weight:700;letter-spacing:-.012em;margin:0}
+.sec-num{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;color:var(--brass);letter-spacing:.08em}
+.sec-sub{color:var(--muted);font-size:.95rem;margin:0 0 26px;max-width:72ch}
+
+table.data{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);font-size:.93rem}
+.tbl-scroll{overflow-x:auto}
+table.data th{font-family:Archivo,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);text-align:left;padding:11px 13px;
+  border-bottom:1px solid var(--line);background:var(--surface-2);white-space:nowrap}
+table.data td{padding:9px 13px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+table.data tr:last-child td{border-bottom:0}
+table.data td.n{font-family:"JetBrains Mono",monospace;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+table.data td.hi{color:var(--moss);font-weight:700}
+table.data td.lo{color:var(--rust);font-weight:700}
+table.data tr.dead td{color:var(--rust)}
+
+.status-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2px;background:var(--line);border:1px solid var(--line)}
+.status{background:var(--surface);padding:20px}
+.status .tag{font-family:Archivo,sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;display:inline-block;padding:3px 8px;border-radius:2px;margin-bottom:11px}
+.tag.open{background:var(--rust-soft);color:var(--rust)}
+.tag.ok{background:var(--moss-soft);color:var(--moss)}
+.tag.ask{background:var(--surface-2);color:var(--ink-2)}
+.status h4{margin:0 0 7px;font-size:1.02rem;font-weight:700;letter-spacing:-.01em}
+.status p{margin:0;font-size:.93rem;color:var(--ink-2);line-height:1.55}
+
+.nav{display:flex;gap:2px;overflow-x:auto;border:1px solid var(--line);background:var(--line);scrollbar-width:thin}
+.nav button{flex:0 0 auto;appearance:none;border:0;cursor:pointer;background:var(--surface);
+  padding:13px 16px 12px;text-align:left;min-width:136px;font-family:Archivo,sans-serif;
+  color:var(--ink-2);border-top:3px solid transparent;transition:background .12s}
+.nav button:hover{background:var(--surface-2)}
+.nav button .n{display:block;font-size:.88rem;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+.nav button .s{display:block;font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:600;color:var(--muted);margin-top:3px}
+.nav button[aria-selected="true"]{background:var(--surface-2);border-top-color:var(--brass)}
+.nav button[aria-selected="true"] .s{color:var(--brass)}
+.nav button:focus-visible{outline:2px solid var(--steel);outline-offset:-2px}
+
+.panel{border:1px solid var(--line);border-top:0;background:var(--surface);padding:30px 28px 34px}
+@media (max-width:620px){.panel{padding:24px 18px 28px}}
+.panel-top{display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px 26px;
+  padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:26px}
+.panel-top h3{margin:0;font-size:1.85rem;font-weight:800;letter-spacing:-.028em;line-height:1.05}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{font-family:Archivo,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;padding:4px 9px;border-radius:2px;background:var(--surface-2);color:var(--ink-2)}
+.chip.hard{background:var(--rust-soft);color:var(--rust)}
+.chip.good{background:var(--moss-soft);color:var(--moss)}
+
+.block{margin-bottom:30px}
+.block > h4{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--brass);margin:0 0 4px;padding-bottom:7px;border-bottom:1px solid var(--line-soft)}
+.block p{margin:13px 0 0;max-width:70ch}
+ul.clean{list-style:none;padding:0;margin:14px 0 0;max-width:70ch}
+ul.clean li{position:relative;padding-left:19px;margin-bottom:10px}
+ul.clean li::before{content:"";position:absolute;left:0;top:.66em;width:7px;height:7px;background:var(--brass-soft);border-radius:1px}
+.card{font-weight:600;color:var(--ink)}
+.cost{font-family:"JetBrains Mono",monospace;font-size:.82em;font-weight:700;
+  background:var(--surface-2);padding:1px 5px;border-radius:2px;color:var(--ink-2);white-space:nowrap}
+
+.swap{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line);border:1px solid var(--line);margin-top:16px}
+@media (max-width:620px){.swap{grid-template-columns:1fr}}
+.swap-col{background:var(--surface);padding:17px 18px 19px}
+.swap-col h5{margin:0 0 13px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.swap-in h5{color:var(--moss)} .swap-out h5{color:var(--rust)}
+.swap ul{list-style:none;margin:0;padding:0}
+.swap li{display:flex;gap:10px;align-items:baseline;margin-bottom:10px;font-size:.95rem}
+.swap li .q{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:.86rem;min-width:26px}
+.swap-in .q{color:var(--moss)} .swap-out .q{color:var(--rust)}
+.swap li .why{display:block;color:var(--muted);font-size:.85rem;line-height:1.45;margin-top:2px}
+
+.callout{border-left:3px solid var(--brass);background:var(--surface-2);padding:15px 18px;margin-top:18px;max-width:72ch}
+.callout.warn{border-left-color:var(--rust)}
+.callout p{margin:0;font-size:.95rem}
+.callout p + p{margin-top:9px}
+.callout .lbl{font-family:Archivo,sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--brass);display:block;margin-bottom:6px}
+.callout.warn .lbl{color:var(--rust)}
+
+.stub{text-align:left;padding:44px 10px 48px;max-width:62ch}
+.stub h3{font-size:1.7rem;font-weight:800;letter-spacing:-.025em;margin:0 0 12px}
+.stub p{color:var(--ink-2);margin:0 0 14px}
+.stub .todo{font-family:Archivo,sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+.deck{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:2px;background:var(--line);border:1px solid var(--line)}
+.deck-col{background:var(--surface);padding:18px}
+.deck-col h5{margin:0 0 12px;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--brass);padding-bottom:7px;border-bottom:1px solid var(--line-soft)}
+.deck-col ul{list-style:none;margin:0;padding:0;font-size:.92rem}
+.deck-col li{display:flex;gap:9px;margin-bottom:5px;line-height:1.4}
+.deck-col li .q{font-family:"JetBrains Mono",monospace;font-weight:600;font-size:.85rem;color:var(--muted);min-width:18px}
+.deck-col li.new{color:var(--moss)} .deck-col li.new .q{color:var(--moss)}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:.88rem}
+footer a{color:var(--muted)}
+a{color:var(--brass);text-decoration-thickness:1px;text-underline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="kicker">Pauper · Circuito Liga Magic · 13 de setembro de 2026</p>
+  <h1>Tron Monsters</h1>
+  <p class="dek">Primer de partidas e guia de side. Um dossiê por arquétipo: como a partida se decide, o que respeitar do outro lado, o que entra — e o porquê de cada troca. Calibrado contra 33 listas de 5-0 e Top 8 de Challenge do MTGO.</p>
+  <div class="mast-meta">
+    <span>Lista: <a href="https://archidekt.com/decks/24308167/tron_monsters_pauper">Archidekt</a> · 60 + 15 fechado</span>
+    <span>Meta: MTGO, 30 dias</span>
+    <span>5 dos 12 matchups escritos</span>
+  </div>
+  <div class="tron-rule"><i></i><i></i><i></i></div>
+</header>
+
+<section>
+  <div class="sec-head"><span class="sec-num">A</span><h2>Estado da lista</h2></div>
+  <p class="sec-sub">O maindeck fechou. O sideboard é a discussão aberta.</p>
+  <div class="status-grid">
+    <div class="status">
+      <span class="tag ok">Fechado</span>
+      <h4>60 cartas</h4>
+      <p>Candy Trail fora, Barrels em 4, Crop Rotation em 3, Unfathomable Truths em 2. Kaervek's Torch fica — <strong>10 das 33 listas jogam exatamente 1 cópia</strong>, e três delas fizeram Top 8.</p>
+    </div>
+    <div class="status">
+      <span class="tag ok">Resolvido</span>
+      <h4>Os filtros são a base de mana</h4>
+      <p>4 Boulder + 4 Barrels + 2 Ornament + 2 Hidden Grotto = <strong>12 fontes de qualquer cor</strong>. Este deck não é verde-incolor; é um deck de 5 cores com 12 filtros. Splash de 1 mana é trivial.</p>
+    </div>
+    <div class="status">
+      <span class="tag open">Trocar</span>
+      <h4>Três cartas do side não existem no campo</h4>
+      <p><span class="card">Monstrous Emergence</span>, <span class="card">Structural Distortion</span> e <span class="card">Gorilla Shaman</span> aparecem <strong>zero vezes</strong> nas 33 listas — nem main, nem side. Campfire aparece em 1.</p>
+    </div>
+    <div class="status">
+      <span class="tag open">Faltando</span>
+      <h4>Zero anti-vermelho</h4>
+      <p><strong>27 das 33 listas</strong> jogam 2-4 blasts anti-vermelhos, mediana 3. Contra Mono Red Madness — 14,1% do meta — é a melhor carta disponível, e você não tem nenhuma.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">B</span><h2>O censo de sideboard</h2></div>
+  <p class="sec-sub">33 listas de Monster Tron que fizeram 5-0 em liga ou Top 8 em Challenge no MTGO, entre 28/08 e 12/09/2026. Mín/mediana/máx são <em>entre as listas que jogam a carta</em>.</p>
+
+  <div class="tbl-scroll">
+  <table class="data">
+    <thead><tr><th>Carta</th><th>Listas</th><th>%</th><th>Mediana</th><th>Você</th><th>O que faz</th></tr></thead>
+    <tbody>
+      <tr><td class="card">Breath Weapon</td><td class="n">29</td><td class="n">88%</td><td class="n hi">4</td><td class="n hi">4</td><td>2 de dano em cada criatura não-Dragão</td></tr>
+      <tr><td class="card">Relic of Progenitus</td><td class="n">25</td><td class="n">76%</td><td class="n hi">3</td><td class="n lo">2</td><td>Ódio de cemitério incolor</td></tr>
+      <tr><td class="card">Hydroblast</td><td class="n">19</td><td class="n">58%</td><td class="n hi">3</td><td class="n lo">0</td><td><span class="cost">{U}</span> anula ou destrói qualquer coisa <strong>vermelha</strong></td></tr>
+      <tr><td class="card">Call Damage Control</td><td class="n">17</td><td class="n">52%</td><td class="n hi">2</td><td class="n lo">0</td><td><span class="cost">{1}{G}</span> devolve 2 cards do cemitério — inclusive <strong>terreno</strong></td></tr>
+      <tr><td class="card">Blue Elemental Blast</td><td class="n">11</td><td class="n">33%</td><td class="n">4</td><td class="n">0</td><td>Irmão do Hydroblast, também anti-vermelho</td></tr>
+      <tr><td class="card">Scour from Existence</td><td class="n">10</td><td class="n">30%</td><td class="n">2</td><td class="n">0</td><td><span class="cost">{7}</span> exila qualquer permanente. Incolor</td></tr>
+      <tr><td class="card">Ancient Grudge</td><td class="n">9</td><td class="n">27%</td><td class="n">2</td><td class="n">0</td><td>Destrói artefato, com flashback <span class="cost">{G}</span></td></tr>
+      <tr><td class="card">Faerie Macabre</td><td class="n">7</td><td class="n">21%</td><td class="n">3</td><td class="n">0</td><td>Ódio de cemitério <strong>de graça</strong>, descartando</td></tr>
+      <tr><td class="card">Fiery Cannonade</td><td class="n">7</td><td class="n">21%</td><td class="n">3</td><td class="n">0</td><td>Breath Weapon nº 5 a 8</td></tr>
+      <tr><td class="card">Coalition Honor Guard</td><td class="n">7</td><td class="n">21%</td><td class="n">2</td><td class="n">0</td><td>Redireciona o que o oponente mira</td></tr>
+      <tr><td class="card">Tangle</td><td class="n">5</td><td class="n">15%</td><td class="n">2</td><td class="n">0</td><td>Neblina que ainda deixa os atacantes tapados</td></tr>
+      <tr><td class="card">Tamiyo's Safekeeping</td><td class="n">3</td><td class="n">9%</td><td class="n">2</td><td class="n">2</td><td>Protege um permanente seu</td></tr>
+      <tr class="dead"><td class="card">Moment's Peace</td><td class="n">1</td><td class="n">3%</td><td class="n">3</td><td class="n">2</td><td>Eu recomendei. O campo não joga.</td></tr>
+      <tr class="dead"><td class="card">Campfire</td><td class="n">1</td><td class="n">3%</td><td class="n">4</td><td class="n">1</td><td>Ganha 2 por turno</td></tr>
+      <tr class="dead"><td class="card">Monstrous Emergence</td><td class="n">0</td><td class="n">0%</td><td class="n">—</td><td class="n">3</td><td>Zero cópias em 33 listas, main ou side</td></tr>
+      <tr class="dead"><td class="card">Structural Distortion</td><td class="n">0</td><td class="n">0%</td><td class="n">—</td><td class="n">1</td><td>Zero cópias em 33 listas, main ou side</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="callout">
+    <span class="lbl">O que o censo revela sobre a estrutura</span>
+    <p><strong>33 de 33 listas jogam varredura. 33 de 33 jogam ódio de cemitério.</strong> Sete dos quinze slots não estão em disputa — só a escolha da carta está. Mais três slots de anti-vermelho em 27 das 33, e um de remoção coringa. <strong>Onze slots travados, quatro livres</strong> — e esses quatro são preenchidos por 27 cartas diferentes de cauda longa.</p>
+  </div>
+
+  <div class="callout warn">
+    <span class="lbl">Hydroblast é azul e mata vermelho — eu tinha lido ao contrário</span>
+    <p><span class="card">Hydroblast</span> custa <span class="cost">{U}</span> e diz "anule a mágica alvo se ela for vermelha; ou destrua o permanente alvo se ele for vermelho". É <strong>anti-vermelho</strong>, não anti-azul. O anti-azul é o Pyroblast, que só 5 das 33 listas jogam.</p>
+    <p>Ou seja: o segundo maior investimento de sideboard do campo inteiro aponta para <strong>Mono Red Madness</strong>. Um mana, instantâneo, anula um Lightning Bolt ou um Fiery Temper — ou mata um Kessig Flamebreather. Contra um deck cujo plano inteiro são mágicas vermelhas na sua cara, não existe carta melhor. E ainda é viva contra Jund Wildfire e Grixis Affinity.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">C</span><h2>O side registrado</h2></div>
+  <p class="sec-sub">Fechado em 13/09/2026. Cobertura de cartas vivas em cada um dos cinco decks mais jogados.</p>
+
+  <div class="swap">
+    <div class="swap-col swap-in">
+      <h5>Os 15</h5>
+      <ul>
+        <li><span class="q">4</span><span>Breath Weapon<span class="why">Mono Red, Grixis Affinity, Jund Wildfire. Carta de turno 4, não de turno 3 — planeje em cima disso.</span></span></li>
+        <li><span class="q">3</span><span>Hydroblast<span class="why">Viva em três dos cinco. Um mana, instantâneo.</span></span></li>
+        <li><span class="q">3</span><span>Relic of Progenitus<span class="why">Viva em quatro dos cinco. Contra Blue Terror não é ódio de cemitério — é imposto.</span></span></li>
+        <li><span class="q">2</span><span>Scour from Existence<span class="why">Incolor, o Stirrings acha. A única resposta limpa a um Tolarian Terror, e a carta do espelho.</span></span></li>
+        <li><span class="q">2</span><span>Tangle<span class="why">Previne o dano e os atacantes não desviram. Contra Blue Terror e Grixis Affinity é troca de dois por um em tempo.</span></span></li>
+        <li><span class="q">1</span><span>Campfire<span class="why">Uma lista em 33. Slot de teste.</span></span></li>
+      </ul>
+    </div>
+    <div class="swap-col swap-out">
+      <h5>Cartas vivas por matchup</h5>
+      <ul>
+        <li><span class="q">10</span><span>Mono Red Madness<span class="why">4 Breath Weapon + 3 Hydroblast + 3 Relic</span></span></li>
+        <li><span class="q">7</span><span>Blue Terror<span class="why">3 Relic + 2 Scour + 2 Tangle. Breath Weapon e Hydroblast são mortos aqui.</span></span></li>
+        <li><span class="q">9</span><span>Grixis Affinity<span class="why">4 Breath Weapon + 3 Relic + 2 Tangle</span></span></li>
+        <li><span class="q">6</span><span>Jund Wildfire<span class="why">3 Hydroblast + 3 Relic. Sem Call Damage Control, não há como recomprar a peça de Urza destruída — é a lacuna assumida.</span></span></li>
+        <li><span class="q">4</span><span>Espelho Tron<span class="why">2 Scour + 2 Tangle, mais os 4 Giant's Boulder do main. O mais fino dos cinco.</span></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="lbl">Por que nada de Ancient Grudge</span>
+    <p>Você já tem <strong>4 Giant's Boulder no maindeck</strong>, e <span class="cost">{7},{T}</span>, sacrifique: destrua o permanente alvo. Com Tron ligado isso é um mana a mais depois de tudo. Sua remoção de artefato e de terreno está no main — o side não precisa repetir.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">D</span><h2>Os cinco matchups</h2></div>
+  <p class="sec-sub">Os cinco decks mais jogados do meta somam cerca de 47% do campo. Os in/out abaixo são propostas — cada um tem pelo menos uma decisão que vale discutir.</p>
+
+  <div class="nav" role="tablist" aria-label="Matchups">
+    <button role="tab" id="t-red" aria-controls="p-red" aria-selected="true"><span class="n">Mono Red Madness</span><span class="s">14,1%</span></button>
+    <button role="tab" id="t-terror" aria-controls="p-terror" aria-selected="false"><span class="n">Blue Terror</span><span class="s">11,5%</span></button>
+    <button role="tab" id="t-mirror" aria-controls="p-mirror" aria-selected="false"><span class="n">Espelho Tron</span><span class="s">9,6%</span></button>
+    <button role="tab" id="t-affinity" aria-controls="p-affinity" aria-selected="false"><span class="n">Grixis Affinity</span><span class="s">6,3%</span></button>
+    <button role="tab" id="t-wildfire" aria-controls="p-wildfire" aria-selected="false"><span class="n">Jund Wildfire</span><span class="s">5,4%</span></button>
+    <button role="tab" id="t-rest" aria-controls="p-rest" aria-selected="false"><span class="n">Os outros sete</span><span class="s">a escrever</span></button>
+  </div>
+
+  <!-- MONO RED -->
+  <div class="panel" role="tabpanel" id="p-red" aria-labelledby="t-red">
+    <div class="panel-top">
+      <h3>Mono Red Madness</h3>
+      <div class="chips"><span class="chip">14,1% do meta</span><span class="chip good">Favorável se passar do T5</span><span class="chip">18 Mountain · zero remoção</span></div>
+    </div>
+    <div class="block">
+      <h4>Como a partida se decide</h4>
+      <p>Eles não te matam com criaturas — te matam com números. Dezoito Mountain e nenhuma remoção: Bramble Wurm 7/6 e Boulderbranch 6/5 são intocáveis. O que eles têm é alcance — 4 Lightning Bolt, 4 Fiery Temper, 3 Fireblast, 4 Lava Dart — mais um ponto de dano por feitiço vindo de <span class="card">Kessig Flamebreather</span> e dois de <span class="card">Guttersnipe</span>.</p>
+      <p>Seu relógio aqui não é dano, é vida. Quatro Bramble Wurm valem até 40 pontos — 5 no ETB e mais 5 exilando do cemitério por <span class="cost">{2}{G}</span>. A pergunta é uma só: <strong>você chega vivo ao turno em que o Tron liga?</strong></p>
+      <div class="callout"><span class="lbl">Janela crítica</span><p>Turnos 3 a 5. Antes disso eles não te matam; depois disso você não morre mais.</p></div>
+    </div>
+    <div class="block">
+      <h4>Mulligan</h4>
+      <ul class="clean">
+        <li><strong>A melhor mão de turno 3</strong> é <span class="card">Boulderbranch Golem</span> em prototype: <span class="cost">{3}{G}</span> por um 3/3 que ganha 3. Trava Sneaky Snacker e Guttersnipe.</li>
+        <li><strong>Generous Ent conta como fonte de verde</strong> — forestcycling por <span class="cost">{1}</span> acha Forest.</li>
+        <li><strong>Descarta</strong> mãos onde a carta mais barata custa 5 ou mais.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h4>Cartas deles a respeitar</h4>
+      <ul class="clean">
+        <li><span class="card">Kessig Flamebreather</span> — o motor real. Eles castam quinze feitiços baratos por partida.</li>
+        <li><span class="card">Fireblast</span> — 4 de dano de graça. <strong>Sempre conte 4 a mais</strong> do que a mesa mostra.</li>
+        <li><span class="card">Smash to Smithereens</span> <span class="cost">pós-side</span> — destrói seu artefato <em>e</em> te dá 3. Você tem 18 artefatos. Eles trazem 3 cópias.</li>
+        <li><span class="card">Fiery Temper</span> pelo madness do <span class="card">Grab the Prize</span> resolve <strong>antes</strong> do Grab the Prize, porque o descarte é custo adicional. São 3 + 2 = <strong>5 de dano</strong> num único turno, e você vê tudo na mesma janela.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h4>Sideboard</h4>
+      <div class="swap">
+        <div class="swap-col swap-in"><h5>Entra · 10</h5><ul>
+          <li><span class="q">+3</span><span>Hydroblast<span class="why">Um mana, instantâneo: anula Bolt, Fiery Temper ou Fireblast — ou mata Flamebreather, Guttersnipe, Snacker, Epicure. Nenhuma carta do seu side faz mais nessa partida.</span></span></li>
+          <li><span class="q">+4</span><span>Breath Weapon<span class="why">Mata as quatro criaturas deles de uma vez. Todas morrem a 2.</span></span></li>
+          <li><span class="q">+3</span><span>Relic of Progenitus<span class="why">Sneaky Snacker volta do cemitério e Lava Dart tem flashback.</span></span></li>
+        </ul></div>
+        <div class="swap-col swap-out"><h5>Sai · 10</h5><ul>
+          <li><span class="q">−2</span><span>Maelstrom Colossus<span class="why">Oito manas contra o deck mais rápido do formato.</span></span></li>
+          <li><span class="q">−2</span><span>Pinnacle Kill-Ship<span class="why">Sete manas para matar um 1/1. Ficam dois como finalizador.</span></span></li>
+          <li><span class="q">−3</span><span>Crop Rotation<span class="why">Eles não têm destruição de terreno. Montar mais rápido não te salva do alcance.</span></span></li>
+          <li><span class="q">−2</span><span>Unfathomable Truths<span class="why">Cinco manas para comprar três enquanto você morre.</span></span></li>
+          <li><span class="q">−1</span><span>Kaervek's Torch<span class="why">Depende de vermelho e de mana sobrando — nenhum dos dois existe na janela crítica.</span></span></li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="block">
+      <h4>Erros comuns</h4>
+      <ul class="clean">
+        <li>Tapar tudo no seu turno e morrer para Fireblast.</li>
+        <li>Cortar ganho de vida para entrar com mais remoção. As criaturas não te matam.</li>
+        <li>Usar Kill-Ship como remoção na janela crítica em vez de guardá-lo como finalizador.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BLUE TERROR -->
+  <div class="panel" role="tabpanel" id="p-terror" aria-labelledby="t-terror" hidden>
+    <div class="panel-top">
+      <h3>Blue Terror</h3>
+      <div class="chips"><span class="chip">11,5% do meta</span><span class="chip hard">Desfavorável · 47,8%</span><span class="chip">16 Island · zero remoção</span></div>
+    </div>
+    <div class="block">
+      <h4>Como a partida se decide</h4>
+      <p>Eles são 16 Island, quatro <span class="card">Tolarian Terror</span> 5/5 com <strong>ward 2</strong>, quatro <span class="card">Cryptic Serpent</span> 6/5, e entre 4 e 9 contra-mágicas. <strong>Zero remoção.</strong> Uma vez que sua ameaça resolve, a maioria das listas não consegue matá-la — só devolver ou enterrar com Deem Inferior, e você recompra.</p>
+      <p>O relógio deles é turno 3 para a primeira ameaça, morte no turno 5 ou 6. O seu Tron liga no turno 4 ou 5. É <em>apertado</em>, e é por isso que essa partida é 47,8%.</p>
+      <div class="callout">
+        <span class="lbl">A carta que vira a chave, e não é óbvio</span>
+        <p><strong>Relic of Progenitus contra Blue Terror não é ódio de cemitério — é contra-mágica.</strong> Tolarian Terror custa <span class="cost">{6}{U}</span> menos 1 para cada instantâneo ou feitiço no cemitério deles. Cryptic Serpent, <span class="cost">{5}{U}{U}</span> na mesma conta. Exilar o cemitério com o Relic devolve o Terror para sete manas num deck de 16 terrenos.</p>
+        <p>Segure o Relic em jogo pingando um por turno e sacrifique <em>no turno em que eles forem castar</em>. Sacrificar cedo desperdiça a carta.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h4>Cartas deles a respeitar</h4>
+      <ul class="clean">
+        <li><span class="card">Tolarian Terror</span> — <strong>ward 2 vale para habilidades também.</strong> Seu Barrels mata um Terror, mas custa <span class="cost">{5}</span> + <span class="cost">{2}</span> de ward. Seu Kill-Ship mata, por <span class="cost">{7}</span> + <span class="cost">{2}</span>. Conte os dois manas extras <em>antes</em> de decidir que tem mana.</li>
+        <li><span class="card">Sleep of the Dead</span> — <span class="cost">{U}</span>, escape <span class="cost">{2}{U}</span>. Tapa seu bloqueador e ele não desvira. Volta do cemitério. Vale dois turnos.</li>
+        <li><span class="card">Annul</span> e <span class="card">Steel Sabotage</span> <span class="cost">pós-side</span> — eles trazem 5 cartas e todas miram seus artefatos. O plano declarado deles: <em>+3 Annul, +2 Steel Sabotage, −3 Dispel, −2 Deem Inferior.</em> Não gaste um Expedition Map no turno 2 com um Island aberto se puder esperar.</li>
+      </ul>
+      <div class="callout">
+        <span class="lbl">Regra que vale a partida</span>
+        <p><strong>O cascade do Maelstrom Colossus resolve mesmo se o Colossus for anulado.</strong> O gatilho dispara ao <em>conjurar</em>, é objeto independente na pilha e resolve antes dele. Contra contra-mágica, o Colossus nunca é uma carta totalmente perdida — e é por isso que ele fica na lista aqui.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h4>Sideboard</h4>
+      <div class="swap">
+        <div class="swap-col swap-in"><h5>Entra · 5</h5><ul>
+          <li><span class="q">+3</span><span>Relic of Progenitus<span class="why">Imposto sobre as duas ameaças deles, pelo motivo acima.</span></span></li>
+          <li><span class="q">+2</span><span>Scour from Existence<span class="why">Incolor, instantâneo, exila. A única resposta limpa a um Terror resolvido — {7} + {2} de ward, o que o Tron paga.</span></span></li>
+        </ul></div>
+        <div class="swap-col swap-out"><h5>Sai · 5</h5><ul>
+          <li><span class="q">−3</span><span>Crop Rotation<span class="why">Eles não atacam sua mana. Montar mais rápido não resolve ward 2.</span></span></li>
+          <li><span class="q">−2</span><span>Boulderbranch Golem<span class="why">O modo prototype 3/3 não bloqueia um 5/5 e não ganha vida relevante. Fica um para o modo 6/5.</span></span></li>
+        </ul></div>
+      </div>
+      <div class="callout warn">
+        <span class="lbl">Decisão em aberto</span>
+        <p>Hydroblast e Breath Weapon são <strong>cartas mortas</strong> aqui — eles são mono-azul e as ameaças têm resistência bem acima de 2. Isso significa que sete dos seus quinze slots de side não fazem nada contra 11,5% do meta.</p>
+        <p><span class="card">Pyroblast</span> seria a resposta (<span class="cost">{R}</span>, anula ou mata qualquer coisa azul — inclusive o Counterspell deles), mas só 5 das 33 listas jogam anti-azul, e o campeão do Challenge cortou o anti-azul inteiro. <strong>Vale gastar 2 slots dos seus 15 num Pyroblast?</strong> É a pergunta mais cara do seu sideboard.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESPELHO -->
+  <div class="panel" role="tabpanel" id="p-mirror" aria-labelledby="t-mirror" hidden>
+    <div class="panel-top">
+      <h3>Espelho Tron</h3>
+      <div class="chips"><span class="chip">9,6% do meta</span><span class="chip">Sem dado de winrate</span><span class="chip hard">Nenhum guia existe</span></div>
+    </div>
+    <div class="block">
+      <h4>Aviso de honestidade</h4>
+      <p>Procurei artigo, primer, fórum e vídeo sobre como jogar o espelho de Monster Tron. <strong>Não existe.</strong> Nenhuma fonte discute sequenciamento de terreno, quando usar o Expedition Map ou se vale segurar o Crop Rotation no espelho. E o mymtgo exclui explicitamente o espelho da análise de matchup — não há winrate publicado.</p>
+      <p>O que está escrito abaixo é raciocínio a partir das regras e das listas, não citação. Trate como hipótese a testar, não como consenso.</p>
+    </div>
+    <div class="block">
+      <h4>O que decide a partida</h4>
+      <p><strong>As dez listas de Tron que baixei de 10 a 12 de setembro jogam quatro Giant's Boulder. Todas. Sem exceção, em quatro builds diferentes.</strong> Isso quer dizer que o oponente do espelho tem até <em>quatro</em> efeitos de "destrua o permanente alvo" por <span class="cost">{7}</span> — e com Tron ligado isso é troco.</p>
+      <ul class="clean">
+        <li><strong>Não concentre.</strong> Se a partida depende de um permanente seu, ela depende de um Boulder deles. Redundância vence elegância.</li>
+        <li><strong>Use o Expedition Map cedo.</strong> Num espelho onde o oponente tem quatro Vindicates de sete manas, um Map guardado é uma carta que não fez nada. Monte primeiro.</li>
+        <li><strong>Crop Rotation muda de função.</strong> Deixa de ser velocidade e vira resposta: com Tron montado, flutue os 7 <em>antes</em> de sacrificar e busque uma peça de reposição depois que o Boulder deles resolver.</li>
+        <li><strong>Bonder's Ornament é simétrico.</strong> <span class="cost">{4},{T}</span> faz cada jogador com um Ornament comprar. No espelho os dois compram — o que decide é quem tem mais mana para ativar mais vezes.</li>
+      </ul>
+      <div class="callout"><span class="lbl">Regra que ganha o espelho</span>
+        <p><strong>Habilidades de mana não podem ser respondidas.</strong> Se o Giant's Boulder deles estiver na pilha mirando um terreno seu de Urza, <em>tape os três e flutue os 7 em resposta</em>. Você perde a peça mas gasta a mana. Isso é a diferença entre perder um turno inteiro e não perder nada.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h4>Sideboard</h4>
+      <div class="swap">
+        <div class="swap-col swap-in"><h5>Entra · 4</h5><ul>
+          <li><span class="q">+2</span><span>Scour from Existence<span class="why">Instantâneo. Exila o Bonder's Ornament, o Kill-Ship stationado, ou a peça de Urza que completa o Tron deles — em resposta ao Crop Rotation.</span></span></li>
+          <li><span class="q">+2</span><span>Tangle<span class="why">Num espelho de 7/7, previne o ataque e ainda deixa a criatura deles tapada no próximo untap. Compra dois turnos por uma carta.</span></span></li>
+        </ul></div>
+        <div class="swap-col swap-out"><h5>Sai · 4</h5><ul>
+          <li><span class="q">−2</span><span>Rooftop Percher<span class="why">Ódio de cemitério é carta morta no espelho.</span></span></li>
+          <li><span class="q">−2</span><span>Generous Ent<span class="why">Alcance não importa e 5/7 é pequeno num espelho de 7/7. O forestcycling não compensa o slot.</span></span></li>
+        </ul></div>
+      </div>
+      <p style="color:var(--muted);font-size:.9rem">O postboard recomenda +2 Vandalize aqui. <strong>Nenhuma das dez listas de setembro joga Vandalize.</strong> A remoção de terreno que o campo realmente joga é Earth Rift (2 listas) e o próprio Giant's Boulder do main.</p>
+    </div>
+  </div>
+
+  <!-- GRIXIS AFFINITY -->
+  <div class="panel" role="tabpanel" id="p-affinity" aria-labelledby="t-affinity" hidden>
+    <div class="panel-top">
+      <h3>Grixis Affinity</h3>
+      <div class="chips"><span class="chip">6,3% do meta</span><span class="chip good">Seu melhor matchup · 61,2%</span><span class="chip">Mata no turno 4</span></div>
+    </div>
+    <div class="block">
+      <h4>Como a partida se decide</h4>
+      <p>Corrida pura, e você ganha se sobreviver. Eles apresentam ameaça no <strong>turno 2</strong> — <span class="card">Refurbished Familiar</span> (2/1 voador que te faz descartar) e <span class="card">Myr Enforcer</span> (4/4 por zero ou um mana, com affinity). Matam no turno 4, às vezes no 3, e ainda têm 4 Galvanic Blast fazendo 4 de dano com metalcraft.</p>
+      <p>Mas depois que você estabiliza, eles não têm resposta para um 7/7. Tron ganha 61,2% dessa partida — <strong>é o melhor matchup do formato para você</strong>.</p>
+      <div class="callout"><span class="lbl">A melhor notícia do seu sideboard</span>
+        <p>O guia deles contra Tron traz <strong>zero cartas</strong>. A posição declarada é que Grixis Affinity <em>não sideboarda contra Tron</em> — Pyroblast é morto, Hydroblast é estreito, e diluir o plano proativo não compensa. <strong>Os jogos 2 e 3 são idênticos ao jogo 1 para eles, e melhores para você.</strong></p>
+        <p>Ressalva honesta: isso é a posição editorial do postboard, não dado de torneio. Listas reais carregam Shenanigans, Cast into the Fire e Envelop — um piloto bom traz alguma coisa.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h4>Cartas deles a respeitar</h4>
+      <ul class="clean">
+        <li><span class="card">Myr Enforcer</span> — 4/4 por zero mana no turno 2 ou 3. <strong>Sobrevive ao Breath Weapon.</strong> É o que te mata antes do Tron ligar.</li>
+        <li><span class="card">Utrom Monitor</span> — 3/3 voador com affinity. Passa por cima de toda a sua defesa terrestre. Depois que você estabiliza, é ele que ganha a partida. Rooftop Percher e Generous Ent existem por causa dele.</li>
+        <li><span class="card">Toxin Analysis</span> — <span class="cost">{B}</span>, dá toque mortífero e vínculo com a vida. Cuidado ao bloquear um Myr Enforcer achando que seu 7/7 está seguro.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h4>Sideboard</h4>
+      <div class="swap">
+        <div class="swap-col swap-in"><h5>Entra · 8</h5><ul>
+          <li><span class="q">+4</span><span>Breath Weapon<span class="why">Mata Refurbished Familiar 2/1, Krark-Clan Shaman 1/1 e os tokens de Black Mage's Rod. Não mata Enforcer nem Monitor.</span></span></li>
+          <li><span class="q">+3</span><span>Relic of Progenitus<span class="why">Quebra a recursão de Blood Fountain. Mais fraco do que parece: eles já têm 2 Nihil Spellbomb e exilam o próprio cemitério.</span></span></li>
+          <li><span class="q">+1</span><span>Hydroblast<span class="why">Galvanic Blast, Krark-Clan Shaman e Makeshift Munitions são vermelhos.</span></span></li>
+        </ul></div>
+        <div class="swap-col swap-out"><h5>Sai · 8</h5><ul>
+          <li><span class="q">−3</span><span>Crop Rotation<span class="why">Numa corrida contra um relógio de turno 4, montar mais rápido não é o gargalo — sobreviver é.</span></span></li>
+          <li><span class="q">−2</span><span>Unfathomable Truths<span class="why">Cinco manas comprando três enquanto eles atacam por 10.</span></span></li>
+          <li><span class="q">−2</span><span>Maelstrom Colossus<span class="why">Oito manas contra um relógio de turno 4.</span></span></li>
+          <li><span class="q">−1</span><span>Kaervek's Torch<span class="why">Lento demais para a janela que importa.</span></span></li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JUND WILDFIRE -->
+  <div class="panel" role="tabpanel" id="p-wildfire" aria-labelledby="t-wildfire" hidden>
+    <div class="panel-top">
+      <h3>Jund Wildfire</h3>
+      <div class="chips"><span class="chip">5,4% do meta</span><span class="chip hard">Ataca sua mana</span><span class="chip">4 Cleansing Wildfire no main</span></div>
+    </div>
+    <div class="block">
+      <h4>Como a partida se decide</h4>
+      <p>O nome do deck é uma carta, e essa carta é contra você. <span class="card">Cleansing Wildfire</span> — <span class="cost">{1}{R}</span>, destrua o terreno alvo, o controlador pode buscar um <em>básico</em> e põe <em>tapado</em>, compre um card. <strong>Quatro cópias, maindeck, em 100% das listas.</strong></p>
+      <p>Suas peças de Urza são não-básicas. Cada Wildfire te leva de 7 manas para 2 e ainda se repõe. Mas — e isso importa — <strong>não é um deck de destruição de terreno.</strong> Eles apontam o Wildfire para o próprio Twisted Landscape na maioria das partidas, para fixar mana e comprar. Contra você ele só acontece de também ser um Stone Rain que cicla. São quatro cartas, não uma estratégia.</p>
+      <p>O resto do deck é um motor de sacrifício e valor: Ichor Wellspring, Fanatical Offering, Eviscerator's Insight, Lembas. Eles te enterram em cards se a partida durar.</p>
+      <div class="callout"><span class="lbl">A jogada que ganha a partida</span>
+        <p><strong>Hydroblast anula Cleansing Wildfire.</strong> Um mana, instantâneo, contra a única carta do deck que ataca sua mana. E os mesmos Hydroblasts ainda matam <span class="card">Writhing Chrysalis</span> (vermelho-verde) e <span class="card">Krark-Clan Shaman</span>.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h4>Cartas deles a respeitar</h4>
+      <ul class="clean">
+        <li><span class="card">Cleansing Wildfire</span> — quatro cópias, dois manas, nunca é carta morta porque eles podem mirar o próprio terreno.</li>
+        <li><span class="card">Troublemaker Ouphe</span> <span class="cost">pós-side</span> — <span class="cost">{1}{G}</span> 2/2 com bargain: <strong>exila um artefato seu</strong>. Expedition Map, Bonder's Ornament, Barrels ou Giant's Boulder. Eles têm artefato de sobra para bargain no turno 2. Trazem 2 ou 3.</li>
+        <li><span class="card">Duress</span> <span class="cost">pós-side</span> — 3 cópias, tira Ancient Stirrings ou Expedition Map antes de importar.</li>
+        <li><span class="card">Krark-Clan Shaman</span> é irrelevante contra você: 1 de dano em criaturas sem voar não faz nada num 7/6.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h4>Sideboard</h4>
+      <div class="swap">
+        <div class="swap-col swap-in"><h5>Entra · 6</h5><ul>
+          <li><span class="q">+3</span><span>Hydroblast<span class="why">Anula Cleansing Wildfire. Mata Writhing Chrysalis e Krark-Clan Shaman. Melhor carta do side nessa partida.</span></span></li>
+          <li><span class="q">+3</span><span>Relic of Progenitus<span class="why">O deck inteiro é sacrifício e recompra — Eviscerator's Insight tem flashback e Lembas volta do cemitério sozinha.</span></span></li>
+        </ul></div>
+        <div class="swap-col swap-out"><h5>Sai · 6</h5><ul>
+          <li><span class="q">−2</span><span>Rooftop Percher<span class="why">Cinco manas por um 3/3 contra um deck com Cast Down.</span></span></li>
+          <li><span class="q">−2</span><span>Unfathomable Truths<span class="why">Eles ganham a guerra de cards de qualquer jeito. Não tente.</span></span></li>
+          <li><span class="q">−2</span><span>Pinnacle Kill-Ship<span class="why">Ficam dois. Sete manas por uma remoção é caro quando a mana está sob ataque.</span></span></li>
+        </ul></div>
+      </div>
+      <div class="callout warn"><span class="lbl">A lacuna assumida</span>
+        <p>Sem <span class="card">Call Damage Control</span>, não existe nenhuma forma de recomprar a peça de Urza que o Cleansing Wildfire destruiu. O plano aqui é <strong>anular antes</strong>, com os três Hydroblast — e se eles resolverem, reconstruir com Expedition Map e Crop Rotation. Vale anotar quantas vezes essa partida se perde por isso.</p>
+      </div>
+      <div class="callout"><span class="lbl">Sequenciamento sob destruição de terreno</span>
+        <p>Com um Cleansing Wildfire na pilha mirando sua peça de Urza, <strong>tape os três e flutue os 7 antes que resolva</strong> — habilidades de mana não podem ser respondidas. E ao castar Crop Rotation, flutue a mana <em>antes</em> de sacrificar o terreno: a regra 601.2g manda ativar habilidades de mana antes de pagar custos, então você fica com os 7 e ainda troca a peça.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" role="tabpanel" id="p-rest" aria-labelledby="t-rest" hidden>
+    <div class="stub">
+      <p class="todo">A escrever</p>
+      <h3>Os outros sete</h3>
+      <p>Elves 4,8% · Spy Combo 4,2% · <strong>Gruul Ponza 3,9%</strong> · Mono Red Rally 3,9% · Mono-Blue Faeries 3,9% · Jeskai Ephemerate 3,7% · White Aggro 2,5%.</p>
+      <p><strong>Gruul Ponza é o mais urgente dos sete, e de longe.</strong> Tron ganha 31% dessa partida — 5 vitórias em 33. É o pior matchup do formato e é estrutural: Mwonvuli Acid-Moss não mata um terreno, mata a descontinuidade. Levar você de três peças para duas é levar de 7 manas para 2.</p>
+      <p>Os 15 propostos não têm nada apontado para lá além dos 2 Call Damage Control. Se Ponza aparecer no seu circuito, essa é a próxima conversa.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">E</span><h2>A lista</h2></div>
+  <p class="sec-sub">Maindeck fechado em 60. Em verde, as mudanças propostas para o sideboard.</p>
+  <div class="deck">
+    <div class="deck-col"><h5>Terrenos · 17</h5><ul>
+      <li><span class="q">4</span>Urza's Mine</li><li><span class="q">4</span>Urza's Power Plant</li><li><span class="q">4</span>Urza's Tower</li>
+      <li><span class="q">2</span>Forest</li><li><span class="q">2</span>Hidden Grotto</li><li><span class="q">1</span>Bojuka Bog</li></ul></div>
+    <div class="deck-col"><h5>Artefatos · 18</h5><ul>
+      <li><span class="q">4</span>Pinnacle Kill-Ship</li><li><span class="q">4</span>Giant's Boulder</li><li><span class="q">4</span>Expedition Map</li>
+      <li><span class="q">4</span>Barrels of Blasting Jelly</li><li><span class="q">2</span>Bonder's Ornament</li></ul></div>
+    <div class="deck-col"><h5>Criaturas · 15</h5><ul>
+      <li><span class="q">4</span>Bramble Wurm</li><li><span class="q">4</span>Maelstrom Colossus</li><li><span class="q">3</span>Boulderbranch Golem</li>
+      <li><span class="q">2</span>Generous Ent</li><li><span class="q">2</span>Rooftop Percher</li></ul></div>
+    <div class="deck-col"><h5>Feitiços · 10</h5><ul>
+      <li><span class="q">4</span>Ancient Stirrings</li><li><span class="q">3</span>Crop Rotation</li>
+      <li><span class="q">2</span>Unfathomable Truths</li><li><span class="q">1</span>Kaervek's Torch</li></ul></div>
+    <div class="deck-col"><h5>Sideboard · 15</h5><ul>
+      <li><span class="q">4</span>Breath Weapon</li>
+      <li><span class="q">3</span>Hydroblast</li>
+      <li><span class="q">3</span>Relic of Progenitus</li>
+      <li><span class="q">2</span>Scour from Existence</li>
+      <li><span class="q">2</span>Tangle</li>
+      <li><span class="q">1</span>Campfire</li></ul></div>
+  </div>
+</section>
+
+<footer>
+  Censo de sideboard e counts de lista a partir de 33 decklists individuais de liga 5-0 e Top 8 de Challenge do MTGO (28/08–12/09/2026), baixadas do <a href="https://www.mtggoldfish.com/metagame/pauper">MTGGoldfish</a> e conferidas contra o <a href="https://www.mtgo.com/decklists">registro oficial do MTGO</a>. Planos dos oponentes contra Tron via <a href="https://postboard.gg/archetype/pauper/tron">postboard.gg</a>. Winrates via <a href="https://mymtgo.com/metagame/pauper/tron">mymtgo</a>. Textos de carta e legalidade conferidos no Scryfall; regras citadas das Comprehensive Rules de agosto de 2026.
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  function select(tab){
+    tabs.forEach(function(t){
+      var on = t === tab;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  }
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){ select(t); t.scrollIntoView({block:'nearest', inline:'nearest'}); });
+    t.addEventListener('keydown', function(e){
+      var i = tabs.indexOf(t), n = null;
+      if(e.key === 'ArrowRight') n = tabs[(i+1) % tabs.length];
+      if(e.key === 'ArrowLeft')  n = tabs[(i-1+tabs.length) % tabs.length];
+      if(n){ e.preventDefault(); n.focus(); select(n); }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
