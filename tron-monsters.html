@@ -2,24 +2,12 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Primer de partidas e guia de side do deck de Pauper Monster Tron, calibrado contra 33 listas de 5-0 e Top 8 de Challenge do MTGO.">
-<meta name="color-scheme" content="light dark">
-<meta property="og:title" content="Primer Tron Monsters">
-<meta property="og:description" content="Primer de partidas e guia de side do deck de Pauper Monster Tron.">
-<meta property="og:type" content="article">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%97%BF%3C/text%3E%3C/svg%3E">
-<style>
-  *,*::before,*::after{box-sizing:border-box}
-  img{max-width:100%;height:auto}
-  [hidden]{display:none!important}
-</style>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Primer Tron Monsters</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
-</head>
-<body>
+
 <style>
 :root{
   --bg:#E9E8E1; --surface:#F6F5F0; --surface-2:#DFDED5;
@@ -170,125 +158,125 @@ footer a{color:var(--muted)}
 a{color:var(--brass);text-decoration-thickness:1px;text-underline-offset:2px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
+</head>
+<body>
 
 <div class="wrap">
 
 <header class="mast">
-  <p class="kicker">Pauper · Circuito Liga Magic · 13 de setembro de 2026</p>
+  <p class="kicker">Pauper · Circuito Liga Magic · atualizado em 16 de setembro de 2026 · v2</p>
   <h1>Tron Monsters</h1>
   <p class="dek">Primer de partidas e guia de side. Um dossiê por arquétipo: como a partida se decide, o que respeitar do outro lado, o que entra — e o porquê de cada troca. Calibrado contra 33 listas de 5-0 e Top 8 de Challenge do MTGO.</p>
   <div class="mast-meta">
-    <span>Lista: <a href="https://archidekt.com/decks/24308167/tron_monsters_pauper">Archidekt</a> · 60 + 15 fechado</span>
+    <span>Lista: <a href="https://archidekt.com/decks/24308167/tron_monsters_pauper">Archidekt</a> · 61 + 15</span>
     <span>Meta: MTGO, 30 dias</span>
-    <span>5 dos 12 matchups escritos</span>
+    <span>12 matchups · 7 em rascunho</span>
   </div>
   <div class="tron-rule"><i></i><i></i><i></i></div>
 </header>
 
 <section>
   <div class="sec-head"><span class="sec-num">A</span><h2>Estado da lista</h2></div>
-  <p class="sec-sub">O maindeck fechou. O sideboard é a discussão aberta.</p>
+  <p class="sec-sub">Versão de 16/09, segunda revisão. O side mudou de função: saiu o anti-vermelho, entrou proteção, recompra e ódio de artefato.</p>
   <div class="status-grid">
     <div class="status">
-      <span class="tag ok">Fechado</span>
-      <h4>60 cartas</h4>
-      <p>Candy Trail fora, Barrels em 4, Crop Rotation em 3, Unfathomable Truths em 2. Kaervek's Torch fica — <strong>10 das 33 listas jogam exatamente 1 cópia</strong>, e três delas fizeram Top 8.</p>
+      <span class="tag open">Conferir</span>
+      <h4>O main soma 61</h4>
+      <p>19 artefatos + 16 criaturas + 4 instantâneos + 17 terrenos + 5 feitiços. <strong>33 de 33 listas do campo jogam exatamente 60.</strong> Todos os in/out abaixo trocam o mesmo número de cartas, então valem com 60 ou 61.</p>
     </div>
     <div class="status">
       <span class="tag ok">Resolvido</span>
-      <h4>Os filtros são a base de mana</h4>
-      <p>4 Boulder + 4 Barrels + 2 Ornament + 2 Hidden Grotto = <strong>12 fontes de qualquer cor</strong>. Este deck não é verde-incolor; é um deck de 5 cores com 12 filtros. Splash de 1 mana é trivial.</p>
+      <h4>A lacuna de destruição de terreno fechou</h4>
+      <p><span class="card">Tamiyo's Safekeeping</span> tira o alvo do Cleansing Wildfire, do Acid-Moss e do Giant's Boulder. <span class="card">Call Damage Control</span> recompra a peça de Urza se resolverem. Jund Wildfire, Ponza e o espelho ganham cartas.</p>
     </div>
     <div class="status">
-      <span class="tag open">Trocar</span>
-      <h4>Três cartas do side não existem no campo</h4>
-      <p><span class="card">Monstrous Emergence</span>, <span class="card">Structural Distortion</span> e <span class="card">Gorilla Shaman</span> aparecem <strong>zero vezes</strong> nas 33 listas — nem main, nem side. Campfire aparece em 1.</p>
+      <span class="tag ok">Novo</span>
+      <h4>Vandalblast: o espelho e Affinity ganham uma bomba</h4>
+      <p><span class="card">Vandalblast</span> virou legal em Pauper em 07/09 pelo Zeta Set. <span class="cost">{R}</span> destrói um artefato do oponente; overload <span class="cost">{4}{R}</span> destrói <strong>todos os artefatos dele e nenhum seu</strong>. Contra Grixis Affinity e contra os 4 Boulder + Kill-Ship do espelho, é varredura unilateral. Custa vermelho: sai via Boulder, Barrels, Ornament ou Hidden Grotto.</p>
     </div>
     <div class="status">
-      <span class="tag open">Faltando</span>
-      <h4>Zero anti-vermelho</h4>
-      <p><strong>27 das 33 listas</strong> jogam 2-4 blasts anti-vermelhos, mediana 3. Contra Mono Red Madness — 14,1% do meta — é a melhor carta disponível, e você não tem nenhuma.</p>
+      <span class="tag open">Custo</span>
+      <h4>Zero anti-vermelho barato de novo</h4>
+      <p>Os 3 Hydroblast saíram. Contra Mono Red — 14,1% do meta, o deck mais jogado — sobra só Breath Weapon, que é carta de T4 e não para burn. <strong>27 das 33 listas</strong> jogam anti-vermelho. É a escolha mais fora do consenso da lista.</p>
     </div>
   </div>
 </section>
 
 <section>
   <div class="sec-head"><span class="sec-num">B</span><h2>O censo de sideboard</h2></div>
-  <p class="sec-sub">33 listas de Monster Tron que fizeram 5-0 em liga ou Top 8 em Challenge no MTGO, entre 28/08 e 12/09/2026. Mín/mediana/máx são <em>entre as listas que jogam a carta</em>.</p>
+  <p class="sec-sub">33 listas de Monster Tron que fizeram 5-0 em liga ou Top 8 em Challenge no MTGO, entre 28/08 e 12/09/2026. A coluna "Você" é a lista de 16/09.</p>
 
   <div class="tbl-scroll">
   <table class="data">
     <thead><tr><th>Carta</th><th>Listas</th><th>%</th><th>Mediana</th><th>Você</th><th>O que faz</th></tr></thead>
     <tbody>
       <tr><td class="card">Breath Weapon</td><td class="n">29</td><td class="n">88%</td><td class="n hi">4</td><td class="n hi">4</td><td>2 de dano em cada criatura não-Dragão</td></tr>
-      <tr><td class="card">Relic of Progenitus</td><td class="n">25</td><td class="n">76%</td><td class="n hi">3</td><td class="n lo">2</td><td>Ódio de cemitério incolor</td></tr>
+      <tr><td class="card">Relic of Progenitus</td><td class="n">25</td><td class="n">76%</td><td class="n hi">3</td><td class="n hi">3</td><td>Ódio de cemitério incolor</td></tr>
       <tr><td class="card">Hydroblast</td><td class="n">19</td><td class="n">58%</td><td class="n hi">3</td><td class="n lo">0</td><td><span class="cost">{U}</span> anula ou destrói qualquer coisa <strong>vermelha</strong></td></tr>
-      <tr><td class="card">Call Damage Control</td><td class="n">17</td><td class="n">52%</td><td class="n hi">2</td><td class="n lo">0</td><td><span class="cost">{1}{G}</span> devolve 2 cards do cemitério — inclusive <strong>terreno</strong></td></tr>
+      <tr><td class="card">Call Damage Control</td><td class="n">17</td><td class="n">52%</td><td class="n hi">2</td><td class="n hi">2</td><td><span class="cost">{1}{G}</span> devolve 2 cards do cemitério — inclusive <strong>terreno</strong></td></tr>
       <tr><td class="card">Blue Elemental Blast</td><td class="n">11</td><td class="n">33%</td><td class="n">4</td><td class="n">0</td><td>Irmão do Hydroblast, também anti-vermelho</td></tr>
-      <tr><td class="card">Scour from Existence</td><td class="n">10</td><td class="n">30%</td><td class="n">2</td><td class="n">0</td><td><span class="cost">{7}</span> exila qualquer permanente. Incolor</td></tr>
+      <tr><td class="card">Scour from Existence</td><td class="n">10</td><td class="n">30%</td><td class="n">2</td><td class="n">1 + 1 main</td><td><span class="cost">{7}</span> exila qualquer permanente. Incolor</td></tr>
       <tr><td class="card">Ancient Grudge</td><td class="n">9</td><td class="n">27%</td><td class="n">2</td><td class="n">0</td><td>Destrói artefato, com flashback <span class="cost">{G}</span></td></tr>
       <tr><td class="card">Faerie Macabre</td><td class="n">7</td><td class="n">21%</td><td class="n">3</td><td class="n">0</td><td>Ódio de cemitério <strong>de graça</strong>, descartando</td></tr>
       <tr><td class="card">Fiery Cannonade</td><td class="n">7</td><td class="n">21%</td><td class="n">3</td><td class="n">0</td><td>Breath Weapon nº 5 a 8</td></tr>
       <tr><td class="card">Coalition Honor Guard</td><td class="n">7</td><td class="n">21%</td><td class="n">2</td><td class="n">0</td><td>Redireciona o que o oponente mira</td></tr>
       <tr><td class="card">Tangle</td><td class="n">5</td><td class="n">15%</td><td class="n">2</td><td class="n">0</td><td>Neblina que ainda deixa os atacantes tapados</td></tr>
-      <tr><td class="card">Tamiyo's Safekeeping</td><td class="n">3</td><td class="n">9%</td><td class="n">2</td><td class="n">2</td><td>Protege um permanente seu</td></tr>
-      <tr class="dead"><td class="card">Moment's Peace</td><td class="n">1</td><td class="n">3%</td><td class="n">3</td><td class="n">2</td><td>Eu recomendei. O campo não joga.</td></tr>
+      <tr><td class="card">Tamiyo's Safekeeping</td><td class="n">3</td><td class="n">9%</td><td class="n">2</td><td class="n">2</td><td><span class="cost">{G}</span> hexproof e indestrutível até o fim do turno, ganha 2</td></tr>
+      <tr class="dead"><td class="card">Moment's Peace</td><td class="n">1</td><td class="n">3%</td><td class="n">3</td><td class="n">1</td><td>Neblina com flashback. Fora do consenso</td></tr>
       <tr class="dead"><td class="card">Campfire</td><td class="n">1</td><td class="n">3%</td><td class="n">4</td><td class="n">1</td><td>Ganha 2 por turno</td></tr>
-      <tr class="dead"><td class="card">Monstrous Emergence</td><td class="n">0</td><td class="n">0%</td><td class="n">—</td><td class="n">3</td><td>Zero cópias em 33 listas, main ou side</td></tr>
-      <tr class="dead"><td class="card">Structural Distortion</td><td class="n">0</td><td class="n">0%</td><td class="n">—</td><td class="n">1</td><td>Zero cópias em 33 listas, main ou side</td></tr>
+      <tr><td class="card">Vandalblast</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">1</td><td>Legal desde 07/09 — posterior à janela do censo. <span class="cost">{R}</span> ou overload <span class="cost">{4}{R}</span>: destrói artefatos que você não controla</td></tr>
     </tbody>
   </table>
   </div>
 
   <div class="callout">
     <span class="lbl">O que o censo revela sobre a estrutura</span>
-    <p><strong>33 de 33 listas jogam varredura. 33 de 33 jogam ódio de cemitério.</strong> Sete dos quinze slots não estão em disputa — só a escolha da carta está. Mais três slots de anti-vermelho em 27 das 33, e um de remoção coringa. <strong>Onze slots travados, quatro livres</strong> — e esses quatro são preenchidos por 27 cartas diferentes de cauda longa.</p>
-  </div>
-
-  <div class="callout warn">
-    <span class="lbl">Hydroblast é azul e mata vermelho — eu tinha lido ao contrário</span>
-    <p><span class="card">Hydroblast</span> custa <span class="cost">{U}</span> e diz "anule a mágica alvo se ela for vermelha; ou destrua o permanente alvo se ele for vermelho". É <strong>anti-vermelho</strong>, não anti-azul. O anti-azul é o Pyroblast, que só 5 das 33 listas jogam.</p>
-    <p>Ou seja: o segundo maior investimento de sideboard do campo inteiro aponta para <strong>Mono Red Madness</strong>. Um mana, instantâneo, anula um Lightning Bolt ou um Fiery Temper — ou mata um Kessig Flamebreather. Contra um deck cujo plano inteiro são mágicas vermelhas na sua cara, não existe carta melhor. E ainda é viva contra Jund Wildfire e Grixis Affinity.</p>
+    <p><strong>33 de 33 listas jogam varredura. 33 de 33 jogam ódio de cemitério.</strong> Mais três slots de anti-vermelho em 27 das 33. <strong>Onze slots travados, quatro livres.</strong> A lista de 16/09 cumpre os dois primeiros e troca o terceiro por proteção (Safekeeping) e recompra (Call Damage Control).</p>
   </div>
 </section>
 
 <section>
   <div class="sec-head"><span class="sec-num">C</span><h2>O side registrado</h2></div>
-  <p class="sec-sub">Fechado em 13/09/2026. Cobertura de cartas vivas em cada um dos cinco decks mais jogados.</p>
+  <p class="sec-sub">Atualizado em 16/09/2026. Cobertura de cartas vivas em cada um dos cinco decks mais jogados.</p>
 
   <div class="swap">
     <div class="swap-col swap-in">
       <h5>Os 15</h5>
       <ul>
-        <li><span class="q">4</span><span>Breath Weapon<span class="why">Mono Red, Grixis Affinity, Jund Wildfire. Carta de turno 4, não de turno 3 — planeje em cima disso.</span></span></li>
-        <li><span class="q">3</span><span>Hydroblast<span class="why">Viva em três dos cinco. Um mana, instantâneo.</span></span></li>
+        <li><span class="q">4</span><span>Breath Weapon<span class="why">Só Mono Red (sobe 3). Carta de turno 4, não de turno 3 — planeje em cima disso.</span></span></li>
         <li><span class="q">3</span><span>Relic of Progenitus<span class="why">Viva em quatro dos cinco. Contra Blue Terror não é ódio de cemitério — é imposto.</span></span></li>
-        <li><span class="q">2</span><span>Scour from Existence<span class="why">Incolor, o Stirrings acha. A única resposta limpa a um Tolarian Terror, e a carta do espelho.</span></span></li>
-        <li><span class="q">2</span><span>Tangle<span class="why">Previne o dano e os atacantes não desviram. Contra Blue Terror e Grixis Affinity é troca de dois por um em tempo.</span></span></li>
-        <li><span class="q">1</span><span>Campfire<span class="why">Uma lista em 33. Slot de teste.</span></span></li>
+        <li><span class="q">2</span><span>Tamiyo's Safekeeping<span class="why">Um verde, instantâneo. Tira o alvo de Cleansing Wildfire, Giant's Boulder, Smash to Smithereens e Deem Inferior.</span></span></li>
+        <li><span class="q">2</span><span>Call Damage Control<span class="why">Recompra a peça de Urza destruída. Fecha a lacuna que estava assumida.</span></span></li>
+        <li><span class="q">1</span><span>Moment's Peace<span class="why">Dois turnos de neblina (flashback) contra Blue Terror, Affinity e o espelho. Não para burn.</span></span></li>
+        <li><span class="q">1</span><span>Scour from Existence<span class="why">A 2ª cópia, junto da que está no main. Blue Terror e espelho.</span></span></li>
+        <li><span class="q">1</span><span>Vandalblast<span class="why">Legal desde 07/09. Overload <span class="cost">{4}{R}</span> é varredura unilateral de artefatos — Affinity, espelho e Jund.</span></span></li>
+        <li><span class="q">1</span><span>Campfire<span class="why">Uma lista em 33. Entra contra Mono Red e Jund Wildfire.</span></span></li>
       </ul>
     </div>
     <div class="swap-col swap-out">
       <h5>Cartas vivas por matchup</h5>
       <ul>
-        <li><span class="q">10</span><span>Mono Red Madness<span class="why">4 Breath Weapon + 3 Hydroblast + 3 Relic</span></span></li>
-        <li><span class="q">7</span><span>Blue Terror<span class="why">3 Relic + 2 Scour + 2 Tangle. Breath Weapon e Hydroblast são mortos aqui.</span></span></li>
-        <li><span class="q">9</span><span>Grixis Affinity<span class="why">4 Breath Weapon + 3 Relic + 2 Tangle</span></span></li>
-        <li><span class="q">6</span><span>Jund Wildfire<span class="why">3 Hydroblast + 3 Relic. Sem Call Damage Control, não há como recomprar a peça de Urza destruída — é a lacuna assumida.</span></span></li>
-        <li><span class="q">4</span><span>Espelho Tron<span class="why">2 Scour + 2 Tangle, mais os 4 Giant's Boulder do main. O mais fino dos cinco.</span></span></li>
+        <li><span class="q">9</span><span>Mono Red Madness<span class="why">3 Breath Weapon + 3 Relic + 2 Safekeeping + 1 Campfire.</span></span></li>
+        <li><span class="q">7</span><span>Blue Terror<span class="why">3 Relic + 2 Safekeeping + 1 Moment's Peace + 1 Scour. Breath Weapon, Vandalblast e Campfire são mortos.</span></span></li>
+        <li><span class="q">5</span><span>Grixis Affinity<span class="why">2 Relic + 1 Vandalblast + 1 Scour + 1 Moment's Peace. Breath Weapon fica de fora: as ameaças que importam sobrevivem a 2.</span></span></li>
+        <li><span class="q">6</span><span>Jund Wildfire<span class="why">2 Safekeeping + 2 Call Damage Control + 1 Vandalblast + 1 Campfire.</span></span></li>
+        <li><span class="q">—</span><span>Rascunhos<span class="why">Elves 6 · Spy Combo 3 · Gruul Ponza 7 · Mono Red Rally 7 · Faeries 7 · Jeskai Ephemerate 5 · White Aggro 8</span></span></li>
+        <li><span class="q">7</span><span>Espelho Tron<span class="why">2 Safekeeping + 2 Call Damage Control + 1 Vandalblast + 1 Scour + 1 Moment's Peace.</span></span></li>
       </ul>
     </div>
   </div>
 
   <div class="callout">
-    <span class="lbl">Por que nada de Ancient Grudge</span>
-    <p>Você já tem <strong>4 Giant's Boulder no maindeck</strong>, e <span class="cost">{7},{T}</span>, sacrifique: destrua o permanente alvo. Com Tron ligado isso é um mana a mais depois de tudo. Sua remoção de artefato e de terreno está no main — o side não precisa repetir.</p>
+    <span class="lbl">Mudanças de 15/09 → 16/09 (duas revisões)</span>
+    <p><strong>Main:</strong> −2 Unfathomable Truths · +1 Boulderbranch Golem (3→4) · +1 Scour from Existence · +1 Bonder's Ornament (2→3).</p>
+    <p><strong>Side:</strong> −3 Hydroblast · −2 Tangle · −1 Scour from Existence · +2 Tamiyo's Safekeeping · +2 Call Damage Control · +1 Moment's Peace · +1 Vandalblast.</p>
+    <p style="color:var(--muted)">Na primeira revisão havia 1 Circle of Protection: Blue e 2 Moment's Peace; na segunda saiu o CoP e um Peace para entrar Vandalblast e o 2º Scour.</p>
   </div>
 </section>
 
 <section>
   <div class="sec-head"><span class="sec-num">D</span><h2>Os cinco matchups</h2></div>
-  <p class="sec-sub">Os cinco decks mais jogados do meta somam cerca de 47% do campo. Os in/out abaixo são propostas — cada um tem pelo menos uma decisão que vale discutir.</p>
+  <p class="sec-sub">Os doze decks mais jogados do meta. Os cinco primeiros foram revisados com o Cauê; os sete seguintes são rascunho, a revisar. Cada in/out troca o mesmo número de cartas.</p>
 
   <div class="nav" role="tablist" aria-label="Matchups">
     <button role="tab" id="t-red" aria-controls="p-red" aria-selected="true"><span class="n">Mono Red Madness</span><span class="s">14,1%</span></button>
@@ -296,7 +284,13 @@ a{color:var(--brass);text-decoration-thickness:1px;text-underline-offset:2px}
     <button role="tab" id="t-mirror" aria-controls="p-mirror" aria-selected="false"><span class="n">Espelho Tron</span><span class="s">9,6%</span></button>
     <button role="tab" id="t-affinity" aria-controls="p-affinity" aria-selected="false"><span class="n">Grixis Affinity</span><span class="s">6,3%</span></button>
     <button role="tab" id="t-wildfire" aria-controls="p-wildfire" aria-selected="false"><span class="n">Jund Wildfire</span><span class="s">5,4%</span></button>
-    <button role="tab" id="t-rest" aria-controls="p-rest" aria-selected="false"><span class="n">Os outros sete</span><span class="s">a escrever</span></button>
+    <button role="tab" id="t-elves" aria-controls="p-elves" aria-selected="false"><span class="n">Elves</span><span class="s">4,8% · rascunho</span></button>
+    <button role="tab" id="t-spy" aria-controls="p-spy" aria-selected="false"><span class="n">Spy Combo</span><span class="s">4,2% · rascunho</span></button>
+    <button role="tab" id="t-ponza" aria-controls="p-ponza" aria-selected="false"><span class="n">Gruul Ponza</span><span class="s">3,9% · rascunho</span></button>
+    <button role="tab" id="t-rally" aria-controls="p-rally" aria-selected="false"><span class="n">Mono Red Rally</span><span class="s">3,9% · rascunho</span></button>
+    <button role="tab" id="t-faeries" aria-controls="p-faeries" aria-selected="false"><span class="n">Mono-Blue Faeries</span><span class="s">3,9% · rascunho</span></button>
+    <button role="tab" id="t-jeskai" aria-controls="p-jeskai" aria-selected="false"><span class="n">Jeskai Ephemerate</span><span class="s">3,7% · rascunho</span></button>
+    <button role="tab" id="t-white" aria-controls="p-white" aria-selected="false"><span class="n">White Aggro</span><span class="s">2,5% · rascunho</span></button>
   </div>
 
   <!-- MONO RED -->
@@ -308,7 +302,7 @@ a{color:var(--brass);text-decoration-thickness:1px;text-underline-offset:2px}
     <div class="block">
       <h4>Como a partida se decide</h4>
       <p>Eles não te matam com criaturas — te matam com números. Dezoito Mountain e nenhuma remoção: Bramble Wurm 7/6 e Boulderbranch 6/5 são intocáveis. O que eles têm é alcance — 4 Lightning Bolt, 4 Fiery Temper, 3 Fireblast, 4 Lava Dart — mais um ponto de dano por feitiço vindo de <span class="card">Kessig Flamebreather</span> e dois de <span class="card">Guttersnipe</span>.</p>
-      <p>Seu relógio aqui não é dano, é vida. Quatro Bramble Wurm valem até 40 pontos — 5 no ETB e mais 5 exilando do cemitério por <span class="cost">{2}{G}</span>. A pergunta é uma só: <strong>você chega vivo ao turno em que o Tron liga?</strong></p>
+      <p>Seu relógio aqui não é dano, é vida. Quatro Bramble Wurm valem até 40 pontos, e o 4º Boulderbranch no main ajuda exatamente aqui. A pergunta é uma só: <strong>você chega vivo ao turno em que o Tron liga?</strong></p>
       <div class="callout"><span class="lbl">Janela crítica</span><p>Turnos 3 a 5. Antes disso eles não te matam; depois disso você não morre mais.</p></div>
     </div>
     <div class="block">
@@ -325,24 +319,35 @@ a{color:var(--brass);text-decoration-thickness:1px;text-underline-offset:2px}
         <li><span class="card">Kessig Flamebreather</span> — o motor real. Eles castam quinze feitiços baratos por partida.</li>
         <li><span class="card">Fireblast</span> — 4 de dano de graça. <strong>Sempre conte 4 a mais</strong> do que a mesa mostra.</li>
         <li><span class="card">Smash to Smithereens</span> <span class="cost">pós-side</span> — destrói seu artefato <em>e</em> te dá 3. Você tem 18 artefatos. Eles trazem 3 cópias.</li>
-        <li><span class="card">Fiery Temper</span> pelo madness do <span class="card">Grab the Prize</span> resolve <strong>antes</strong> do Grab the Prize, porque o descarte é custo adicional. São 3 + 2 = <strong>5 de dano</strong> num único turno, e você vê tudo na mesma janela.</li>
+        <li><span class="card">Fiery Temper</span> pelo madness do <span class="card">Grab the Prize</span> resolve <strong>antes</strong> do Grab the Prize. São 3 + 2 = <strong>5 de dano</strong> num único turno.</li>
       </ul>
     </div>
     <div class="block">
       <h4>Sideboard</h4>
       <div class="swap">
-        <div class="swap-col swap-in"><h5>Entra · 10</h5><ul>
-          <li><span class="q">+3</span><span>Hydroblast<span class="why">Um mana, instantâneo: anula Bolt, Fiery Temper ou Fireblast — ou mata Flamebreather, Guttersnipe, Snacker, Epicure. Nenhuma carta do seu side faz mais nessa partida.</span></span></li>
-          <li><span class="q">+4</span><span>Breath Weapon<span class="why">Mata as quatro criaturas deles de uma vez. Todas morrem a 2.</span></span></li>
+        <div class="swap-col swap-in"><h5>Entra · 9</h5><ul>
+          <li><span class="q">+3</span><span>Breath Weapon<span class="why">Mata as criaturas deles de uma vez — todas morrem a 2. Três bastam; a 4ª fica no side.</span></span></li>
           <li><span class="q">+3</span><span>Relic of Progenitus<span class="why">Sneaky Snacker volta do cemitério e Lava Dart tem flashback.</span></span></li>
+          <li><span class="q">+2</span><span>Tamiyo's Safekeeping<span class="why">Em resposta ao Smash to Smithereens: o alvo fica hexproof, o Smash não resolve e <strong>os 3 de dano também não acontecem</strong>. E ainda ganha 2.</span></span></li>
+          <li><span class="q">+1</span><span>Campfire<span class="why">Um mana, e depois <span class="cost">{1}</span> por 2 de vida todo turno. Com Tron ligado, a mana sobrando vira vida em vez de ficar parada.</span></span></li>
         </ul></div>
-        <div class="swap-col swap-out"><h5>Sai · 10</h5><ul>
+        <div class="swap-col swap-out"><h5>Sai · 9</h5><ul>
+          <li><span class="q">−3</span><span>Bonder's Ornament<span class="why">Compra não é o problema do matchup; vida é. Quatro manas por ativação é caro na janela crítica.</span></span></li>
+          <li><span class="q">−2</span><span>Pinnacle Kill-Ship<span class="why">Pesado demais como remoção quando os Breath Weapon já limpam a mesa. Ficam dois como finalizador.</span></span></li>
           <li><span class="q">−2</span><span>Maelstrom Colossus<span class="why">Oito manas contra o deck mais rápido do formato.</span></span></li>
-          <li><span class="q">−2</span><span>Pinnacle Kill-Ship<span class="why">Sete manas para matar um 1/1. Ficam dois como finalizador.</span></span></li>
-          <li><span class="q">−3</span><span>Crop Rotation<span class="why">Eles não têm destruição de terreno. Montar mais rápido não te salva do alcance.</span></span></li>
-          <li><span class="q">−2</span><span>Unfathomable Truths<span class="why">Cinco manas para comprar três enquanto você morre.</span></span></li>
+          <li><span class="q">−1</span><span>Scour from Existence<span class="why">Sete manas para exilar um 1/1.</span></span></li>
           <li><span class="q">−1</span><span>Kaervek's Torch<span class="why">Depende de vermelho e de mana sobrando — nenhum dos dois existe na janela crítica.</span></span></li>
         </ul></div>
+      </div>
+      <div class="callout">
+        <span class="lbl">Por que os 3 Crop Rotation ficam</span>
+        <p>O plano contra Mono Red é chegar vivo ao turno em que o Tron liga — e o Crop Rotation <strong>encurta esse caminho</strong>. Transforma qualquer terreno na peça que falta, em instantâneo, e antecipa o Bramble Wurm e o Boulderbranch em modo normal, que são o seu ganho de vida real. Mais rápido no Tron = mais cedo no fechamento.</p>
+      </div>
+      <div class="callout warn">
+        <span class="lbl">O que respeitar com esse plano</span>
+        <p><strong>Campfire é artefato</strong> — Smash to Smithereens destrói e ainda te dá 3, o que zera a primeira ativação. Com Safekeeping na mão, dá para proteger. Se o oponente mostrar Smash no jogo 2, vale reavaliar no jogo 3.</p>
+        <p><strong>Nada no side responde a burn</strong> desde a saída do Hydroblast. Moment's Peace não entra — previne só dano de combate. Vandalblast é morto: eles não jogam artefatos.</p>
+        <p>Anotar quantas partidas se perdem com o oponente fechando no burn.</p>
       </div>
     </div>
     <div class="block">
@@ -363,42 +368,51 @@ a{color:var(--brass);text-decoration-thickness:1px;text-underline-offset:2px}
     </div>
     <div class="block">
       <h4>Como a partida se decide</h4>
-      <p>Eles são 16 Island, quatro <span class="card">Tolarian Terror</span> 5/5 com <strong>ward 2</strong>, quatro <span class="card">Cryptic Serpent</span> 6/5, e entre 4 e 9 contra-mágicas. <strong>Zero remoção.</strong> Uma vez que sua ameaça resolve, a maioria das listas não consegue matá-la — só devolver ou enterrar com Deem Inferior, e você recompra.</p>
-      <p>O relógio deles é turno 3 para a primeira ameaça, morte no turno 5 ou 6. O seu Tron liga no turno 4 ou 5. É <em>apertado</em>, e é por isso que essa partida é 47,8%.</p>
+      <p>Eles são 16 Island, quatro <span class="card">Tolarian Terror</span> 5/5 com <strong>ward 2</strong>, quatro <span class="card">Cryptic Serpent</span> 6/5, e entre 4 e 9 contra-mágicas. <strong>Zero remoção.</strong> Uma vez que sua ameaça resolve, a maioria das listas só consegue devolver ou enterrar com Deem Inferior.</p>
+      <p>O relógio deles é turno 3 para a primeira ameaça, morte no turno 5 ou 6. O seu Tron liga no turno 4 ou 5. É <em>apertado</em>.</p>
       <div class="callout">
-        <span class="lbl">A carta que vira a chave, e não é óbvio</span>
-        <p><strong>Relic of Progenitus contra Blue Terror não é ódio de cemitério — é contra-mágica.</strong> Tolarian Terror custa <span class="cost">{6}{U}</span> menos 1 para cada instantâneo ou feitiço no cemitério deles. Cryptic Serpent, <span class="cost">{5}{U}{U}</span> na mesma conta. Exilar o cemitério com o Relic devolve o Terror para sete manas num deck de 16 terrenos.</p>
-        <p>Segure o Relic em jogo pingando um por turno e sacrifique <em>no turno em que eles forem castar</em>. Sacrificar cedo desperdiça a carta.</p>
+        <span class="lbl">Relic of Progenitus é contra-mágica</span>
+        <p>Tolarian Terror custa <span class="cost">{6}{U}</span> menos 1 para cada instantâneo ou feitiço no cemitério deles; Cryptic Serpent, <span class="cost">{5}{U}{U}</span> na mesma conta. Segure o Relic em jogo e sacrifique <em>no turno em que eles forem castar</em>. Rooftop Percher faz o mesmo em escala menor — por isso fica.</p>
       </div>
+    </div>
+    <div class="block">
+      <h4>As cartas novas do side</h4>
+      <ul class="clean">
+        <li><span class="card">Scour from Existence</span> — com a cópia do main, são duas respostas instantâneas e incolores a um Terror resolvido, por <span class="cost">{7}</span> + <span class="cost">{2}</span> de ward.</li>
+        <li><span class="card">Moment's Peace</span> — dois turnos de neblina, o segundo por flashback. Compra a distância entre a ameaça deles no T3 e o seu Tron no T5. Se a primeira for anulada, o flashback continua lá — <strong>mas Relic e Percher exilam o seu cemitério também</strong>.</li>
+        <li><span class="card">Tamiyo's Safekeeping</span> — a única forma deles lidarem com seu 7/7 é mirar: Deem Inferior, devolver para a mão. Hexproof de instantâneo por <span class="cost">{G}</span> responde.</li>
+      </ul>
     </div>
     <div class="block">
       <h4>Cartas deles a respeitar</h4>
       <ul class="clean">
-        <li><span class="card">Tolarian Terror</span> — <strong>ward 2 vale para habilidades também.</strong> Seu Barrels mata um Terror, mas custa <span class="cost">{5}</span> + <span class="cost">{2}</span> de ward. Seu Kill-Ship mata, por <span class="cost">{7}</span> + <span class="cost">{2}</span>. Conte os dois manas extras <em>antes</em> de decidir que tem mana.</li>
-        <li><span class="card">Sleep of the Dead</span> — <span class="cost">{U}</span>, escape <span class="cost">{2}{U}</span>. Tapa seu bloqueador e ele não desvira. Volta do cemitério. Vale dois turnos.</li>
-        <li><span class="card">Annul</span> e <span class="card">Steel Sabotage</span> <span class="cost">pós-side</span> — eles trazem 5 cartas e todas miram seus artefatos. O plano declarado deles: <em>+3 Annul, +2 Steel Sabotage, −3 Dispel, −2 Deem Inferior.</em> Não gaste um Expedition Map no turno 2 com um Island aberto se puder esperar.</li>
+        <li><span class="card">Tolarian Terror</span> — <strong>ward 2 vale para habilidades também.</strong> Barrels mata por <span class="cost">{5}</span> + <span class="cost">{2}</span>; Kill-Ship e Scour por <span class="cost">{7}</span> + <span class="cost">{2}</span>.</li>
+        <li><span class="card">Sleep of the Dead</span> — tapa seu bloqueador e ele não desvira. Volta do cemitério.</li>
+        <li><span class="card">Annul</span> e <span class="card">Steel Sabotage</span> <span class="cost">pós-side</span> — tudo mirando seus artefatos. Não gaste Expedition Map no T2 com Island aberto se puder esperar.</li>
       </ul>
       <div class="callout">
         <span class="lbl">Regra que vale a partida</span>
-        <p><strong>O cascade do Maelstrom Colossus resolve mesmo se o Colossus for anulado.</strong> O gatilho dispara ao <em>conjurar</em>, é objeto independente na pilha e resolve antes dele. Contra contra-mágica, o Colossus nunca é uma carta totalmente perdida — e é por isso que ele fica na lista aqui.</p>
+        <p><strong>O cascade do Maelstrom Colossus resolve mesmo se o Colossus for anulado.</strong> O gatilho dispara ao conjurar e resolve antes dele.</p>
       </div>
     </div>
     <div class="block">
       <h4>Sideboard</h4>
       <div class="swap">
-        <div class="swap-col swap-in"><h5>Entra · 5</h5><ul>
-          <li><span class="q">+3</span><span>Relic of Progenitus<span class="why">Imposto sobre as duas ameaças deles, pelo motivo acima.</span></span></li>
-          <li><span class="q">+2</span><span>Scour from Existence<span class="why">Incolor, instantâneo, exila. A única resposta limpa a um Terror resolvido — {7} + {2} de ward, o que o Tron paga.</span></span></li>
+        <div class="swap-col swap-in"><h5>Entra · 7</h5><ul>
+          <li><span class="q">+3</span><span>Relic of Progenitus<span class="why">Imposto sobre as duas ameaças deles.</span></span></li>
+          <li><span class="q">+2</span><span>Tamiyo's Safekeeping<span class="why">Protege a ameaça resolvida de Deem Inferior e bounce.</span></span></li>
+          <li><span class="q">+1</span><span>Moment's Peace<span class="why">Dois turnos por carta contra um deck que só mata em combate.</span></span></li>
+          <li><span class="q">+1</span><span>Scour from Existence<span class="why">Segunda resposta limpa ao Terror.</span></span></li>
         </ul></div>
-        <div class="swap-col swap-out"><h5>Sai · 5</h5><ul>
+        <div class="swap-col swap-out"><h5>Sai · 7</h5><ul>
           <li><span class="q">−3</span><span>Crop Rotation<span class="why">Eles não atacam sua mana. Montar mais rápido não resolve ward 2.</span></span></li>
-          <li><span class="q">−2</span><span>Boulderbranch Golem<span class="why">O modo prototype 3/3 não bloqueia um 5/5 e não ganha vida relevante. Fica um para o modo 6/5.</span></span></li>
+          <li><span class="q">−3</span><span>Boulderbranch Golem<span class="why">Ganho de vida irrelevante contra quem não tem alcance. Fica um.</span></span></li>
+          <li><span class="q">−1</span><span>Bonder's Ornament<span class="why">Ficam dois. Contra contra-mágica, a mana vai para passar ameaça.</span></span></li>
         </ul></div>
       </div>
       <div class="callout warn">
-        <span class="lbl">Decisão em aberto</span>
-        <p>Hydroblast e Breath Weapon são <strong>cartas mortas</strong> aqui — eles são mono-azul e as ameaças têm resistência bem acima de 2. Isso significa que sete dos seus quinze slots de side não fazem nada contra 11,5% do meta.</p>
-        <p><span class="card">Pyroblast</span> seria a resposta (<span class="cost">{R}</span>, anula ou mata qualquer coisa azul — inclusive o Counterspell deles), mas só 5 das 33 listas jogam anti-azul, e o campeão do Challenge cortou o anti-azul inteiro. <strong>Vale gastar 2 slots dos seus 15 num Pyroblast?</strong> É a pergunta mais cara do seu sideboard.</p>
+        <span class="lbl">Ainda mortas</span>
+        <p>Breath Weapon, Vandalblast e Campfire — <strong>6 dos 15 slots</strong> sem função aqui. A troca do CoP: Blue por Vandalblast custou um slot neste matchup (11,5% do meta) para ganhar no espelho e em Affinity. Call Damage Control é opção marginal: recompra a ameaça anulada.</p>
       </div>
     </div>
   </div>
@@ -411,35 +425,46 @@ a{color:var(--brass);text-decoration-thickness:1px;text-underline-offset:2px}
     </div>
     <div class="block">
       <h4>Aviso de honestidade</h4>
-      <p>Procurei artigo, primer, fórum e vídeo sobre como jogar o espelho de Monster Tron. <strong>Não existe.</strong> Nenhuma fonte discute sequenciamento de terreno, quando usar o Expedition Map ou se vale segurar o Crop Rotation no espelho. E o mymtgo exclui explicitamente o espelho da análise de matchup — não há winrate publicado.</p>
-      <p>O que está escrito abaixo é raciocínio a partir das regras e das listas, não citação. Trate como hipótese a testar, não como consenso.</p>
+      <p>Não existe artigo, primer ou fórum sobre o espelho de Monster Tron, e o mymtgo exclui o espelho da análise de matchup. O que está abaixo é raciocínio a partir das regras e das listas. Trate como hipótese a testar.</p>
     </div>
     <div class="block">
       <h4>O que decide a partida</h4>
-      <p><strong>As dez listas de Tron que baixei de 10 a 12 de setembro jogam quatro Giant's Boulder. Todas. Sem exceção, em quatro builds diferentes.</strong> Isso quer dizer que o oponente do espelho tem até <em>quatro</em> efeitos de "destrua o permanente alvo" por <span class="cost">{7}</span> — e com Tron ligado isso é troco.</p>
+      <p><strong>As dez listas de Tron de 10 a 12 de setembro jogam quatro Giant's Boulder. Todas.</strong> O oponente tem até quatro "destrua o permanente alvo" por <span class="cost">{7}</span>.</p>
       <ul class="clean">
-        <li><strong>Não concentre.</strong> Se a partida depende de um permanente seu, ela depende de um Boulder deles. Redundância vence elegância.</li>
-        <li><strong>Use o Expedition Map cedo.</strong> Num espelho onde o oponente tem quatro Vindicates de sete manas, um Map guardado é uma carta que não fez nada. Monte primeiro.</li>
-        <li><strong>Crop Rotation muda de função.</strong> Deixa de ser velocidade e vira resposta: com Tron montado, flutue os 7 <em>antes</em> de sacrificar e busque uma peça de reposição depois que o Boulder deles resolver.</li>
-        <li><strong>Bonder's Ornament é simétrico.</strong> <span class="cost">{4},{T}</span> faz cada jogador com um Ornament comprar. No espelho os dois compram — o que decide é quem tem mais mana para ativar mais vezes.</li>
+        <li><strong>Não concentre.</strong> Se a partida depende de um permanente seu, ela depende de um Boulder deles.</li>
+        <li><strong>Use o Expedition Map cedo.</strong> Um Map guardado é uma carta que não fez nada.</li>
+        <li><strong>Crop Rotation muda de função.</strong> Vira resposta: flutue os 7 antes de sacrificar e busque a reposição.</li>
+        <li><strong>Bonder's Ornament é simétrico.</strong> Decide quem tem mais mana para ativar mais vezes.</li>
       </ul>
+      <div class="callout"><span class="lbl">O side agora tem quatro cartas feitas para esse matchup</span>
+        <p><strong>Tamiyo's Safekeeping com o Boulder deles na pilha:</strong> o alvo fica hexproof, a habilidade não resolve — e eles já pagaram 7 e sacrificaram o artefato.</p>
+        <p><strong>Call Damage Control</strong> devolve a peça de Urza que o Boulder levou.</p>
+        <p><strong>Vandalblast com overload</strong> <span class="cost">{4}{R}</span>: destrói os Giant's Boulder, Barrels, Ornaments, Maps e Kill-Ships deles — e nenhum seu. Com Tron ligado, é a carta mais forte do espelho. Segure até eles terem investido na mesa.</p>
+      </div>
+      <div class="callout"><span class="lbl">Fontes de vermelho sem os Barrels</span>
+        <p>Vandalblast precisa de <span class="cost">{R}</span>, e o Torch também. Sem os Barrels, sobram <strong>9 fontes</strong>: 4 Giant's Boulder, 3 Bonder's Ornament e 2 Hidden Grotto. É suficiente, mas não use Boulder como remoção se ele for a sua única fonte de vermelho na mesa.</p>
+      </div>
       <div class="callout"><span class="lbl">Regra que ganha o espelho</span>
-        <p><strong>Habilidades de mana não podem ser respondidas.</strong> Se o Giant's Boulder deles estiver na pilha mirando um terreno seu de Urza, <em>tape os três e flutue os 7 em resposta</em>. Você perde a peça mas gasta a mana. Isso é a diferença entre perder um turno inteiro e não perder nada.</p>
+        <p><strong>Habilidades de mana não podem ser respondidas.</strong> Com o Boulder deles mirando um terreno de Urza e sem Safekeeping, <em>tape os três e flutue os 7 em resposta</em>.</p>
       </div>
     </div>
     <div class="block">
       <h4>Sideboard</h4>
       <div class="swap">
-        <div class="swap-col swap-in"><h5>Entra · 4</h5><ul>
-          <li><span class="q">+2</span><span>Scour from Existence<span class="why">Instantâneo. Exila o Bonder's Ornament, o Kill-Ship stationado, ou a peça de Urza que completa o Tron deles — em resposta ao Crop Rotation.</span></span></li>
-          <li><span class="q">+2</span><span>Tangle<span class="why">Num espelho de 7/7, previne o ataque e ainda deixa a criatura deles tapada no próximo untap. Compra dois turnos por uma carta.</span></span></li>
+        <div class="swap-col swap-in"><h5>Entra · 7</h5><ul>
+          <li><span class="q">+2</span><span>Tamiyo's Safekeeping<span class="why">Anula um Giant's Boulder por um verde.</span></span></li>
+          <li><span class="q">+2</span><span>Call Damage Control<span class="why">Recompra a peça de Urza ou a ameaça destruída.</span></span></li>
+          <li><span class="q">+1</span><span>Vandalblast<span class="why">Varredura unilateral de artefatos.</span></span></li>
+          <li><span class="q">+1</span><span>Scour from Existence<span class="why">Exila o Kill-Ship stationado ou a peça que completa o Tron deles.</span></span></li>
+          <li><span class="q">+1</span><span>Moment's Peace<span class="why">Num espelho de 7/7 e Kill-Ship voador, dois turnos de neblina (com flashback) compram o tempo para o Vandalblast ou a próxima ameaça.</span></span></li>
         </ul></div>
-        <div class="swap-col swap-out"><h5>Sai · 4</h5><ul>
-          <li><span class="q">−2</span><span>Rooftop Percher<span class="why">Ódio de cemitério é carta morta no espelho.</span></span></li>
-          <li><span class="q">−2</span><span>Generous Ent<span class="why">Alcance não importa e 5/7 é pequeno num espelho de 7/7. O forestcycling não compensa o slot.</span></span></li>
+        <div class="swap-col swap-out"><h5>Sai · 7</h5><ul>
+          <li><span class="q">−2</span><span>Rooftop Percher<span class="why">Ódio de cemitério é quase morto no espelho.</span></span></li>
+          <li><span class="q">−4</span><span>Barrels of Blasting Jelly<span class="why">5 de dano não mata Bramble Wurm nem Kill-Ship stationado.</span></span></li>
+          <li><span class="q">−1</span><span>Boulderbranch Golem<span class="why">Ficam três. O ganho de vida pesa menos num espelho que se decide por remoção.</span></span></li>
         </ul></div>
       </div>
-      <p style="color:var(--muted);font-size:.9rem">O postboard recomenda +2 Vandalize aqui. <strong>Nenhuma das dez listas de setembro joga Vandalize.</strong> A remoção de terreno que o campo realmente joga é Earth Rift (2 listas) e o próprio Giant's Boulder do main.</p>
+      
     </div>
   </div>
 
@@ -451,35 +476,41 @@ a{color:var(--brass);text-decoration-thickness:1px;text-underline-offset:2px}
     </div>
     <div class="block">
       <h4>Como a partida se decide</h4>
-      <p>Corrida pura, e você ganha se sobreviver. Eles apresentam ameaça no <strong>turno 2</strong> — <span class="card">Refurbished Familiar</span> (2/1 voador que te faz descartar) e <span class="card">Myr Enforcer</span> (4/4 por zero ou um mana, com affinity). Matam no turno 4, às vezes no 3, e ainda têm 4 Galvanic Blast fazendo 4 de dano com metalcraft.</p>
-      <p>Mas depois que você estabiliza, eles não têm resposta para um 7/7. Tron ganha 61,2% dessa partida — <strong>é o melhor matchup do formato para você</strong>.</p>
+      <p>Corrida pura, e você ganha se sobreviver. Ameaça no <strong>turno 2</strong> — <span class="card">Refurbished Familiar</span> e <span class="card">Myr Enforcer</span>. Matam no turno 4, às vezes no 3, com 4 Galvanic Blast fazendo 4 com metalcraft. Depois que você estabiliza, não têm resposta para um 7/7.</p>
+      <div class="callout"><span class="lbl">Vandalblast é a carta do matchup</span>
+        <p>Myr Enforcer, Refurbished Familiar, as terras-artefato e o motor de metalcraft: <strong>overload <span class="cost">{4}{R}</span> destrói tudo, e nada seu</strong>. Na versão de <span class="cost">{R}</span>, mata o Enforcer e desliga o metalcraft do Galvanic Blast.</p>
+        <p><strong>Moment's Peace</strong> compra dois turnos contra um deck de combate. Diferença do Mono Red: <strong>Galvanic Blast não é combate</strong>, então conte 4 por Blast mesmo com neblina.</p>
+      </div>
       <div class="callout"><span class="lbl">A melhor notícia do seu sideboard</span>
-        <p>O guia deles contra Tron traz <strong>zero cartas</strong>. A posição declarada é que Grixis Affinity <em>não sideboarda contra Tron</em> — Pyroblast é morto, Hydroblast é estreito, e diluir o plano proativo não compensa. <strong>Os jogos 2 e 3 são idênticos ao jogo 1 para eles, e melhores para você.</strong></p>
-        <p>Ressalva honesta: isso é a posição editorial do postboard, não dado de torneio. Listas reais carregam Shenanigans, Cast into the Fire e Envelop — um piloto bom traz alguma coisa.</p>
+        <p>O guia deles contra Tron traz <strong>zero cartas</strong>. Ressalva: é posição editorial do postboard; listas reais carregam Shenanigans, Cast into the Fire e Envelop.</p>
       </div>
     </div>
     <div class="block">
       <h4>Cartas deles a respeitar</h4>
       <ul class="clean">
-        <li><span class="card">Myr Enforcer</span> — 4/4 por zero mana no turno 2 ou 3. <strong>Sobrevive ao Breath Weapon.</strong> É o que te mata antes do Tron ligar.</li>
-        <li><span class="card">Utrom Monitor</span> — 3/3 voador com affinity. Passa por cima de toda a sua defesa terrestre. Depois que você estabiliza, é ele que ganha a partida. Rooftop Percher e Generous Ent existem por causa dele.</li>
-        <li><span class="card">Toxin Analysis</span> — <span class="cost">{B}</span>, dá toque mortífero e vínculo com a vida. Cuidado ao bloquear um Myr Enforcer achando que seu 7/7 está seguro.</li>
+        <li><span class="card">Myr Enforcer</span> — 4/4 por zero mana. Não morre a 2 de dano — responda com Vandalblast, Scour ou Barrels.</li>
+        <li><span class="card">Utrom Monitor</span> — 3/3 voador. Rooftop Percher e Generous Ent existem por causa dele.</li>
+        <li><span class="card">Toxin Analysis</span> — <span class="cost">{B}</span>, toque mortífero e vínculo. Cuidado ao bloquear achando que o 7/7 está seguro.</li>
       </ul>
     </div>
     <div class="block">
       <h4>Sideboard</h4>
       <div class="swap">
-        <div class="swap-col swap-in"><h5>Entra · 8</h5><ul>
-          <li><span class="q">+4</span><span>Breath Weapon<span class="why">Mata Refurbished Familiar 2/1, Krark-Clan Shaman 1/1 e os tokens de Black Mage's Rod. Não mata Enforcer nem Monitor.</span></span></li>
-          <li><span class="q">+3</span><span>Relic of Progenitus<span class="why">Quebra a recursão de Blood Fountain. Mais fraco do que parece: eles já têm 2 Nihil Spellbomb e exilam o próprio cemitério.</span></span></li>
-          <li><span class="q">+1</span><span>Hydroblast<span class="why">Galvanic Blast, Krark-Clan Shaman e Makeshift Munitions são vermelhos.</span></span></li>
+        <div class="swap-col swap-in"><h5>Entra · 5</h5><ul>
+          <li><span class="q">+2</span><span>Relic of Progenitus<span class="why">Quebra a recursão de Blood Fountain. Só dois: eles já exilam o próprio cemitério com Nihil Spellbomb.</span></span></li>
+          <li><span class="q">+1</span><span>Vandalblast<span class="why">Varredura unilateral contra um deck feito de artefatos.</span></span></li>
+          <li><span class="q">+1</span><span>Scour from Existence<span class="why">Com a cópia do main, são dois exílios instantâneos e incolores — respondem a Utrom Monitor e Myr Enforcer, que o Breath Weapon não mata.</span></span></li>
+          <li><span class="q">+1</span><span>Moment's Peace<span class="why">Dois turnos contra um relógio de turno 4.</span></span></li>
         </ul></div>
-        <div class="swap-col swap-out"><h5>Sai · 8</h5><ul>
-          <li><span class="q">−3</span><span>Crop Rotation<span class="why">Numa corrida contra um relógio de turno 4, montar mais rápido não é o gargalo — sobreviver é.</span></span></li>
-          <li><span class="q">−2</span><span>Unfathomable Truths<span class="why">Cinco manas comprando três enquanto eles atacam por 10.</span></span></li>
-          <li><span class="q">−2</span><span>Maelstrom Colossus<span class="why">Oito manas contra um relógio de turno 4.</span></span></li>
-          <li><span class="q">−1</span><span>Kaervek's Torch<span class="why">Lento demais para a janela que importa.</span></span></li>
+        <div class="swap-col swap-out"><h5>Sai · 5</h5><ul>
+          <li><span class="q">−3</span><span>Crop Rotation<span class="why">Sobreviver é o gargalo, não montar mais rápido.</span></span></li>
+          <li><span class="q">−2</span><span>Bonder's Ornament<span class="why">Compra tardia numa corrida. Fica um.</span></span></li>
         </ul></div>
+      </div>
+      <div class="callout">
+        <span class="lbl">Por que Breath Weapon não entra</span>
+        <p>As ameaças que decidem a partida — <span class="card">Myr Enforcer</span> 4/4 e <span class="card">Utrom Monitor</span> 3/3 voador — <strong>sobrevivem a 2 de dano</strong>. Breath Weapon só pega Refurbished Familiar e Krark-Clan Shaman, e ainda é carta de turno 4. A remoção que funciona aqui é a que responde aos corpos grandes: Vandalblast, Scour, Barrels e Kill-Ship.</p>
+        <p><strong>Colossus e Torch ficam:</strong> o Torch mata o Monitor voador que passa por cima da sua defesa, e o Colossus é ameaça dupla via cascade que um deck sem remoção para 7/7 não responde.</p>
       </div>
     </div>
   </div>
@@ -492,79 +523,361 @@ a{color:var(--brass);text-decoration-thickness:1px;text-underline-offset:2px}
     </div>
     <div class="block">
       <h4>Como a partida se decide</h4>
-      <p>O nome do deck é uma carta, e essa carta é contra você. <span class="card">Cleansing Wildfire</span> — <span class="cost">{1}{R}</span>, destrua o terreno alvo, o controlador pode buscar um <em>básico</em> e põe <em>tapado</em>, compre um card. <strong>Quatro cópias, maindeck, em 100% das listas.</strong></p>
-      <p>Suas peças de Urza são não-básicas. Cada Wildfire te leva de 7 manas para 2 e ainda se repõe. Mas — e isso importa — <strong>não é um deck de destruição de terreno.</strong> Eles apontam o Wildfire para o próprio Twisted Landscape na maioria das partidas, para fixar mana e comprar. Contra você ele só acontece de também ser um Stone Rain que cicla. São quatro cartas, não uma estratégia.</p>
-      <p>O resto do deck é um motor de sacrifício e valor: Ichor Wellspring, Fanatical Offering, Eviscerator's Insight, Lembas. Eles te enterram em cards se a partida durar.</p>
-      <div class="callout"><span class="lbl">A jogada que ganha a partida</span>
-        <p><strong>Hydroblast anula Cleansing Wildfire.</strong> Um mana, instantâneo, contra a única carta do deck que ataca sua mana. E os mesmos Hydroblasts ainda matam <span class="card">Writhing Chrysalis</span> (vermelho-verde) e <span class="card">Krark-Clan Shaman</span>.</p>
+      <p><span class="card">Cleansing Wildfire</span> — <span class="cost">{1}{R}</span>, destrua o terreno alvo, o controlador pode buscar um <em>básico</em> tapado, compre um card. <strong>Quatro cópias, maindeck, em 100% das listas.</strong> Suas peças de Urza são não-básicas: cada Wildfire te leva de 7 manas para 2.</p>
+      <p>Mas <strong>não é um deck de destruição de terreno.</strong> Eles apontam o Wildfire para o próprio Twisted Landscape na maioria das partidas. O resto é motor de sacrifício e valor: Ichor Wellspring, Fanatical Offering, Eviscerator's Insight, Lembas.</p>
+      <div class="callout"><span class="lbl">O plano mudou</span>
+        <p><strong>1. Tamiyo's Safekeeping</strong> em resposta ao Wildfire: a peça de Urza fica hexproof, o Wildfire perde o único alvo e <strong>não resolve inteiro</strong> — eles nem compram o card.</p>
+        <p><strong>2. Call Damage Control</strong> se o Wildfire resolveu: devolve a peça do cemitério. <strong>A lacuna assumida antes está fechada.</strong></p>
+        <p>O custo da troca: Hydroblast também matava Writhing Chrysalis e Krark-Clan Shaman. Safekeeping não mata nada. Relic fica de fora.</p>
       </div>
     </div>
     <div class="block">
       <h4>Cartas deles a respeitar</h4>
       <ul class="clean">
-        <li><span class="card">Cleansing Wildfire</span> — quatro cópias, dois manas, nunca é carta morta porque eles podem mirar o próprio terreno.</li>
-        <li><span class="card">Troublemaker Ouphe</span> <span class="cost">pós-side</span> — <span class="cost">{1}{G}</span> 2/2 com bargain: <strong>exila um artefato seu</strong>. Expedition Map, Bonder's Ornament, Barrels ou Giant's Boulder. Eles têm artefato de sobra para bargain no turno 2. Trazem 2 ou 3.</li>
-        <li><span class="card">Duress</span> <span class="cost">pós-side</span> — 3 cópias, tira Ancient Stirrings ou Expedition Map antes de importar.</li>
-        <li><span class="card">Krark-Clan Shaman</span> é irrelevante contra você: 1 de dano em criaturas sem voar não faz nada num 7/6.</li>
+        <li><span class="card">Cleansing Wildfire</span> — nunca é carta morta, porque eles podem mirar o próprio terreno.</li>
+        <li><span class="card">Troublemaker Ouphe</span> <span class="cost">pós-side</span> — bargain: <strong>exila um artefato seu</strong>. É gatilho com alvo: Safekeeping também responde.</li>
+        <li><span class="card">Duress</span> <span class="cost">pós-side</span> — tira Stirrings, Map <strong>ou Safekeeping</strong>. Não guarde o Safekeeping na mão à toa: use com <span class="cost">{G}</span> aberto no turno deles.</li>
+        <li><span class="card">Krark-Clan Shaman</span> é irrelevante contra um 7/6.</li>
       </ul>
     </div>
     <div class="block">
       <h4>Sideboard</h4>
       <div class="swap">
         <div class="swap-col swap-in"><h5>Entra · 6</h5><ul>
-          <li><span class="q">+3</span><span>Hydroblast<span class="why">Anula Cleansing Wildfire. Mata Writhing Chrysalis e Krark-Clan Shaman. Melhor carta do side nessa partida.</span></span></li>
-          <li><span class="q">+3</span><span>Relic of Progenitus<span class="why">O deck inteiro é sacrifício e recompra — Eviscerator's Insight tem flashback e Lembas volta do cemitério sozinha.</span></span></li>
+          <li><span class="q">+2</span><span>Tamiyo's Safekeeping<span class="why">Anula Cleansing Wildfire e o bargain do Ouphe por um verde.</span></span></li>
+          <li><span class="q">+2</span><span>Call Damage Control<span class="why">Recompra a peça de Urza destruída.</span></span></li>
+          <li><span class="q">+1</span><span>Vandalblast<span class="why">Os artefatos deles são o motor de sacrifício e de bargain do Troublemaker Ouphe. Cuidado: Ichor Wellspring destruído compra um card para eles.</span></span></li>
+          <li><span class="q">+1</span><span>Campfire<span class="why">Vida extra enquanto a partida se arrasta num deck de valor.</span></span></li>
         </ul></div>
         <div class="swap-col swap-out"><h5>Sai · 6</h5><ul>
-          <li><span class="q">−2</span><span>Rooftop Percher<span class="why">Cinco manas por um 3/3 contra um deck com Cast Down.</span></span></li>
-          <li><span class="q">−2</span><span>Unfathomable Truths<span class="why">Eles ganham a guerra de cards de qualquer jeito. Não tente.</span></span></li>
-          <li><span class="q">−2</span><span>Pinnacle Kill-Ship<span class="why">Ficam dois. Sete manas por uma remoção é caro quando a mana está sob ataque.</span></span></li>
+          <li><span class="q">−2</span><span>Rooftop Percher<span class="why">Cinco manas por um 3/3 contra Cast Down.</span></span></li>
+          <li><span class="q">−4</span><span>Boulderbranch Golem<span class="why">Todos. Contra um deck de valor, o corpo 6/5 não decide, e o slot vai para resposta.</span></span></li>
         </ul></div>
       </div>
-      <div class="callout warn"><span class="lbl">A lacuna assumida</span>
-        <p>Sem <span class="card">Call Damage Control</span>, não existe nenhuma forma de recomprar a peça de Urza que o Cleansing Wildfire destruiu. O plano aqui é <strong>anular antes</strong>, com os três Hydroblast — e se eles resolverem, reconstruir com Expedition Map e Crop Rotation. Vale anotar quantas vezes essa partida se perde por isso.</p>
-      </div>
       <div class="callout"><span class="lbl">Sequenciamento sob destruição de terreno</span>
-        <p>Com um Cleansing Wildfire na pilha mirando sua peça de Urza, <strong>tape os três e flutue os 7 antes que resolva</strong> — habilidades de mana não podem ser respondidas. E ao castar Crop Rotation, flutue a mana <em>antes</em> de sacrificar o terreno: a regra 601.2g manda ativar habilidades de mana antes de pagar custos, então você fica com os 7 e ainda troca a peça.</p>
+        <p>Com um Cleansing Wildfire na pilha e sem Safekeeping, <strong>tape os três e flutue os 7 antes que resolva</strong>. Ao castar Crop Rotation, flutue a mana <em>antes</em> de sacrificar o terreno (regra 601.2g).</p>
       </div>
     </div>
   </div>
 
-  <div class="panel" role="tabpanel" id="p-rest" aria-labelledby="t-rest" hidden>
-    <div class="stub">
-      <p class="todo">A escrever</p>
-      <h3>Os outros sete</h3>
-      <p>Elves 4,8% · Spy Combo 4,2% · <strong>Gruul Ponza 3,9%</strong> · Mono Red Rally 3,9% · Mono-Blue Faeries 3,9% · Jeskai Ephemerate 3,7% · White Aggro 2,5%.</p>
-      <p><strong>Gruul Ponza é o mais urgente dos sete, e de longe.</strong> Tron ganha 31% dessa partida — 5 vitórias em 33. É o pior matchup do formato e é estrutural: Mwonvuli Acid-Moss não mata um terreno, mata a descontinuidade. Levar você de três peças para duas é levar de 7 manas para 2.</p>
-      <p>Os 15 propostos não têm nada apontado para lá além dos 2 Call Damage Control. Se Ponza aparecer no seu circuito, essa é a próxima conversa.</p>
+  <!-- ELVES -->
+  <div class="panel" role="tabpanel" id="p-elves" aria-labelledby="t-elves" hidden>
+    <div class="panel-top">
+      <h3>Elves</h3>
+      <div class="chips"><span class="chip">4,8% do meta</span><span class="chip hard">Desfavorável · 37,3%</span><span class="chip">Rascunho · revisar</span></div>
+    </div>
+    <div class="block">
+      <h4>Como a partida se decide</h4>
+      <p>Mono-verde de criaturas 1/1 que viram mana: <span class="card">Llanowar Elves</span>, <span class="card">Fyndhorn Elves</span>, <span class="card">Elvish Mystic</span>, <span class="card">Priest of Titania</span> e <span class="card">Quirion Ranger</span>. O motor de cards é <span class="card">Lead the Stampede</span> e <span class="card">Winding Way</span>; o fechamento é <span class="card">Timberwatch Elf</span> dando +X/+X, onde X é o número de elfos, num ataque largo.</p>
+      <p>É o mesmo problema do Mono Red, só que em combate: <strong>eles montam a mesa antes do seu Tron e matam num turno só.</strong> A diferença é que tudo o que eles têm morre a 2 de dano.</p>
+      <div class="callout"><span class="lbl">A carta do matchup</span>
+        <p><strong>Breath Weapon aqui é um Pestilence de 4 manas.</strong> Praticamente todo o deck deles tem resistência 1 ou 2. Espere o turno em que eles comprometem a mesa — depois de um Lead the Stampede — e não antes.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h4>Cartas deles a respeitar</h4>
+      <ul class="clean">
+        <li><span class="card">Timberwatch Elf</span> — o golpe de misericórdia. Um ataque com oito elfos e um Timberwatch mata do nada. <strong>Mate o Timberwatch antes do combate</strong> se tiver como.</li>
+        <li><span class="card">Priest of Titania</span> — mana explosiva. Com dois na mesa eles castam a mão inteira.</li>
+        <li><span class="card">Masked Vandal</span> — ao entrar, exila um artefato seu se eles tiverem criatura no cemitério. Map, Ornament ou Kill-Ship em construção.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h4>Sideboard</h4>
+      <div class="swap">
+        <div class="swap-col swap-in"><h5>Entra · 6</h5><ul>
+          <li><span class="q">+4</span><span>Breath Weapon<span class="why">Varre o deck inteiro deles. Todas as cópias.</span></span></li>
+          <li><span class="q">+1</span><span>Moment's Peace<span class="why">Neblina contra o turno do Timberwatch — e de novo pelo flashback.</span></span></li>
+          <li><span class="q">+1</span><span>Campfire<span class="why">Vida contra ataques de criaturas pequenas.</span></span></li>
+        </ul></div>
+        <div class="swap-col swap-out"><h5>Sai · 6</h5><ul>
+          <li><span class="q">−3</span><span>Bonder's Ornament<span class="why">Mesma lógica do Mono Red: compra não é o problema, sobreviver é.</span></span></li>
+          <li><span class="q">−2</span><span>Pinnacle Kill-Ship<span class="why">Remoção de 7 manas contra um deck de 1/1. Ficam dois como finalizador.</span></span></li>
+          <li><span class="q">−1</span><span>Scour from Existence<span class="why">Sete manas para exilar um elfo.</span></span></li>
+        </ul></div>
+      </div>
+      <p style="color:var(--muted);font-size:.9rem">Crop Rotation fica, pela lógica que você usou contra Mono Red: quanto mais cedo o Tron, mais cedo os bloqueadores grandes.</p>
+    </div>
+  </div>
+
+  <!-- SPY COMBO -->
+  <div class="panel" role="tabpanel" id="p-spy" aria-labelledby="t-spy" hidden>
+    <div class="panel-top">
+      <h3>Spy Combo</h3>
+      <div class="chips"><span class="chip">4,2% do meta</span><span class="chip hard">Muito desfavorável · ~31%</span><span class="chip">Rascunho · revisar</span></div>
+    </div>
+    <div class="block">
+      <h4>Como a partida se decide</h4>
+      <p>Um deck que joga quase sem terrenos na biblioteca: busca os poucos que tem com <span class="card">Land Grant</span>, <span class="card">Gatecreeper Vine</span> e cyclers como <span class="card">Generous Ent</span> e <span class="card">Sagu Wildling</span>, e acelera com <span class="card">Overgrown Battlement</span>, <span class="card">Wall of Roots</span> e <span class="card">Saruli Caretaker</span>.</p>
+      <p>Quando entra <span class="card">Balustrade Spy</span> mirando o próprio dono, a biblioteca inteira vai para o cemitério. Aí vem <span class="card">Dread Return</span> por flashback (sacrificando três criaturas) trazendo <span class="card">Lotleth Giant</span>, que causa dano igual ao número de criaturas no cemitério. <strong>Não é corrida — é combo de turno 3 ou 4, e você não interage com a mesa.</strong> Por isso o 31%.</p>
+      <div class="callout"><span class="lbl">A janela que ganha a partida</span>
+        <p><strong>Relic of Progenitus em jogo, com <span class="cost">{1}</span> aberto.</strong> Deixe o gatilho do Balustrade Spy resolver e o cemitério encher. Quando eles conjurarem o Dread Return mirando o Lotleth Giant, <strong>sacrifique o Relic em resposta</strong>: o Giant sai do cemitério, o alvo fica ilegal, o Dread Return não resolve — e a biblioteca deles já foi. Eles perdem no próximo compra.</p>
+        <p>Não sacrifique cedo. Relic antes do Spy só atrasa; Relic depois do Spy ganha.</p>
+      </div>
+      <div class="callout"><span class="lbl">O que você já tem no main</span>
+        <p><strong>Bojuka Bog</strong> exila o cemitério ao entrar — e <strong>Expedition Map busca o Bog</strong>. É sorcery-speed (só no seu turno), então funciona se o combo parar no meio. Barrels e Giant's Boulder matam o Balustrade Spy antes de ele ser reaproveitado.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h4>Cartas deles a respeitar</h4>
+      <ul class="clean">
+        <li><span class="card">Masked Vandal</span> e <span class="card">Undergrowth Leopard</span> (pós-side) — tiram artefato. <strong>Relic é artefato.</strong> Leve isso em conta antes de baixá-lo cedo.</li>
+        <li><span class="card">Mesmeric Fiend</span> (pós-side) — tira um card da sua mão enquanto está em jogo. Se tirar o Relic, mate o Fiend e o card volta.</li>
+        <li>O plano declarado deles contra Tron é mínimo: <em>+1 Undergrowth Leopard, +1 Vitu-Ghazi Inspector, −1 Tinder Wall, −1 Lotus Petal</em>.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h4>Sideboard</h4>
+      <div class="swap">
+        <div class="swap-col swap-in"><h5>Entra · 3</h5><ul>
+          <li><span class="q">+3</span><span>Relic of Progenitus<span class="why">A única carta do side que para o combo, pelo motivo acima.</span></span></li>
+        </ul></div>
+        <div class="swap-col swap-out"><h5>Sai · 3</h5><ul>
+          <li><span class="q">−2</span><span>Maelstrom Colossus<span class="why">Oito manas contra um combo de turno 4.</span></span></li>
+          <li><span class="q">−1</span><span>Bonder's Ornament<span class="why">Compra lenta; o slot vai para resposta.</span></span></li>
+        </ul></div>
+      </div>
+      <div class="callout warn"><span class="lbl">Lacuna</span>
+        <p>São só 4 respostas ao combo no deck inteiro (3 Relic + 1 Bog). Não há mais nada no side que interaja com cemitério. É o matchup onde o side tem menos a oferecer.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRUUL PONZA -->
+  <div class="panel" role="tabpanel" id="p-ponza" aria-labelledby="t-ponza" hidden>
+    <div class="panel-top">
+      <h3>Gruul Ponza</h3>
+      <div class="chips"><span class="chip">3,9% do meta</span><span class="chip hard">Pior matchup · 31% (5-28)</span><span class="chip">Rascunho · revisar</span></div>
+    </div>
+    <div class="block">
+      <h4>Como a partida se decide</h4>
+      <p>Rampa com destruição de terreno. <span class="card">Arbor Elf</span>, <span class="card">Utopia Sprawl</span> e <span class="card">Wild Growth</span> aceleram; <span class="card">Mwonvuli Acid-Moss</span> e <span class="card">Thermokarst</span> destroem terreno; <span class="card">Writhing Chrysalis</span> e <span class="card">Annoyed Altisaur</span> (7/7 com cascade) fecham.</p>
+      <p>É estrutural: <strong>de três peças de Urza para duas é de 7 manas para 2</strong>, enquanto eles vão de 4 para 5. É um Time Walk de 3 manas repetido quatro vezes.</p>
+      <div class="callout"><span class="lbl">As duas jogadas que mudam o matchup</span>
+        <p><strong>1. Crop Rotation em resposta à destruição de terreno.</strong> Com Acid-Moss mirando sua Urza's Tower, tape os três para 7, conjure Crop Rotation <strong>sacrificando a própria Tower</strong> como custo e busque outra peça. O Acid-Moss perde o alvo e não resolve — <em>eles não buscam o Forest</em>. Você não perdeu mana, não perdeu terreno, e eles perderam um card.</p>
+        <p><strong>2. Tamiyo's Safekeeping</strong> faz o mesmo por <span class="cost">{G}</span>: hexproof na peça mirada. <strong>Call Damage Control</strong> é o plano B quando nenhum dos dois está disponível.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h4>Cartas deles a respeitar</h4>
+      <ul class="clean">
+        <li><span class="card">Arbor Elf</span> — o motor da rampa (desvira Forest encantado com Utopia Sprawl). <strong>Matar o Arbor Elf cedo vale mais do que parece.</strong> Breath Weapon e Kaervek's Torch fazem isso.</li>
+        <li><span class="card">Writhing Chrysalis</span> — cria dois Eldrazi Spawn ao ser conjurado. Os tokens morrem ao Breath Weapon.</li>
+        <li><span class="card">Deglamer</span> (side, ~3 cópias) — embaralha um artefato seu de volta na biblioteca. <span class="card">Suplex</span> exila artefato pelo modo exploit. Kill-Ship em construção é alvo.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h4>Sideboard</h4>
+      <div class="swap">
+        <div class="swap-col swap-in"><h5>Entra · 7</h5><ul>
+          <li><span class="q">+3</span><span>Breath Weapon<span class="why">Mata Arbor Elf, Eldrazi Spawn e as criaturas pequenas da rampa.</span></span></li>
+          <li><span class="q">+2</span><span>Tamiyo's Safekeeping<span class="why">Tira o alvo de Acid-Moss, Thermokarst, Deglamer e Suplex.</span></span></li>
+          <li><span class="q">+2</span><span>Call Damage Control<span class="why">Recompra a peça de Urza destruída.</span></span></li>
+        </ul></div>
+        <div class="swap-col swap-out"><h5>Sai · 7</h5><ul>
+          <li><span class="q">−2</span><span>Maelstrom Colossus<span class="why">Oito manas é inviável sob destruição de terreno.</span></span></li>
+          <li><span class="q">−2</span><span>Pinnacle Kill-Ship<span class="why">Sete manas pelo mesmo motivo.</span></span></li>
+          <li><span class="q">−2</span><span>Rooftop Percher<span class="why">Cemitério irrelevante.</span></span></li>
+          <li><span class="q">−1</span><span>Scour from Existence<span class="why">Sete manas.</span></span></li>
+        </ul></div>
+      </div>
+      <p style="color:var(--muted);font-size:.9rem">Os 3 Crop Rotation ficam — aqui eles são contra-mágica. Boulderbranch em prototype e Generous Ent são jogáveis com pouca mana.</p>
+    </div>
+  </div>
+
+  <!-- MONO RED RALLY -->
+  <div class="panel" role="tabpanel" id="p-rally" aria-labelledby="t-rally" hidden>
+    <div class="panel-top">
+      <h3>Mono Red Rally</h3>
+      <div class="chips"><span class="chip">3,9% do meta</span><span class="chip">Sem winrate específico</span><span class="chip">Rascunho · revisar</span></div>
+    </div>
+    <div class="block">
+      <h4>Como a partida se decide</h4>
+      <p>Aggro de criaturas vermelhas baratas que explode num turno: <span class="card">Burning-Tree Emissary</span>, <span class="card">Voldaren Epicure</span>, <span class="card">Clockwork Percussionist</span>, <span class="card">Goblin Tomb Raider</span>, e depois <span class="card">Goblin Bushwhacker</span> ou <span class="card">Rally at the Hornburg</span> para o ataque final. Alcance com <span class="card">Lightning Bolt</span>, <span class="card">Galvanic Blast</span> e <span class="card">Chain Lightning</span>. Usam <span class="card">Great Furnace</span> e <span class="card">Inventor's Axe</span> para o metalcraft.</p>
+      <p>Mais criatura e menos burn que o Mono Red Madness — o que é <strong>melhor para você</strong>: Breath Weapon e bloqueadores funcionam.</p>
+      <div class="callout"><span class="lbl">Vandalblast aqui é destruição de terreno</span>
+        <p><strong>Great Furnace é artefato.</strong> Overload <span class="cost">{4}{R}</span> destrói os Great Furnace, os Inventor's Axe e o que mais for artefato — e desliga o Galvanic Blast. Na versão de <span class="cost">{R}</span>, mata um Axe equipado.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h4>Cartas deles a respeitar</h4>
+      <ul class="clean">
+        <li><span class="card">Goblin Bushwhacker</span> — kicker dá +1/+0 e ímpeto a todas. Conte o dano como se ele estivesse na mão.</li>
+        <li><span class="card">Cast into the Fire</span> (side, ~4) — exila artefato. Safekeeping responde.</li>
+        <li>O plano declarado deles contra Tron é quase nada: <em>+2 Relic of Progenitus, −2 Chain Lightning</em>. Red Elemental Blast é morto contra você.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h4>Sideboard</h4>
+      <div class="swap">
+        <div class="swap-col swap-in"><h5>Entra · 7</h5><ul>
+          <li><span class="q">+3</span><span>Breath Weapon<span class="why">Mesma escolha do Mono Red: três bastam.</span></span></li>
+          <li><span class="q">+2</span><span>Tamiyo's Safekeeping<span class="why">Contra Cast into the Fire e burn na hora do bloqueio.</span></span></li>
+          <li><span class="q">+1</span><span>Vandalblast<span class="why">Destrói Great Furnace e Inventor's Axe.</span></span></li>
+          <li><span class="q">+1</span><span>Campfire<span class="why">Vida contra aggro.</span></span></li>
+        </ul></div>
+        <div class="swap-col swap-out"><h5>Sai · 7</h5><ul>
+          <li><span class="q">−3</span><span>Bonder's Ornament<span class="why">Mesma lógica do Mono Red.</span></span></li>
+          <li><span class="q">−2</span><span>Pinnacle Kill-Ship<span class="why">Pesado como remoção. Ficam dois.</span></span></li>
+          <li><span class="q">−1</span><span>Maelstrom Colossus<span class="why">Um a menos; o deck deles tem mais criatura que burn, então ficam três.</span></span></li>
+          <li><span class="q">−1</span><span>Scour from Existence<span class="why">Sete manas para exilar um 1/1.</span></span></li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONO-BLUE FAERIES -->
+  <div class="panel" role="tabpanel" id="p-faeries" aria-labelledby="t-faeries" hidden>
+    <div class="panel-top">
+      <h3>Mono-Blue Faeries</h3>
+      <div class="chips"><span class="chip">3,9% do meta</span><span class="chip hard">Desfavorável · 38,5%</span><span class="chip">Rascunho · revisar</span></div>
+    </div>
+    <div class="block">
+      <h4>Como a partida se decide</h4>
+      <p>Tempo com fadas e ninjas: <span class="card">Faerie Seer</span>, <span class="card">Faerie Miscreant</span>, <span class="card">Moon-Circuit Hacker</span>, <span class="card">Ninja of the Deep Hours</span>, <span class="card">Brinebarrow Intruder</span>. Contra-mágica com <span class="card">Spellstutter Sprite</span> e <span class="card">Counterspell</span>; devolução com <span class="card">Snap</span> e <span class="card">Essence Flux</span>.</p>
+      <p>Eles não te matam rápido — te atrasam. Cada turno que você não resolve uma ameaça é um turno de ninja comprando card.</p>
+      <div class="callout"><span class="lbl">Breath Weapon mata o deck inteiro</span>
+        <p>As criaturas deles têm resistência 1 ou 2, sem exceção relevante. Um Breath Weapon resolvido é quatro por um. <strong>O problema é resolver</strong>: conjure no turno em que eles tapam para um ninjutsu ou depois de gastarem a Counterspell.</p>
+      </div>
+      <div class="callout"><span class="lbl">O que eles não conseguem anular</span>
+        <p><strong>Habilidades.</strong> Barrels e Giant's Boulder matam fada por habilidade ativada; Bonder's Ornament compra por habilidade. <strong>Kaervek's Torch</strong> custa <span class="cost">{2}</span> a mais para ser mirado — Spellstutter e Counterspell ficam caros. E <strong>o cascade do Colossus resolve mesmo se ele for anulado</strong>.</p>
+        <p><strong>Spellstutter Sprite</strong> anula mágica com valor de mana até o número de fadas deles. Seus artefatos de 1 mana são os alvos fáceis — baixe-os quando eles tiverem uma fada só.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h4>Cartas deles a respeitar</h4>
+      <ul class="clean">
+        <li><span class="card">Steel Sabotage</span> (side, até 4) — anula mágica de artefato. Map, Boulder, Ornament, Kill-Ship.</li>
+        <li><span class="card">Unable to Scream</span> (side, ~3) — Aura que tira todas as habilidades de uma criatura sua e a deixa 0/2. Contra Bramble Wurm ou Kill-Ship. Safekeeping responde.</li>
+        <li><span class="card">Snap</span> — devolve sua criatura e desvira dois terrenos deles. Tempo puro.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h4>Sideboard</h4>
+      <div class="swap">
+        <div class="swap-col swap-in"><h5>Entra · 7</h5><ul>
+          <li><span class="q">+4</span><span>Breath Weapon<span class="why">Varre as fadas.</span></span></li>
+          <li><span class="q">+2</span><span>Tamiyo's Safekeeping<span class="why">Contra Snap, Essence Flux e Unable to Scream.</span></span></li>
+          <li><span class="q">+1</span><span>Moment's Peace<span class="why">Dois turnos contra os ninjas.</span></span></li>
+        </ul></div>
+        <div class="swap-col swap-out"><h5>Sai · 7</h5><ul>
+          <li><span class="q">−3</span><span>Crop Rotation<span class="why">Eles não atacam sua mana, e é um card a menos contra contra-mágica.</span></span></li>
+          <li><span class="q">−2</span><span>Boulderbranch Golem<span class="why">Ficam dois.</span></span></li>
+          <li><span class="q">−1</span><span>Scour from Existence<span class="why">Não há alvo que valha 7.</span></span></li>
+          <li><span class="q">−1</span><span>Barrels of Blasting Jelly<span class="why">Ficam três como remoção por habilidade.</span></span></li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JESKAI EPHEMERATE -->
+  <div class="panel" role="tabpanel" id="p-jeskai" aria-labelledby="t-jeskai" hidden>
+    <div class="panel-top">
+      <h3>Jeskai Ephemerate</h3>
+      <div class="chips"><span class="chip">3,7% do meta</span><span class="chip">Sem winrate específico</span><span class="chip">Rascunho · revisar</span></div>
+    </div>
+    <div class="block">
+      <h4>Como a partida se decide</h4>
+      <p>Controle de valor: <span class="card">Ephemerate</span> repete os ETB de <span class="card">Mulldrifter</span>, <span class="card">Archaeomancer</span> e <span class="card">Augur of Bolas</span>. <span class="card">Counterspell</span> e <span class="card">Dispel</span> seguram as ameaças; <span class="card">Murmuring Mystic</span> fecha com pássaros 1/1 voadores.</p>
+      <p>A remoção deles — <span class="card">Skred</span>, <span class="card">Fanged Flames</span> — é pequena demais para um 7/7. <strong>A partida é sobre resolver uma ameaça grande e protegê-la.</strong></p>
+      <div class="callout"><span class="lbl">O plano deles contra você</span>
+        <p><em>+3 Dust to Dust, +1 Goliath Paladin; −2 Skred, −1 Fanged Flames, −1 Ride's End.</em> Dust to Dust exila dois artefatos — Ornament, Map, Kill-Ship. Counterspell mira Ancient Stirrings e Bramble Wurm.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h4>Cartas deles a respeitar</h4>
+      <ul class="clean">
+        <li><span class="card">Dust to Dust</span> (pós-side, 3) — dois alvos. Safekeeping protege um, o outro vai.</li>
+        <li><span class="card">Ride's End</span> — exila criatura atacante ou bloqueadora. Safekeeping em resposta.</li>
+        <li><span class="card">Murmuring Mystic</span> — 1/5, cria um pássaro 1/1 voador por instantâneo ou feitiço. <strong>Mate-o</strong>: Barrels faz 5, Scour exila.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h4>Sideboard</h4>
+      <div class="swap">
+        <div class="swap-col swap-in"><h5>Entra · 5</h5><ul>
+          <li><span class="q">+2</span><span>Tamiyo's Safekeeping<span class="why">Protege a ameaça de Ride's End e o artefato de Dust to Dust.</span></span></li>
+          <li><span class="q">+2</span><span>Call Damage Control<span class="why">Recompra a ameaça anulada. Contra controle, cada ameaça a mais conta.</span></span></li>
+          <li><span class="q">+1</span><span>Scour from Existence<span class="why">Resposta ao Murmuring Mystic.</span></span></li>
+        </ul></div>
+        <div class="swap-col swap-out"><h5>Sai · 5</h5><ul>
+          <li><span class="q">−3</span><span>Crop Rotation<span class="why">Eles não atacam sua mana.</span></span></li>
+          <li><span class="q">−2</span><span>Boulderbranch Golem<span class="why">Ganho de vida irrelevante contra controle. Ficam dois.</span></span></li>
+        </ul></div>
+      </div>
+      <p style="color:var(--muted);font-size:.9rem">Colossus fica: o cascade resolve mesmo com Counterspell. Bonder's Ornament fica: compra por habilidade não é anulável.</p>
+    </div>
+  </div>
+
+  <!-- WHITE AGGRO -->
+  <div class="panel" role="tabpanel" id="p-white" aria-labelledby="t-white" hidden>
+    <div class="panel-top">
+      <h3>White Aggro</h3>
+      <div class="chips"><span class="chip">2,5% do meta</span><span class="chip good">Favorável · 61%</span><span class="chip">Rascunho · revisar</span></div>
+    </div>
+    <div class="block">
+      <h4>Como a partida se decide</h4>
+      <p>Muitas criaturas pequenas e voadores: <span class="card">Thraben Inspector</span>, <span class="card">Lunarch Veteran</span>, <span class="card">Kor Skyfisher</span>, <span class="card">Battle Screech</span> (pássaros 1/1 voadores). Proteção com <span class="card">Prismatic Strands</span> e <span class="card">Guardians' Pledge</span>.</p>
+      <p>Eles não têm alcance e não têm resposta boa a um 7/6. É o seu segundo melhor matchup.</p>
+      <div class="callout warn"><span class="lbl">Prismatic Strands anula o Breath Weapon</span>
+        <p><span class="card">Prismatic Strands</span> previne todo o dano de fontes de uma cor escolhida — eles escolhem <strong>vermelho</strong> e seu Breath Weapon não faz nada. Tem flashback tapando uma criatura branca. <strong>Conjure o Breath Weapon quando eles estiverem tapados ou sem criatura branca desvirada para o flashback.</strong></p>
+      </div>
+    </div>
+    <div class="block">
+      <h4>Cartas deles a respeitar</h4>
+      <ul class="clean">
+        <li><span class="card">Battle Screech</span> — quatro voadores 1/1 por uma carta. Passa por cima dos seus bloqueadores terrestres; Rooftop Percher e Generous Ent seguram.</li>
+        <li><span class="card">Journey to Nowhere</span> (side) — exila sua ameaça. Safekeeping responde.</li>
+        <li><span class="card">Dust to Dust</span> (side) — exila dois artefatos.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h4>Sideboard</h4>
+      <div class="swap">
+        <div class="swap-col swap-in"><h5>Entra · 8</h5><ul>
+          <li><span class="q">+4</span><span>Breath Weapon<span class="why">Varre o deck — respeitando o Prismatic Strands.</span></span></li>
+          <li><span class="q">+2</span><span>Tamiyo's Safekeeping<span class="why">Contra Journey to Nowhere e Dust to Dust.</span></span></li>
+          <li><span class="q">+1</span><span>Moment's Peace<span class="why">Neblina contra o ataque largo do Guardians' Pledge.</span></span></li>
+          <li><span class="q">+1</span><span>Campfire<span class="why">Vida contra aggro sem alcance.</span></span></li>
+        </ul></div>
+        <div class="swap-col swap-out"><h5>Sai · 8</h5><ul>
+          <li><span class="q">−3</span><span>Bonder's Ornament<span class="why">Mesma lógica do Mono Red.</span></span></li>
+          <li><span class="q">−2</span><span>Pinnacle Kill-Ship<span class="why">Pesado como remoção. Ficam dois.</span></span></li>
+          <li><span class="q">−2</span><span>Maelstrom Colossus<span class="why">Oito manas contra aggro.</span></span></li>
+          <li><span class="q">−1</span><span>Scour from Existence<span class="why">Sete manas para exilar um 1/1.</span></span></li>
+        </ul></div>
+      </div>
     </div>
   </div>
 </section>
 
 <section>
   <div class="sec-head"><span class="sec-num">E</span><h2>A lista</h2></div>
-  <p class="sec-sub">Maindeck fechado em 60. Em verde, as mudanças propostas para o sideboard.</p>
+  <p class="sec-sub">Versão de 16/09 no Archidekt. Em verde, o que mudou desde 15/09.</p>
   <div class="deck">
     <div class="deck-col"><h5>Terrenos · 17</h5><ul>
       <li><span class="q">4</span>Urza's Mine</li><li><span class="q">4</span>Urza's Power Plant</li><li><span class="q">4</span>Urza's Tower</li>
       <li><span class="q">2</span>Forest</li><li><span class="q">2</span>Hidden Grotto</li><li><span class="q">1</span>Bojuka Bog</li></ul></div>
-    <div class="deck-col"><h5>Artefatos · 18</h5><ul>
+    <div class="deck-col"><h5>Artefatos · 19</h5><ul>
       <li><span class="q">4</span>Pinnacle Kill-Ship</li><li><span class="q">4</span>Giant's Boulder</li><li><span class="q">4</span>Expedition Map</li>
-      <li><span class="q">4</span>Barrels of Blasting Jelly</li><li><span class="q">2</span>Bonder's Ornament</li></ul></div>
-    <div class="deck-col"><h5>Criaturas · 15</h5><ul>
-      <li><span class="q">4</span>Bramble Wurm</li><li><span class="q">4</span>Maelstrom Colossus</li><li><span class="q">3</span>Boulderbranch Golem</li>
+      <li><span class="q">4</span>Barrels of Blasting Jelly</li><li class="new"><span class="q">3</span>Bonder's Ornament</li></ul></div>
+    <div class="deck-col"><h5>Criaturas · 16</h5><ul>
+      <li class="new"><span class="q">4</span>Boulderbranch Golem</li><li><span class="q">4</span>Bramble Wurm</li><li><span class="q">4</span>Maelstrom Colossus</li>
       <li><span class="q">2</span>Generous Ent</li><li><span class="q">2</span>Rooftop Percher</li></ul></div>
-    <div class="deck-col"><h5>Feitiços · 10</h5><ul>
+    <div class="deck-col"><h5>Mágicas · 9</h5><ul>
       <li><span class="q">4</span>Ancient Stirrings</li><li><span class="q">3</span>Crop Rotation</li>
-      <li><span class="q">2</span>Unfathomable Truths</li><li><span class="q">1</span>Kaervek's Torch</li></ul></div>
+      <li class="new"><span class="q">1</span>Scour from Existence</li><li><span class="q">1</span>Kaervek's Torch</li></ul></div>
     <div class="deck-col"><h5>Sideboard · 15</h5><ul>
       <li><span class="q">4</span>Breath Weapon</li>
-      <li><span class="q">3</span>Hydroblast</li>
       <li><span class="q">3</span>Relic of Progenitus</li>
-      <li><span class="q">2</span>Scour from Existence</li>
-      <li><span class="q">2</span>Tangle</li>
+      <li class="new"><span class="q">2</span>Tamiyo's Safekeeping</li>
+      <li class="new"><span class="q">2</span>Call Damage Control</li>
+      <li class="new"><span class="q">1</span>Moment's Peace</li>
+      <li class="new"><span class="q">1</span>Scour from Existence</li>
+      <li class="new"><span class="q">1</span>Vandalblast</li>
       <li><span class="q">1</span>Campfire</li></ul></div>
   </div>
+  <p style="color:var(--muted);font-size:.9rem;margin-top:14px">Saíram: 2 Unfathomable Truths do main; 3 Hydroblast e 2 Tangle do side. Total do main: 61.</p>
 </section>
 
 <footer>
@@ -594,6 +907,7 @@ a{color:var(--brass);text-decoration-thickness:1px;text-underline-offset:2px}
   });
 })();
 </script>
+
 
 </body>
 </html>
