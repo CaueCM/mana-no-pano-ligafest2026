@@ -137,6 +137,28 @@
   .pick.side button.go { color: var(--green); }
   .pick.main button.go { color: var(--red); }
   .orphan { color: var(--gold); font: 600 12px 'Inter'; margin-top: 10px; }
+  /* Seletor de arquétipos */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  button.chip {
+    font: 600 12.5px 'Inter'; text-transform: none; letter-spacing: 0; padding: 6px 10px;
+    box-shadow: none; color: var(--body-ink);
+  }
+  button.chip .pct { font: 700 10px 'JetBrains Mono', monospace; color: var(--muted); margin-left: 5px; }
+  button.chip.used { border-style: dashed; color: var(--muted); }
+  button.chip.used::before { content: '✓ '; color: var(--green); font-weight: 800; }
+  button.chip.sel { background: var(--ink); border-color: var(--ink); border-style: solid; color: #fff; }
+  button.chip.sel .pct { color: #d8cbb0; }
+  button.chip.sel::before { content: '+ '; color: #fff; }
+  .coverage { font: 700 11px 'JetBrains Mono', monospace; color: var(--green); white-space: nowrap; }
+  .opps { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .opp {
+    display: inline-flex; align-items: center; gap: 4px; background: var(--header-bg);
+    border: 1px solid var(--border-soft); border-radius: 3px; padding: 3px 4px 3px 9px; font: 600 12.5px 'Inter';
+  }
+  .opp .pct { font: 700 10px 'JetBrains Mono', monospace; color: var(--muted); }
+  .opp button { padding: 2px 6px; border: none; box-shadow: none; background: transparent; color: var(--muted); font-size: 12px; }
+  .opp button:hover { color: var(--red); }
+  .opps input { width: 220px; padding: 6px 10px; box-shadow: none; }
   .mu-foot { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
 
   footer.site { text-align: center; color: var(--muted); font: 500 11px 'Inter'; padding: 32px 24px 0; }
@@ -286,10 +308,23 @@ Sideboard
     </div>
 
     <h2>Partidas</h2>
-    <div class="row" style="margin-bottom:12px">
-      <input type="text" id="mu-new" class="grow" placeholder="vs. Caw-Gates, vs. Mono Red Rally… (Enter pra adicionar)" style="width:auto">
-      <button class="primary" data-act="add-mu">Adicionar</button>
+    <div class="card">
+      <div class="row" style="margin-bottom:8px; align-items:baseline">
+        <label class="field grow" style="margin:0">Escolha um ou mais arquétipos pra montar um side · meta Pauper (MTGGoldfish, out/2026)</label>
+        <span class="coverage" id="coverage"></span>
+      </div>
+      <div class="chips" id="meta-chips"></div>
+      <div class="row" style="margin-top:10px">
+        <button class="ghost" data-act="toggle-all-meta" id="toggle-all-meta">Mostrar todos</button>
+        <input type="text" id="mu-new" class="grow" placeholder="Outro arquétipo… (Enter pra incluir)" style="width:auto">
+      </div>
+      <div class="row" style="margin-top:12px; border-top:1px dashed rgba(0,0,0,.18); padding-top:12px">
+        <span class="grow small" id="sel-summary"></span>
+        <button data-act="clear-sel" id="clear-sel">Limpar</button>
+        <button class="primary" data-act="add-mu" id="add-mu">Criar side</button>
+      </div>
     </div>
+    <datalist id="meta-dl"></datalist>
     <div id="mu-list"></div>
   </section>
 </main>
@@ -314,11 +349,41 @@ let state = load();
 let currentId = null;
 let openMuId = null;
 let formMode = null; // 'new' | 'edit'
+let selected = [];   // arquétipos escolhidos pro próximo side
+let showAllMeta = false;
+const META_TOP = 20;
+
+// Meta Pauper — MTGGoldfish (página "full", consultada em 30/10/2026)
+const META = [
+  ['Mono Red Madness', 13.2], ['Blue Terror', 7.7], ['Dimir Faeries', 6.2], ['Tron', 5.7], ['Elves', 5.4],
+  ['Grixis Affinity', 4.7], ['Bogles', 4.3], ['Spy Combo', 4.2], ['Mono Red Rally', 3.9], ['Ruby Storm', 3.3],
+  ['Grixis Control', 3.1], ['Esper Affinity', 2.9], ['Jund Wildfire', 2.5], ['Dimir Control', 2.0], ['Golgari Gardens', 2.0],
+  ['Turbo Fog', 1.8], ['Familiars', 1.7], ['White Aggro', 1.7], ['Dimir Affinity', 1.7], ['Mono-Blue Faeries', 1.7],
+  ['Esper Ephemerate', 1.6], ['Boros Moxite', 1.5], ['Gruul Ponza', 1.4], ['Rakdos Madness', 1.4], ['Jeskai Ephemerate', 1.3],
+  ['Mono-White Aggro', 1.1], ['Black Sacrifice', 1.0], ['Snacker Gates', 0.9], ['Mardu Synthesizer', 0.8], ['Cycle Storm', 0.7],
+  ['Food Gardens', 0.6], ['Glintblade', 0.6], ['Gruul Ramp', 0.6], ['Inside Out Combo', 0.5], ['Dredge', 0.5],
+  ['Ephemerate Tron', 0.5], ['Boros Synthesizer', 0.5], ['4c Affinity', 0.4], ['Izzet Terror', 0.4], ['Burn', 0.4],
+  ['Poison Storm', 0.3], ['Dimir Terror', 0.3], ['Infect', 0.2], ['Azorius Gates', 0.2], ['Grixis Faeries', 0.2],
+  ['Walls Combo', 0.2], ['Devotion', 0.2], ['Boros Bully', 0.2], ['Azorius Faeries', 0.1], ['Mono-White Heroic', 0.1],
+  ['Slivers', 0.1], ['Jeskai Affinity', 0.1], ['Mono Red Pingers', 0.1], ['4c Pestilence', 0.1], ['Selesnya Gates', 0.1],
+  ['Esper Faeries', 0.1], ['Azorius Affinity', 0.1], ['Kiln Fiend', 0.1], ['Goblins', 0.1], ['Mono-Black', 0.1],
+].map(([name, pct]) => ({ name, pct }));
+const metaPct = name => (META.find(m => m.name.toLowerCase() === name.toLowerCase()) || {}).pct;
+const label = mu => mu.opps.length ? 'vs. ' + mu.opps.join(' / ') : 'Sem adversário';
+
+// Versões antigas guardavam um único "name" por partida
+function migrate(s) {
+  for (const d of s.decks) for (const mu of d.matchups) {
+    if (!Array.isArray(mu.opps)) mu.opps = mu.name ? [mu.name.replace(/^vs\.?\s*/i, '')] : [];
+    delete mu.name;
+  }
+  return s;
+}
 
 function load() {
   try {
     const s = JSON.parse(localStorage.getItem(KEY));
-    if (s && Array.isArray(s.decks)) return s;
+    if (s && Array.isArray(s.decks)) return migrate(s);
   } catch (e) {}
   return { decks: [] };
 }
@@ -469,11 +534,13 @@ function duplicateDeck(id) {
 function openDeck(id) {
   currentId = id;
   openMuId = null;
+  selected = [];
   const d = deck();
   $('d-name').value = d.name;
   $('d-date').value = d.date;
   renderDeckList();
   renderMatchups();
+  renderPicker();
   show('deck');
 }
 
@@ -498,10 +565,48 @@ function orphans(mu, d) {
           ...Object.keys(mu.outs).filter(n => !d.main.some(c => c.name === n))];
 }
 
+function renderPicker() {
+  const d = deck();
+  const usedBy = name => d.matchups.find(m => m.opps.some(o => o.toLowerCase() === name.toLowerCase()));
+  const isSel = name => selected.some(o => o.toLowerCase() === name.toLowerCase());
+  const shown = showAllMeta ? META : META.slice(0, META_TOP);
+  // seleções fora da lista visível (personalizadas ou do fim do meta) continuam aparecendo
+  const extra = selected.filter(n => !shown.some(m => m.name.toLowerCase() === n.toLowerCase()));
+  const chip = (name, pct) => {
+    const u = usedBy(name);
+    return `<button class="chip ${isSel(name) ? 'sel' : u ? 'used' : ''}" data-act="sel-meta" data-name="${esc(name)}"
+      title="${u ? 'Já está em: ' + esc(label(u)) : ''}">${esc(name)}${pct != null ? `<span class="pct">${pct}%</span>` : ''}</button>`;
+  };
+  $('meta-chips').innerHTML = shown.map(m => chip(m.name, m.pct)).join('') + extra.map(n => chip(n, metaPct(n))).join('');
+  $('toggle-all-meta').textContent = showAllMeta ? 'Mostrar só o top ' + META_TOP : `Mostrar todos (${META.length})`;
+  const pct = selected.reduce((n, o) => n + (metaPct(o) || 0), 0);
+  $('sel-summary').innerHTML = selected.length
+    ? `<b>${selected.length}</b> selecionado${selected.length === 1 ? '' : 's'} · ${pct.toFixed(1)}% do meta — vira um side só`
+    : '<span class="muted">Toque nos arquétipos que usam o mesmo side.</span>';
+  $('add-mu').disabled = $('clear-sel').disabled = !selected.length;
+  $('add-mu').textContent = selected.length > 1 ? `Criar side p/ ${selected.length} arquétipos` : 'Criar side';
+  $('meta-dl').innerHTML = META.map(m => `<option value="${esc(m.name)}">`).join('');
+  // cobertura: % do meta com side confirmado
+  const covered = new Set(d.matchups.filter(m => m.done).flatMap(m => m.opps.map(o => o.toLowerCase())));
+  const cov = META.filter(m => covered.has(m.name.toLowerCase())).reduce((n, m) => n + m.pct, 0);
+  $('coverage').textContent = `Meta coberto: ${cov.toFixed(1)}%`;
+}
+
+function toggleSel(name) {
+  name = name.trim();
+  if (!name) return;
+  const known = META.find(m => m.name.toLowerCase() === name.toLowerCase());
+  if (known) name = known.name;
+  const i = selected.findIndex(o => o.toLowerCase() === name.toLowerCase());
+  if (i >= 0) selected.splice(i, 1); else selected.push(name);
+  renderPicker();
+}
+
 function renderMatchups() {
   const d = deck();
+  if ($('meta-chips')) renderPicker();
   if (!d.matchups.length) {
-    $('mu-list').innerHTML = `<div class="card empty">Adicione a primeira partida acima — ex.: <b>vs. Caw-Gates</b>.</div>`;
+    $('mu-list').innerHTML = `<div class="card empty">Escolha um ou mais arquétipos acima e clique em <b>Criar side</b>.</div>`;
     return;
   }
   $('mu-list').innerHTML = d.matchups.map((mu, idx) => {
@@ -513,7 +618,7 @@ function renderMatchups() {
       : `<span class="badge draft">rascunho</span>`;
     let html = `<div class="card mu" id="mu-${mu.id}">
       <div class="mu-head" data-act="toggle-mu" data-id="${mu.id}">
-        <span class="title">${esc(mu.name)}</span>
+        <span class="title">${esc(label(mu))}</span>
         <span class="delta"><span class="in">+${nin}</span> / <span class="out">−${nout}</span></span>
         ${status}
         <button class="icon ghost" data-act="mu-up" data-id="${mu.id}" ${idx === 0 ? 'disabled' : ''} title="Subir">↑</button>
@@ -542,10 +647,11 @@ function renderMuBody(mu, d, e, nin, nout) {
     : `<span class="small" style="color:var(--gold)">Entram ${nin}, saem ${nout} — o main fica com ${total(d.main) - nout + nin} cartas.</span>`;
   return `<div class="mu-body">
     <div class="row">
-      <div class="grow"><label class="field">Nome da partida</label>
-        <input type="text" data-field="name" data-id="${mu.id}" value="${esc(mu.name)}"></div>
+      <div class="grow"><label class="field">Adversários com este side</label>
+        <div class="opps">${mu.opps.map((o, i) => `<span class="opp">${esc(o)}${metaPct(o) != null ? ` <span class="pct">${metaPct(o)}%</span>` : ''}<button data-act="rm-opp" data-id="${mu.id}" data-i="${i}" title="Remover">✕</button></span>`).join('')}
+          <input type="text" list="meta-dl" data-field="add-opp" data-id="${mu.id}" placeholder="+ adicionar arquétipo"></div></div>
       ${others.length ? `<div><label class="field">Copiar side de</label>
-        <select data-field="copy" data-id="${mu.id}" style="width:auto"><option value="">—</option>${others.map(o => `<option value="${o.id}">${esc(o.name)}</option>`).join('')}</select></div>` : ''}
+        <select data-field="copy" data-id="${mu.id}" style="width:auto"><option value="">—</option>${others.map(o => `<option value="${o.id}">${esc(label(o))}</option>`).join('')}</select></div>` : ''}
     </div>
     <div class="pickcols">
       <div class="pick side">
@@ -561,7 +667,7 @@ function renderMuBody(mu, d, e, nin, nout) {
     <div style="margin-top:12px"><label class="field">Notas (plano de jogo, o que observar)</label>
       <textarea rows="2" data-field="notes" data-id="${mu.id}" placeholder="ex.: ser agressivo, segurar Thraben Charm pro Guardian…">${esc(mu.notes || '')}</textarea></div>
     <div class="mu-foot">
-      <button class="primary" data-act="confirm-mu" data-id="${mu.id}">✓ Confirmar partida</button>
+      <button class="primary" data-act="confirm-mu" data-id="${mu.id}">✓ Confirmar side</button>
       <button data-act="reset-mu" data-id="${mu.id}">Limpar</button>
       <span class="grow">${balance}</span>
       <button class="danger ghost" data-act="del-mu" data-id="${mu.id}">Excluir</button>
@@ -571,13 +677,12 @@ function renderMuBody(mu, d, e, nin, nout) {
 
 function addMatchup() {
   const inp = $('mu-new');
-  let name = inp.value.trim();
-  if (!name) { inp.focus(); return; }
-  if (!/^vs\.?\s/i.test(name)) name = 'vs. ' + name;
-  const mu = { id: uid(), name, ins: {}, outs: {}, notes: '', done: false };
+  if (inp.value.trim()) { toggleSel(inp.value); inp.value = ''; }
+  if (!selected.length) { inp.focus(); return; }
+  const mu = { id: uid(), opps: [...selected], ins: {}, outs: {}, notes: '', done: false };
   deck().matchups.push(mu);
   openMuId = mu.id;
-  inp.value = '';
+  selected = [];
   save();
   renderMatchups();
   document.getElementById('mu-' + mu.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -608,7 +713,7 @@ function renderSheet() {
     <div class="mus">${mus.map(m => {
       const e = eff(m, d);
       return `<div class="pmu">
-        <h3>${esc(m.name)}</h3>
+        <h3>${esc(label(m))}</h3>
         <div class="io">
           <div class="in"><div class="lbl">ENTRA +${sumObj(e.ins)}</div>${io(e.ins)}</div>
           <div class="out"><div class="lbl">SAI −${sumObj(e.outs)}</div>${io(e.outs)}</div>
@@ -642,6 +747,15 @@ document.addEventListener('click', ev => {
     case 'go-library': renderLibrary(); show('library'); break;
     case 'edit-list': openForm('edit'); break;
     case 'add-mu': addMatchup(); break;
+    case 'sel-meta': toggleSel(el.dataset.name); break;
+    case 'clear-sel': selected = []; renderPicker(); break;
+    case 'toggle-all-meta': showAllMeta = !showAllMeta; renderPicker(); break;
+    case 'rm-opp': {
+      const mu = findMu(id);
+      mu.opps.splice(+el.dataset.i, 1);
+      save(); renderMatchups();
+      break;
+    }
 
     case 'toggle-mu':
       if (ev.target.closest('button')) return; // ↑ ↓ têm ação própria
@@ -686,7 +800,7 @@ document.addEventListener('click', ev => {
     }
     case 'del-mu': {
       const mu = findMu(id);
-      if (confirm(`Excluir a partida "${mu.name}"?`)) {
+      if (confirm(`Excluir o side "${label(mu)}"?`)) {
         deck().matchups = deck().matchups.filter(m => m.id !== id); openMuId = null;
         save(); renderMatchups();
       }
@@ -716,12 +830,7 @@ document.addEventListener('input', ev => {
   if (t.id === 'd-name') { deck().name = t.value; return save(); }
   if (t.id === 'd-date') { deck().date = t.value; return save(); }
   const f = t.dataset.field;
-  if (f === 'name' || f === 'notes') {
-    const mu = findMu(t.dataset.id);
-    mu[f] = t.value;
-    save();
-    if (f === 'name') document.querySelector(`#mu-${mu.id} .mu-head .title`).textContent = t.value;
-  }
+  if (f === 'notes') { findMu(t.dataset.id).notes = t.value; save(); }
 });
 
 document.addEventListener('change', ev => {
@@ -731,11 +840,13 @@ document.addEventListener('change', ev => {
     mu.ins = { ...src.ins }; mu.outs = { ...src.outs }; mu.done = false;
     save(); renderMatchups();
   }
+  if (t.dataset.field === 'add-opp' && t.value.trim()) addOpp(t);
   if (t.id === 'p-list' || t.id === 'p-drafts') renderSheet();
   if (t.id === 'import-file' && t.files[0]) {
     t.files[0].text().then(txt => {
       const s = JSON.parse(txt);
       if (!s || !Array.isArray(s.decks)) throw new Error();
+      migrate(s);
       const ids = new Set(state.decks.map(d => d.id));
       const novos = s.decks.filter(d => !ids.has(d.id));
       state.decks.push(...novos);
@@ -745,7 +856,24 @@ document.addEventListener('change', ev => {
   }
 });
 
-$('mu-new').addEventListener('keydown', ev => { if (ev.key === 'Enter') addMatchup(); });
+function addOpp(input) {
+  const mu = findMu(input.dataset.id);
+  let name = input.value.trim();
+  const known = META.find(m => m.name.toLowerCase() === name.toLowerCase());
+  if (known) name = known.name;
+  if (!mu.opps.some(o => o.toLowerCase() === name.toLowerCase())) mu.opps.push(name);
+  input.value = '';
+  save(); renderMatchups();
+  const again = document.querySelector(`#mu-${mu.id} [data-field=add-opp]`);
+  if (again) again.focus();
+}
+
+$('mu-new').addEventListener('keydown', ev => {
+  if (ev.key === 'Enter' && ev.target.value.trim()) { toggleSel(ev.target.value); ev.target.value = ''; }
+});
+document.addEventListener('keydown', ev => {
+  if (ev.key === 'Enter' && ev.target.dataset && ev.target.dataset.field === 'add-opp' && ev.target.value.trim()) addOpp(ev.target);
+});
 document.addEventListener('keydown', ev => { if (ev.key === 'Escape') $('preview').classList.add('hidden'); });
 
 renderLibrary();
