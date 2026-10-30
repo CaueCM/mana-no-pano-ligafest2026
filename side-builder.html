@@ -55,6 +55,16 @@
     box-shadow: 1px 2px 0 rgba(0,0,0,.2); white-space: nowrap;
   }
 
+  /* Login */
+  .auth { display: flex; align-items: center; gap: 8px; }
+  .auth img { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--ink); display: block; }
+  .auth .who { line-height: 1.15; }
+  .auth .uname { font: 700 12.5px 'Inter'; }
+  .auth .sync { font: 600 10px 'JetBrains Mono', monospace; color: var(--muted); letter-spacing: .03em; }
+  .auth .sync.err { color: var(--red); }
+  button.google { display: inline-flex; align-items: center; gap: 8px; text-transform: none; font: 700 13px 'Inter'; letter-spacing: 0; }
+  button.google svg { width: 16px; height: 16px; }
+
   main { max-width: 980px; margin: 0 auto; padding: 28px 24px 0; }
   h2 { font-family: 'Bebas Neue', sans-serif; font-weight: 400; font-size: 22px; color: var(--red); letter-spacing: .04em; margin: 28px 0 12px; }
   h2:first-child { margin-top: 0; }
@@ -229,7 +239,8 @@
           <div class="tagline">SIDE BUILDER — MONTE SEU CADERNO DE SIDEBOARD</div>
         </div>
       </a>
-      <div class="stamp">SIDE BUILDER</div>
+      <div class="auth hidden" id="auth"></div>
+      <div class="stamp" id="stamp">SIDE BUILDER</div>
     </div>
   </div>
 </header>
@@ -243,7 +254,7 @@
     </div>
     <div id="deck-list"></div>
     <div class="row small" style="margin-top:20px">
-      <span class="muted grow">Tudo fica salvo neste navegador. Exporte um backup pra levar pra outro aparelho.</span>
+      <span class="muted grow" id="storage-hint">Tudo fica salvo neste navegador. Exporte um backup pra levar pra outro aparelho.</span>
       <button data-act="export">Exportar backup</button>
       <button data-act="import">Importar backup</button>
       <input type="file" id="import-file" accept=".json,application/json" class="hidden">
@@ -388,7 +399,23 @@ function load() {
   return { decks: [] };
 }
 function save() {
+  state.updatedAt = Date.now();
   try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  if (window.cloudSave) window.cloudSave();
+}
+
+// Redesenha a tela atual depois que os dados chegam da nuvem (sem perder a posição)
+function refreshAll() {
+  if (!$('v-deck').classList.contains('hidden')) {
+    const d = deck();
+    if (!d) { renderLibrary(); show('library'); return; }
+    $('d-name').value = d.name;
+    $('d-date').value = d.date;
+    renderDeckList();
+    renderMatchups();
+  } else if ($('v-form').classList.contains('hidden')) {
+    renderLibrary();
+  }
 }
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 const today = () => new Date().toLocaleDateString('sv-SE'); // YYYY-MM-DD local
@@ -821,6 +848,8 @@ document.addEventListener('click', ev => {
       break;
     }
     case 'import': $('import-file').click(); break;
+    case 'login': window.cloudLogin && window.cloudLogin(); break;
+    case 'logout': window.cloudLogout && window.cloudLogout(); break;
   }
 });
 
@@ -877,6 +906,132 @@ document.addEventListener('keydown', ev => {
 document.addEventListener('keydown', ev => { if (ev.key === 'Escape') $('preview').classList.add('hidden'); });
 
 renderLibrary();
+</script>
+
+<script type="module">
+/* ---------- Login com Google + sincronização (Firebase) ----------
+   Projeto Firebase "mana-no-pano" (conta contato@mananopano.com). Sem login, o app funciona só com o navegador (localStorage).
+   Os dados de cada usuário ficam em users/{uid} no Firestore, como um JSON. */
+const FIREBASE_CONFIG = {
+  apiKey: 'AIzaSyAKWeZg_fa9nukak0GpZlaA_IYU96ebTK0',
+  authDomain: 'mana-no-pano.firebaseapp.com',
+  projectId: 'mana-no-pano',
+  storageBucket: 'mana-no-pano.firebasestorage.app',
+  messagingSenderId: '42076017399',
+  appId: '1:42076017399:web:ff1e2f1dbc2d9c504779f2',
+};
+
+if (FIREBASE_CONFIG) {
+  const V = '10.12.2';
+  const { initializeApp } = await import(`https://www.gstatic.com/firebasejs/${V}/firebase-app.js`);
+  const { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, signOut, onAuthStateChanged } =
+    await import(`https://www.gstatic.com/firebasejs/${V}/firebase-auth.js`);
+  const { getFirestore, doc, getDoc, setDoc } = await import(`https://www.gstatic.com/firebasejs/${V}/firebase-firestore.js`);
+
+  const app = initializeApp(FIREBASE_CONFIG);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const provider = new GoogleAuthProvider();
+  provider.setCustomParameters({ prompt: 'select_account' });
+
+  let user = null, timer = null, syncMsg = '', syncErr = false;
+  const ref = () => doc(db, 'users', user.uid);
+  const G_ICON = '<svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.6 13.2l7.9 6.2C12.4 13.7 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.1 5.3-4.6 7l7.1 5.5c4.2-3.9 7.2-9.6 7.2-17z"/><path fill="#FBBC05" d="M10.5 28.6c-.5-1.4-.8-3-.8-4.6s.3-3.2.8-4.6l-7.9-6.2C1 16.5 0 20.1 0 24s1 7.5 2.6 10.8l7.9-6.2z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.1-5.5c-2.2 1.5-5 2.3-8.8 2.3-6.3 0-11.6-4.2-13.5-10l-7.9 6.2C6.6 42.6 14.6 48 24 48z"/></svg>';
+
+  function renderAuth() {
+    const el = $('auth');
+    el.classList.remove('hidden');
+    $('stamp').classList.add('hidden');
+    if (!user) {
+      el.innerHTML = `<button class="google" data-act="login">${G_ICON} Entrar com Google</button>`;
+      $('storage-hint').textContent = 'Sem login, os decks ficam só neste navegador. Entre com Google pra acessar de qualquer aparelho.';
+      return;
+    }
+    const first = (user.displayName || user.email || '').split(' ')[0];
+    el.innerHTML = `${user.photoURL ? `<img src="${esc(user.photoURL)}" alt="" referrerpolicy="no-referrer">` : ''}
+      <div class="who"><div class="uname">${esc(first)}</div><div class="sync ${syncErr ? 'err' : ''}">${esc(syncMsg)}</div></div>
+      <button class="ghost" data-act="logout">Sair</button>`;
+    $('storage-hint').textContent = `Sincronizado com a conta ${user.email}. Seus decks aparecem em qualquer aparelho em que você entrar.`;
+  }
+  const setSync = (msg, err = false) => { syncMsg = msg; syncErr = err; renderAuth(); };
+
+  async function push() {
+    clearTimeout(timer); timer = null;
+    if (!user) return;
+    try {
+      await setDoc(ref(), { data: JSON.stringify(state), updatedAt: state.updatedAt || Date.now() });
+      setSync('☁ salvo');
+    } catch (e) {
+      console.error(e);
+      setSync(navigator.onLine ? 'erro ao salvar' : 'offline — salvo no aparelho', true);
+    }
+  }
+  window.cloudSave = () => {
+    if (!user) return;
+    state.owner = user.uid;
+    setSync('salvando…');
+    clearTimeout(timer);
+    timer = setTimeout(push, 800);
+  };
+
+  // Junta o que veio da nuvem com o que está no aparelho
+  async function pull(firstLoad) {
+    try {
+      const snap = await getDoc(ref());
+      const remote = snap.exists() ? migrate(JSON.parse(snap.data().data)) : null;
+      const local = state;
+      let next, needsPush = false;
+      if (!remote) {
+        next = local; needsPush = true;                       // primeira vez: sobe o que já tem aqui
+      } else if (local.owner === user.uid) {
+        if ((local.updatedAt || 0) > (remote.updatedAt || 0)) { next = local; needsPush = true; } // editou offline
+        else next = remote;
+      } else if (firstLoad && !local.owner && local.decks.length) {
+        const ids = new Set(remote.decks.map(d => d.id));     // decks feitos sem login entram na conta
+        next = { ...remote, decks: [...remote.decks, ...local.decks.filter(d => !ids.has(d.id))] };
+        needsPush = next.decks.length !== remote.decks.length;
+      } else {
+        next = remote;
+      }
+      next.owner = user.uid;
+      if (next !== state) { state = next; refreshAll(); }
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+      if (needsPush) await push(); else setSync('☁ salvo');
+    } catch (e) {
+      console.error(e);
+      setSync('erro ao carregar', true);
+    }
+  }
+
+  window.cloudLogin = async () => {
+    try { await signInWithPopup(auth, provider); }
+    catch (e) {
+      if (e.code === 'auth/popup-blocked' || e.code === 'auth/operation-not-supported-in-this-environment') signInWithRedirect(auth, provider);
+      else if (e.code !== 'auth/popup-closed-by-user' && e.code !== 'auth/cancelled-popup-request') alert('Não consegui entrar: ' + e.message);
+    }
+  };
+  window.cloudLogout = async () => {
+    if (timer) await push();
+    await signOut(auth);
+    // não deixa os decks da conta no aparelho depois de sair
+    state = { decks: [] };
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    currentId = null;
+    renderLibrary(); show('library');
+  };
+
+  onAuthStateChanged(auth, async u => {
+    user = u;
+    if (u) { setSync('carregando…'); await pull(true); }
+    renderAuth();
+  });
+
+  // Voltou pra aba (ex.: editou no celular e abriu no computador): busca a versão mais nova
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && user && !timer) pull(false);
+  });
+  window.addEventListener('beforeunload', () => { if (timer) push(); });
+}
 </script>
 </body>
 </html>
