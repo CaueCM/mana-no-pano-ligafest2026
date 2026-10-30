@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Side Builder</title>
+<style>
+  :root {
+    --green: #2f7d4f;
+    --green2: #3fa066;
+    --red: #b3432b;
+    --red2: #d0573c;
+    --gold: #d9c98a;
+    --bg: #14161a;
+    --panel: #1e2126;
+    --panel2: #262a31;
+    --text: #eef0f2;
+    --muted: #9aa2ad;
+    --border: #33383f;
+    --warn: #c98a2b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.45;
+  }
+  header {
+    padding: 18px 16px 12px;
+    background: linear-gradient(120deg, rgba(47,125,79,0.25), rgba(217,201,138,0.12), rgba(179,67,43,0.25));
+    border-bottom: 1px solid var(--border);
+  }
+  header h1 { margin: 0 0 2px; font-size: 1.3rem; }
+  header p { margin: 0; color: var(--muted); font-size: 0.85rem; }
+  main { max-width: 980px; margin: 0 auto; padding: 16px; }
+  h2 { font-size: 1.1rem; border-left: 4px solid var(--green); padding-left: 10px; margin: 24px 0 12px; }
+  h2:first-child { margin-top: 4px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px; margin-bottom: 12px;
+  }
+  .muted { color: var(--muted); }
+  .small { font-size: 0.82rem; }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .grow { flex: 1; min-width: 0; }
+  button, .btn {
+    padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--panel2); color: var(--text); font-size: 0.88rem; cursor: pointer;
+    font-family: inherit; white-space: nowrap;
+  }
+  button:hover { border-color: var(--muted); }
+  button.primary { background: var(--green); border-color: var(--green); color: #fff; }
+  button.primary:hover { background: var(--green2); }
+  button.danger { color: var(--red2); }
+  button.ghost { background: transparent; }
+  button.icon { padding: 6px 10px; }
+  input[type=text], input[type=date], textarea, select {
+    padding: 9px 12px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--panel2); color: var(--text); font-size: 0.92rem; font-family: inherit;
+    width: 100%;
+  }
+  input[type=date] { width: auto; color-scheme: dark; }
+  textarea { resize: vertical; }
+  textarea.list { min-height: 260px; font-family: ui-monospace, Menlo, monospace; font-size: 0.85rem; }
+  label.field { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 4px; }
+  .hidden { display: none !important; }
+
+  /* Biblioteca */
+  .deckitem { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .deckitem .info { flex: 1; min-width: 180px; }
+  .deckitem .name { font-weight: 600; }
+  .empty { text-align: center; padding: 30px 16px; color: var(--muted); }
+
+  /* Lista do deck */
+  .listcols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .listcols h3 { margin: 0 0 6px; font-size: 0.9rem; color: var(--gold); }
+  .listcols ul { margin: 0; padding: 0; list-style: none; font-size: 0.86rem; }
+  .listcols li { padding: 1px 0; }
+  .listcols .q { display: inline-block; width: 22px; color: var(--muted); }
+
+  /* Partidas */
+  .mu { padding: 0; overflow: hidden; }
+  .mu-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px; cursor: pointer; }
+  .mu-head .title { flex: 1; min-width: 0; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .badge { font-size: 0.72rem; font-weight: 700; padding: 2px 9px; border-radius: 12px; white-space: nowrap; }
+  .badge.ok { background: var(--green); color: #fff; }
+  .badge.draft { background: var(--panel2); color: var(--muted); border: 1px solid var(--border); }
+  .badge.warn { background: var(--warn); color: #fff; }
+  .delta { font-size: 0.82rem; white-space: nowrap; }
+  .delta .in { color: var(--green2); font-weight: 700; }
+  .delta .out { color: var(--red2); font-weight: 700; }
+  .mu-body { border-top: 1px solid var(--border); padding: 14px; }
+  .pickcols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
+  @media (max-width: 680px) { .pickcols { grid-template-columns: 1fr; } }
+  .pick h4 { margin: 0 0 6px; font-size: 0.85rem; display: flex; justify-content: space-between; }
+  .pick.side h4 { color: var(--green2); }
+  .pick.main h4 { color: var(--red2); }
+  .pickrow {
+    display: flex; align-items: center; gap: 8px; padding: 5px 6px; border-radius: 6px;
+    font-size: 0.88rem; user-select: none;
+  }
+  .pickrow:nth-child(odd) { background: rgba(255,255,255,0.02); }
+  .pickrow .nm { flex: 1; min-width: 0; cursor: pointer; }
+  .pickrow .have { color: var(--muted); width: 22px; text-align: right; font-size: 0.8rem; }
+  .pickrow .cnt { width: 26px; text-align: center; font-weight: 700; }
+  .pickrow button { padding: 4px 0; width: 34px; font-size: 0.9rem; line-height: 1; }
+  .pick.side .pickrow.on { background: rgba(47,125,79,0.22); }
+  .pick.main .pickrow.on { background: rgba(179,67,43,0.22); }
+  .pick.side button.go { color: var(--green2); }
+  .pick.main button.go { color: var(--red2); }
+  .pickrow button:disabled { opacity: 0.3; cursor: default; }
+  .orphan { color: var(--warn); font-size: 0.82rem; margin-top: 8px; }
+  .mu-foot { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
+
+  /* Pré-visualização / impressão */
+  #preview {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 50;
+    overflow: auto; padding: 16px;
+  }
+  #preview .bar {
+    position: sticky; top: 0; display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+    max-width: 210mm; margin: 0 auto 12px; background: var(--panel); padding: 10px 12px;
+    border-radius: 10px; border: 1px solid var(--border); z-index: 2;
+  }
+  #preview .bar label { font-size: 0.85rem; display: flex; gap: 6px; align-items: center; }
+  .sheet {
+    background: #fff; color: #111; width: 210mm; max-width: 100%; min-height: 297mm;
+    margin: 0 auto; padding: 10mm; box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+    font-size: 9.5pt; line-height: 1.3;
+  }
+  .sheet h1 { font-size: 15pt; margin: 0; }
+  .sheet .sub { color: #555; font-size: 9pt; margin-bottom: 4mm; }
+  .sheet .plist { columns: 3; column-gap: 6mm; font-size: 8.5pt; border: 1px solid #ccc; border-radius: 2mm; padding: 2.5mm 3mm; margin-bottom: 4mm; }
+  .sheet .plist b { display: block; break-after: avoid; margin-top: 1mm; }
+  .sheet .plist b:first-child { margin-top: 0; }
+  .sheet .plist div { break-inside: avoid; }
+  .sheet .mus { columns: 2; column-gap: 5mm; }
+  .sheet .pmu { break-inside: avoid; border: 1px solid #bbb; border-radius: 2mm; padding: 2mm 3mm; margin-bottom: 3mm; }
+  .sheet .pmu h3 { font-size: 10.5pt; margin: 0 0 1mm; }
+  .sheet .io { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+  .sheet .io .lbl { font-weight: 700; font-size: 8pt; letter-spacing: 0.04em; }
+  .sheet .io .in .lbl { color: #1d6b3c; }
+  .sheet .io .out .lbl { color: #a3321d; }
+  .sheet .io div div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sheet .note { margin-top: 1mm; font-style: italic; color: #333; font-size: 8.5pt; white-space: pre-wrap; }
+  .sheet .none { color: #888; }
+
+  @page { size: A4; margin: 0; }
+  @media print {
+    body { background: #fff; }
+    body > *:not(#preview) { display: none !important; }
+    #preview { position: static; background: none; padding: 0; overflow: visible; }
+    #preview .bar { display: none; }
+    .sheet { box-shadow: none; width: auto; min-height: 0; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Side Builder</h1>
+  <p>Cole a lista, cadastre as partidas, marque o que entra e sai, e imprima o guia em A4.</p>
+</header>
+
+<main>
+  <!-- Biblioteca -->
+  <section id="v-library">
+    <div class="row" style="margin-bottom:12px">
+      <h2 class="grow" style="margin:4px 0">Meus decks</h2>
+      <button class="primary" data-act="new-deck">+ Novo deck</button>
+    </div>
+    <div id="deck-list"></div>
+    <div class="row small" style="margin-top:20px">
+      <span class="muted grow">Tudo fica salvo neste navegador. Exporte um backup pra levar pra outro aparelho.</span>
+      <button data-act="export">Exportar backup</button>
+      <button data-act="import">Importar backup</button>
+      <input type="file" id="import-file" accept=".json,application/json" class="hidden">
+    </div>
+  </section>
+
+  <!-- Novo deck / editar lista -->
+  <section id="v-form" class="hidden">
+    <h2 id="form-title">Novo deck</h2>
+    <div class="card">
+      <div class="row" style="margin-bottom:10px; align-items:flex-end">
+        <div class="grow">
+          <label class="field" for="f-name">Nome do deck</label>
+          <input type="text" id="f-name" placeholder="ex.: Naya Ramp">
+        </div>
+        <div>
+          <label class="field" for="f-date">Data</label>
+          <input type="date" id="f-date">
+        </div>
+      </div>
+      <label class="field" for="f-list">Lista (formato MTGO, Arena, Moxfield, LigaMagic… sideboard depois de uma linha em branco ou de "Sideboard")</label>
+      <textarea id="f-list" class="list" placeholder="4 Arbor Elf
+4 Avenging Hunter
+...
+13 Forest
+
+Sideboard
+1 Ancient Grudge
+3 Breath Weapon"></textarea>
+      <div id="f-preview" class="small muted" style="margin-top:8px"></div>
+      <div class="row" style="margin-top:12px">
+        <button class="primary" data-act="form-save">Salvar</button>
+        <button data-act="form-cancel">Cancelar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deck -->
+  <section id="v-deck" class="hidden">
+    <div class="row" style="margin-bottom:12px">
+      <button class="ghost" data-act="go-library">← Decks</button>
+      <span class="grow"></span>
+      <button data-act="edit-list">Editar lista</button>
+      <button data-act="dup-current">Duplicar</button>
+      <button class="primary" data-act="print">Gerar versão pra imprimir</button>
+    </div>
+    <div class="card">
+      <div class="row" style="align-items:flex-end">
+        <div class="grow">
+          <label class="field" for="d-name">Deck</label>
+          <input type="text" id="d-name">
+        </div>
+        <div>
+          <label class="field" for="d-date">Data</label>
+          <input type="date" id="d-date">
+        </div>
+      </div>
+      <details style="margin-top:12px">
+        <summary class="small muted" style="cursor:pointer" id="d-summary"></summary>
+        <div class="listcols" id="d-list" style="margin-top:10px"></div>
+      </details>
+    </div>
+
+    <h2>Partidas</h2>
+    <div class="row" style="margin-bottom:12px">
+      <input type="text" id="mu-new" class="grow" placeholder="vs. Caw-Gates, vs. Mono Red Rally… (Enter pra adicionar)" style="width:auto">
+      <button class="primary" data-act="add-mu">Adicionar</button>
+    </div>
+    <div id="mu-list"></div>
+  </section>
+</main>
+
+<!-- Pré-visualização A4 -->
+<div id="preview" class="hidden">
+  <div class="bar">
+    <strong class="grow">Pré-visualização A4</strong>
+    <label><input type="checkbox" id="p-list" checked> Incluir lista</label>
+    <label><input type="checkbox" id="p-drafts"> Incluir rascunhos</label>
+    <button class="primary" data-act="do-print">Imprimir</button>
+    <button data-act="close-preview">Fechar</button>
+  </div>
+  <div class="sheet" id="sheet"></div>
+</div>
+
+<script>
+const KEY = 'sidebuilder.v1';
+let state = load();
+let currentId = null;
+let openMuId = null;
+let formMode = null; // 'new' | 'edit'
+
+function load() {
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY));
+    if (s && Array.isArray(s.decks)) return s;
+  } catch (e) {}
+  return { decks: [] };
+}
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+}
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const today = () => new Date().toLocaleDateString('sv-SE'); // YYYY-MM-DD local
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fmtDate = d => d ? d.split('-').reverse().join('/') : '';
+const $ = id => document.getElementById(id);
+const deck = () => state.decks.find(d => d.id === currentId);
+const total = arr => arr.reduce((n, c) => n + c.qty, 0);
+const sumObj = o => Object.values(o).reduce((n, v) => n + v, 0);
+
+/* ---------- Parser de lista ---------- */
+function parseList(text) {
+  const SIDE_MARK = /^\s*(\/\/\s*)?(sideboard|side ?board|side|sb)\s*:?\s*(\(\d+\))?\s*:?\s*$/i;
+  const MAIN_MARK = /^\s*(\/\/\s*)?(deck|main ?deck|main ?board|main)\s*:?\s*(\(\d+\))?\s*:?\s*$/i;
+  const COMP_MARK = /^\s*(\/\/\s*)?companion\s*:?\s*$/i;
+  const CARD = /^\s*(\d+)\s*x?\s+(.+?)\s*$/i;
+  const entries = [];
+  let zone = null, block = 0, sawCard = false, marker = false;
+
+  for (const raw of text.replace(/\r/g, '').split('\n')) {
+    let line = raw.trim();
+    if (!line) { if (sawCard) { block++; sawCard = false; } continue; }
+    if (SIDE_MARK.test(line) || COMP_MARK.test(line)) { zone = 'side'; marker = true; continue; }
+    if (MAIN_MARK.test(line)) { zone = 'main'; continue; }
+    let lineZone = zone;
+    if (/^SB:\s*/i.test(line)) { line = line.replace(/^SB:\s*/i, ''); lineZone = 'side'; marker = true; }
+    const m = line.match(CARD);
+    if (!m) continue;
+    let name = m[2]
+      .replace(/\s+\*[A-Z]+\*\s*$/i, '')               // *F* (foil)
+      .replace(/\s+\([A-Za-z0-9]{2,6}\)(\s+\S+)?\s*$/, '') // (SET) 123
+      .replace(/\s+\[[^\]]*\]\s*$/, '')                // [SET]
+      .replace(/\s+#.*$/, '')
+      .trim();
+    if (!name) continue;
+    entries.push({ qty: parseInt(m[1], 10), name, zone: lineZone, block });
+    sawCard = true;
+  }
+
+  // Sem marcador explícito: último bloco (após linha em branco) com até 15 cartas vira side
+  if (!marker) {
+    const blocks = [...new Set(entries.map(e => e.block))];
+    if (blocks.length > 1) {
+      const last = blocks[blocks.length - 1];
+      const lastTotal = entries.filter(e => e.block === last).reduce((n, e) => n + e.qty, 0);
+      const restTotal = entries.filter(e => e.block !== last).reduce((n, e) => n + e.qty, 0);
+      if (lastTotal <= 15 && restTotal >= 30) entries.forEach(e => { if (e.block === last) e.zone = 'side'; });
+    }
+  }
+
+  const merge = list => {
+    const map = new Map();
+    for (const e of list) {
+      const k = e.name.toLowerCase();
+      if (map.has(k)) map.get(k).qty += e.qty;
+      else map.set(k, { qty: e.qty, name: e.name });
+    }
+    return [...map.values()];
+  };
+  return {
+    main: merge(entries.filter(e => e.zone !== 'side')),
+    side: merge(entries.filter(e => e.zone === 'side')),
+  };
+}
+
+function listToText(d) {
+  return d.main.map(c => `${c.qty} ${c.name}`).join('\n') +
+    (d.side.length ? '\n\nSideboard\n' + d.side.map(c => `${c.qty} ${c.name}`).join('\n') : '');
+}
+
+/* ---------- Navegação ---------- */
+function show(view) {
+  for (const v of ['library', 'form', 'deck']) $('v-' + v).classList.toggle('hidden', v !== view);
+  window.scrollTo(0, 0);
+}
+
+/* ---------- Biblioteca ---------- */
+function renderLibrary() {
+  const decks = [...state.decks].sort((a, b) => (b.date || '').localeCompare(a.date || '') || b.createdAt - a.createdAt);
+  $('deck-list').innerHTML = decks.length ? decks.map(d => {
+    const done = d.matchups.filter(m => m.done).length;
+    return `<div class="card deckitem">
+      <div class="info">
+        <div class="name">${esc(d.name || 'Sem nome')}</div>
+        <div class="small muted">${fmtDate(d.date)} · ${total(d.main)} + ${total(d.side)} cartas · ${d.matchups.length} partida${d.matchups.length === 1 ? '' : 's'}${d.matchups.length ? ` (${done} confirmada${done === 1 ? '' : 's'})` : ''}</div>
+      </div>
+      <button class="primary" data-act="open" data-id="${d.id}">Abrir</button>
+      <button data-act="dup" data-id="${d.id}">Duplicar</button>
+      <button class="danger ghost" data-act="del-deck" data-id="${d.id}">Excluir</button>
+    </div>`;
+  }).join('') : `<div class="card empty">Nenhum deck ainda. Clique em <b>+ Novo deck</b> e cole a lista.</div>`;
+}
+
+function openForm(mode) {
+  formMode = mode;
+  const d = mode === 'edit' ? deck() : null;
+  $('form-title').textContent = d ? 'Editar lista' : 'Novo deck';
+  $('f-name').value = d ? d.name : '';
+  $('f-date').value = d ? d.date : today();
+  $('f-list').value = d ? listToText(d) : '';
+  updateFormPreview();
+  show('form');
+  (d ? $('f-list') : $('f-name')).focus();
+}
+
+function updateFormPreview() {
+  const p = parseList($('f-list').value);
+  const t = $('f-list').value.trim();
+  $('f-preview').innerHTML = t
+    ? `Reconhecido: <b>${total(p.main)}</b> no main (${p.main.length} cartas diferentes) · <b>${total(p.side)}</b> no side (${p.side.length} diferentes)`
+    : '';
+}
+
+function saveForm() {
+  const p = parseList($('f-list').value);
+  if (!p.main.length) { alert('Não reconheci nenhuma carta. Use o formato "4 Nome da Carta" por linha.'); return; }
+  const name = $('f-name').value.trim() || 'Deck sem nome';
+  const date = $('f-date').value || today();
+  if (formMode === 'edit') {
+    Object.assign(deck(), { name, date, main: p.main, side: p.side });
+  } else {
+    const d = { id: uid(), name, date, createdAt: Date.now(), main: p.main, side: p.side, matchups: [] };
+    state.decks.push(d);
+    currentId = d.id;
+  }
+  save();
+  openDeck(currentId);
+}
+
+function duplicateDeck(id) {
+  const src = state.decks.find(d => d.id === id);
+  const copy = JSON.parse(JSON.stringify(src));
+  copy.id = uid();
+  copy.date = today();
+  copy.createdAt = Date.now();
+  copy.matchups.forEach(m => m.id = uid());
+  state.decks.push(copy);
+  save();
+  openDeck(copy.id);
+}
+
+/* ---------- Deck ---------- */
+function openDeck(id) {
+  currentId = id;
+  openMuId = null;
+  const d = deck();
+  $('d-name').value = d.name;
+  $('d-date').value = d.date;
+  renderDeckList();
+  renderMatchups();
+  show('deck');
+}
+
+function renderDeckList() {
+  const d = deck();
+  $('d-summary').textContent = `Ver lista — ${total(d.main)} main · ${total(d.side)} side`;
+  const col = (title, arr) => `<div><h3>${title} (${total(arr)})</h3><ul>${arr.map(c => `<li><span class="q">${c.qty}</span>${esc(c.name)}</li>`).join('')}</ul></div>`;
+  $('d-list').innerHTML = col('Main deck', d.main) + col('Sideboard', d.side);
+}
+
+// Quantidade válida (limitada ao que existe na lista atual)
+function eff(mu, d) {
+  const lim = (obj, arr) => {
+    const out = {};
+    for (const c of arr) { const v = Math.min(obj[c.name] || 0, c.qty); if (v) out[c.name] = v; }
+    return out;
+  };
+  return { ins: lim(mu.ins, d.side), outs: lim(mu.outs, d.main) };
+}
+function orphans(mu, d) {
+  return [...Object.keys(mu.ins).filter(n => !d.side.some(c => c.name === n)),
+          ...Object.keys(mu.outs).filter(n => !d.main.some(c => c.name === n))];
+}
+
+function renderMatchups() {
+  const d = deck();
+  if (!d.matchups.length) {
+    $('mu-list').innerHTML = `<div class="card empty">Adicione a primeira partida acima — ex.: <b>vs. Caw-Gates</b>.</div>`;
+    return;
+  }
+  $('mu-list').innerHTML = d.matchups.map((mu, idx) => {
+    const e = eff(mu, d);
+    const nin = sumObj(e.ins), nout = sumObj(e.outs);
+    const open = mu.id === openMuId;
+    const status = mu.done
+      ? (nin !== nout ? `<span class="badge warn">✓ ${nin}≠${nout}</span>` : `<span class="badge ok">✓ salvo</span>`)
+      : `<span class="badge draft">rascunho</span>`;
+    let html = `<div class="card mu" id="mu-${mu.id}">
+      <div class="mu-head" data-act="toggle-mu" data-id="${mu.id}">
+        <span class="title">${esc(mu.name)}</span>
+        <span class="delta"><span class="in">+${nin}</span> / <span class="out">−${nout}</span></span>
+        ${status}
+        <button class="icon ghost" data-act="mu-up" data-id="${mu.id}" ${idx === 0 ? 'disabled' : ''} title="Subir">↑</button>
+        <button class="icon ghost" data-act="mu-down" data-id="${mu.id}" ${idx === d.matchups.length - 1 ? 'disabled' : ''} title="Descer">↓</button>
+      </div>`;
+    if (open) html += renderMuBody(mu, d, e, nin, nout);
+    return html + '</div>';
+  }).join('');
+}
+
+function renderMuBody(mu, d, e, nin, nout) {
+  const rows = (arr, zone, chosen) => arr.map((c, i) => {
+    const n = chosen[c.name] || 0;
+    return `<div class="pickrow ${n ? 'on' : ''}">
+      <span class="have">${c.qty}</span>
+      <span class="nm" data-act="pick" data-zone="${zone}" data-i="${i}">${esc(c.name)}</span>
+      <button data-act="unpick" data-zone="${zone}" data-i="${i}" ${n ? '' : 'disabled'}>${zone === 'side' ? '▼' : '▲'}</button>
+      <span class="cnt">${n || ''}</span>
+      <button class="go" data-act="pick" data-zone="${zone}" data-i="${i}" ${n >= c.qty ? 'disabled' : ''}>${zone === 'side' ? '▲' : '▼'}</button>
+    </div>`;
+  }).join('');
+  const orph = orphans(mu, d);
+  const others = d.matchups.filter(m => m.id !== mu.id);
+  const balance = nin === nout
+    ? `<span class="muted small">Entram ${nin}, saem ${nout} — fechado em ${total(d.main)} cartas.</span>`
+    : `<span class="small" style="color:var(--warn)">Entram ${nin}, saem ${nout} — o main fica com ${total(d.main) - nout + nin} cartas.</span>`;
+  return `<div class="mu-body">
+    <div class="row">
+      <div class="grow"><label class="field">Nome da partida</label>
+        <input type="text" data-field="name" data-id="${mu.id}" value="${esc(mu.name)}"></div>
+      ${others.length ? `<div><label class="field">Copiar side de</label>
+        <select data-field="copy" data-id="${mu.id}" style="width:auto"><option value="">—</option>${others.map(o => `<option value="${o.id}">${esc(o.name)}</option>`).join('')}</select></div>` : ''}
+    </div>
+    <div class="pickcols">
+      <div class="pick side">
+        <h4><span>▲ Entram (sideboard)</span><span>+${nin}</span></h4>
+        ${d.side.length ? rows(d.side, 'side', e.ins) : '<div class="small muted">Lista sem sideboard.</div>'}
+      </div>
+      <div class="pick main">
+        <h4><span>▼ Saem (main deck)</span><span>−${nout}</span></h4>
+        ${rows(d.main, 'main', e.outs)}
+      </div>
+    </div>
+    ${orph.length ? `<div class="orphan">⚠ Cartas salvas nesta partida que não estão mais na lista: ${orph.map(esc).join(', ')}. <a href="#" data-act="clear-orphans" data-id="${mu.id}" style="color:inherit">Remover</a></div>` : ''}
+    <div style="margin-top:12px"><label class="field">Notas (plano de jogo, o que observar)</label>
+      <textarea rows="2" data-field="notes" data-id="${mu.id}" placeholder="ex.: ser agressivo, segurar Thraben Charm pro Guardian…">${esc(mu.notes || '')}</textarea></div>
+    <div class="mu-foot">
+      <button class="primary" data-act="confirm-mu" data-id="${mu.id}">✓ Confirmar partida</button>
+      <button data-act="reset-mu" data-id="${mu.id}">Limpar</button>
+      <span class="grow">${balance}</span>
+      <button class="danger ghost" data-act="del-mu" data-id="${mu.id}">Excluir</button>
+    </div>
+  </div>`;
+}
+
+function addMatchup() {
+  const inp = $('mu-new');
+  let name = inp.value.trim();
+  if (!name) { inp.focus(); return; }
+  if (!/^vs\.?\s/i.test(name)) name = 'vs. ' + name;
+  const mu = { id: uid(), name, ins: {}, outs: {}, notes: '', done: false };
+  deck().matchups.push(mu);
+  openMuId = mu.id;
+  inp.value = '';
+  save();
+  renderMatchups();
+  document.getElementById('mu-' + mu.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+const findMu = id => deck().matchups.find(m => m.id === id);
+const openMu = () => findMu(openMuId);
+
+/* ---------- Impressão ---------- */
+function renderSheet() {
+  const d = deck();
+  const withList = $('p-list').checked, withDrafts = $('p-drafts').checked;
+  const mus = d.matchups.filter(m => m.done || withDrafts);
+  const listCol = (title, arr) => `<b>${title} (${total(arr)})</b>${arr.map(c => `<div>${c.qty} ${esc(c.name)}</div>`).join('')}`;
+  const io = obj => {
+    const ks = Object.keys(obj);
+    return ks.length ? ks.map(k => `<div>${obj[k]} ${esc(k)}</div>`).join('') : '<div class="none">—</div>';
+  };
+  $('sheet').innerHTML = `
+    <h1>${esc(d.name)}</h1>
+    <div class="sub">Guia de sideboard · ${fmtDate(d.date)} · ${mus.length} partida${mus.length === 1 ? '' : 's'}</div>
+    ${withList ? `<div class="plist">${listCol('Main', d.main)}${listCol('Side', d.side)}</div>` : ''}
+    <div class="mus">${mus.map(m => {
+      const e = eff(m, d);
+      return `<div class="pmu">
+        <h3>${esc(m.name)}</h3>
+        <div class="io">
+          <div class="in"><div class="lbl">ENTRA +${sumObj(e.ins)}</div>${io(e.ins)}</div>
+          <div class="out"><div class="lbl">SAI −${sumObj(e.outs)}</div>${io(e.outs)}</div>
+        </div>
+        ${m.notes ? `<div class="note">${esc(m.notes)}</div>` : ''}
+      </div>`;
+    }).join('') || '<p class="none">Nenhuma partida confirmada ainda. Marque “Incluir rascunhos” ou confirme alguma partida.</p>'}</div>`;
+}
+
+/* ---------- Eventos ---------- */
+document.addEventListener('click', ev => {
+  const el = ev.target.closest('[data-act]');
+  if (!el) return;
+  const act = el.dataset.act, id = el.dataset.id;
+  if (el.tagName === 'A') ev.preventDefault();
+
+  switch (act) {
+    case 'new-deck': openForm('new'); break;
+    case 'form-save': saveForm(); break;
+    case 'form-cancel': formMode === 'edit' ? openDeck(currentId) : (renderLibrary(), show('library')); break;
+    case 'open': openDeck(id); break;
+    case 'dup': duplicateDeck(id); break;
+    case 'dup-current': duplicateDeck(currentId); break;
+    case 'del-deck': {
+      const d = state.decks.find(x => x.id === id);
+      if (confirm(`Excluir "${d.name}" (${fmtDate(d.date)}) e todas as partidas?`)) {
+        state.decks = state.decks.filter(x => x.id !== id); save(); renderLibrary();
+      }
+      break;
+    }
+    case 'go-library': renderLibrary(); show('library'); break;
+    case 'edit-list': openForm('edit'); break;
+    case 'add-mu': addMatchup(); break;
+
+    case 'toggle-mu':
+      if (ev.target.closest('button')) return; // ↑ ↓ têm ação própria
+      openMuId = openMuId === id ? null : id;
+      renderMatchups();
+      break;
+    case 'mu-up': case 'mu-down': {
+      const ms = deck().matchups, i = ms.findIndex(m => m.id === id), j = act === 'mu-up' ? i - 1 : i + 1;
+      if (j < 0 || j >= ms.length) return;
+      [ms[i], ms[j]] = [ms[j], ms[i]];
+      save(); renderMatchups();
+      break;
+    }
+    case 'pick': case 'unpick': {
+      const mu = openMu(); if (!mu) return;
+      const d = deck(), zone = el.dataset.zone, card = d[zone][+el.dataset.i];
+      const obj = zone === 'side' ? mu.ins : mu.outs;
+      const cur = Math.min(obj[card.name] || 0, card.qty);
+      const next = act === 'pick' ? Math.min(cur + 1, card.qty) : Math.max(cur - 1, 0);
+      if (next) obj[card.name] = next; else delete obj[card.name];
+      mu.done = false;
+      save(); renderMatchups();
+      break;
+    }
+    case 'confirm-mu': {
+      const mu = findMu(id);
+      mu.done = true; openMuId = null;
+      save(); renderMatchups();
+      break;
+    }
+    case 'reset-mu': {
+      const mu = findMu(id);
+      mu.ins = {}; mu.outs = {}; mu.done = false;
+      save(); renderMatchups();
+      break;
+    }
+    case 'clear-orphans': {
+      const mu = findMu(id), d = deck();
+      mu.ins = eff(mu, d).ins; mu.outs = eff(mu, d).outs;
+      save(); renderMatchups();
+      break;
+    }
+    case 'del-mu': {
+      const mu = findMu(id);
+      if (confirm(`Excluir a partida "${mu.name}"?`)) {
+        deck().matchups = deck().matchups.filter(m => m.id !== id); openMuId = null;
+        save(); renderMatchups();
+      }
+      break;
+    }
+
+    case 'print': renderSheet(); $('preview').classList.remove('hidden'); break;
+    case 'do-print': window.print(); break;
+    case 'close-preview': $('preview').classList.add('hidden'); break;
+
+    case 'export': {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `side-builder-backup-${today()}.json`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      break;
+    }
+    case 'import': $('import-file').click(); break;
+  }
+});
+
+document.addEventListener('input', ev => {
+  const t = ev.target;
+  if (t.id === 'f-list') return updateFormPreview();
+  if (t.id === 'd-name') { deck().name = t.value; return save(); }
+  if (t.id === 'd-date') { deck().date = t.value; return save(); }
+  const f = t.dataset.field;
+  if (f === 'name' || f === 'notes') {
+    const mu = findMu(t.dataset.id);
+    mu[f] = t.value;
+    save();
+    if (f === 'name') document.querySelector(`#mu-${mu.id} .mu-head .title`).textContent = t.value;
+  }
+});
+
+document.addEventListener('change', ev => {
+  const t = ev.target;
+  if (t.dataset.field === 'copy' && t.value) {
+    const mu = findMu(t.dataset.id), src = findMu(t.value);
+    mu.ins = { ...src.ins }; mu.outs = { ...src.outs }; mu.done = false;
+    save(); renderMatchups();
+  }
+  if (t.id === 'p-list' || t.id === 'p-drafts') renderSheet();
+  if (t.id === 'import-file' && t.files[0]) {
+    t.files[0].text().then(txt => {
+      const s = JSON.parse(txt);
+      if (!s || !Array.isArray(s.decks)) throw new Error();
+      const ids = new Set(state.decks.map(d => d.id));
+      const novos = s.decks.filter(d => !ids.has(d.id));
+      state.decks.push(...novos);
+      save(); renderLibrary();
+      alert(`${novos.length} deck(s) importado(s).` + (s.decks.length > novos.length ? ` ${s.decks.length - novos.length} já existiam e foram mantidos.` : ''));
+    }).catch(() => alert('Arquivo de backup inválido.')).finally(() => t.value = '');
+  }
+});
+
+$('mu-new').addEventListener('keydown', ev => { if (ev.key === 'Enter') addMatchup(); });
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape') $('preview').classList.add('hidden'); });
+
+renderLibrary();
+</script>
+</body>
+</html>
